@@ -123,7 +123,7 @@ function ENT:Explode()
 
 	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
 	     if v:IsValid() then
-			v:TakeDamage(1000, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
+			v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
 		     --local phys = v:GetPhysicsObject()
 			 local i = 0
 		     while i < v:GetPhysicsObjectCount() do

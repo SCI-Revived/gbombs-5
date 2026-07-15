@@ -113,7 +113,7 @@ function ENT:Explode()
 		else
 			 local phys = self:GetPhysicsObject()
 			 if phys:IsValid() then
-				v:TakeDamage(1000, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
+				v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
 			 end
 		end
 	 end

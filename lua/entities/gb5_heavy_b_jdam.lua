@@ -113,7 +113,7 @@ function ENT:Explode()
 	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
 		if (v:IsValid() or v:IsPlayer()) then
 			if v:IsValid() and v:GetPhysicsObject():IsValid() then
-				v:TakeDamage(1000, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
+				v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
 			end
 		 end
 	     if v:IsValid() and not v:IsNPC() then

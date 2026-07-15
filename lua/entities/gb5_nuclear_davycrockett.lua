@@ -183,7 +183,7 @@ if SERVER then
 		 for k, v in pairs(ents.FindInSphere(pos,2000)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
-					v:TakeDamage(10000, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
+					v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
 					v:Ignite(4,0)
 				end
 			 end
