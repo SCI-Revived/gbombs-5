@@ -28,7 +28,7 @@ ENT.UseRandomSounds                  =  true
 ENT.SmartLaunch                      =  true  
 ENT.Timed                            =  false 
 
-ENT.ExplosionDamage                  =  150
+ENT.ExplosionDamage                  =  1000
 ENT.ExplosionRadius                  =  250             
 ENT.PhysForce                        =  300             
 ENT.SpecialRadius                    =  225           

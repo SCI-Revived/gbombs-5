@@ -28,7 +28,7 @@ ENT.UseRandomSounds                  =  true
 ENT.SmartLaunch                      =  true  
 ENT.Timed                            =  false 
 
-ENT.ExplosionDamage                  =  150
+ENT.ExplosionDamage                  =  3000
 ENT.ExplosionRadius                  =  450             
 ENT.PhysForce                        =  300             
 ENT.SpecialRadius                    =  225           
@@ -39,7 +39,7 @@ ENT.TraceLength                      =  50
 ENT.ImpactSpeed                      =  100         
 ENT.Mass                             =  100             
 ENT.EnginePower                      =  9999999000           
-ENT.FuelBurnoutTime                  =  0.23           
+ENT.FuelBurnoutTime                  =  0.2           
 ENT.IgnitionDelay                    =  0.1           
 ENT.ArmDelay                         =  0
 ENT.RotationalForce                  =  500  
