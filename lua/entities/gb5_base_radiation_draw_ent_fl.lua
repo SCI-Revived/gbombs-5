@@ -81,10 +81,6 @@ function ENT:Think()
 	end
 end
 function ENT:OnRemove()
-	if (CLIENT) then
-		if (LocalPlayer():GetNWFloat("Affected")) then
-		end
-	end
 	if (SERVER) then
 		for k, v in pairs(self.Plylist) do
 			if v:IsValid() then
