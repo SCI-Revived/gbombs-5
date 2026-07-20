@@ -125,7 +125,7 @@ function ENT:Explode()
 	ent:SetVar("DELAY",0.01)
 	ent:SetVar("Shocktime",2)
 	ent:SetVar("SOUND", "gbombs_5/explosions/light_bomb/flashbang.mp3")
-	for k, v in pairs(ents.FindInSphere(pos,500)) do
+	for k, v in pairs(gb5FastSphereSearch(pos,500)) do
 		if v:IsPlayer() then
 			local dist = (self:GetPos() - v:GetPos()):Length()
 			local relation = math.Clamp((500 - dist) / 500, 0, 1)

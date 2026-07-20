@@ -53,7 +53,7 @@ function ENT:Initialize()
 		 phys:Wake()
      end 
 	 local pos = self:GetPos()
-	 for k, v in pairs(ents.FindInSphere(pos,30000)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,30000)) do
 		 if v:IsValid() then
 			 if(v.isWacAircraft) and (v.active==true) then
 				v:setEngine(false)

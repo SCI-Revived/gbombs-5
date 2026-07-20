@@ -121,7 +121,7 @@ function ENT:Explode()
 	 ent:SetVar("SOUND", self.ExplosionSound)
 	 ent:SetVar("Shocktime", self.Shocktime)
 
-	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius)) do
 	     if v:IsValid() then
 			v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
 		     --local phys = v:GetPhysicsObject()
@@ -132,7 +132,7 @@ function ENT:Explode()
 			 end
 	     end
      end
-	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius/2)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius/2)) do
 	     if (self.ShouldIgnite and v ~= self) then
 		     if v:IsOnFire() then
 			     v:Extinguish()

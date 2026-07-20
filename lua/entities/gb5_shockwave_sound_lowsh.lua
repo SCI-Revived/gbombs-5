@@ -47,7 +47,7 @@ function ENT:Think()
 	 local pos = self:GetPos()
 	 self.CURRENTRANGE = self.CURRENTRANGE+(self.SHOCKWAVE_INCREMENT*10)
 	 if(GetConVar("gb5_realistic_sound"):GetInt() >= 1) then
-		 for k, v in pairs(ents.FindInSphere(pos,self.CURRENTRANGE)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,self.CURRENTRANGE)) do
 			 if v:IsPlayer() then
 				 if not (table.HasValue(self.FILTER,v)) then
 					net.Start("gb5_net_sound_lowsh")

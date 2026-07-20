@@ -115,7 +115,7 @@ end
 function ENT:Explode()
      if not self.Exploded then return end
 	 local pos = self:LocalToWorld(self:OBBCenter())
-	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius)) do
 	     if v:IsValid() then
 			 local i = 0
 		     while i < v:GetPhysicsObjectCount() do
@@ -137,7 +137,7 @@ function ENT:Explode()
 			 end
 		 end
 	 end
-	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius/2)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius/2)) do
 		 if(GetConVar("gb5_deleteconstraints"):GetInt() >= 1) then
 			 if self.ShouldUnweld then
 				 if v:IsValid() and v:GetPhysicsObject():IsValid() then

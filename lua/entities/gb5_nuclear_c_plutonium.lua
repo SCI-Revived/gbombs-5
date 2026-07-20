@@ -108,7 +108,7 @@ function ENT:Think(ply)
 	local pos = self:GetPos()
 	local dmg = DamageInfo()
 	self.TotalList={}
-	for k, v in pairs(ents.FindInSphere(pos,11)) do
+	for k, v in pairs(gb5FastSphereSearch(pos,11)) do
 		if not table.HasValue(self.TotalList,v) then
 			table.insert(self.TotalList, v )
 		end
@@ -133,7 +133,7 @@ function ENT:Think(ply)
 		end
 	end
 	if self.EntCount == 0 then
-		for k, v in pairs(ents.FindInSphere(pos,50)) do
+		for k, v in pairs(gb5FastSphereSearch(pos,50)) do
 			if (v:IsPlayer() or v:IsNPC()) and v.GBombs_InHazSuit==false then
 				dmg:SetDamage(math.random(1))
 				dmg:SetDamageType(DMG_RADIATION)
@@ -148,7 +148,7 @@ function ENT:Think(ply)
 				end
 			end
 		end
-		for k, v in pairs(ents.FindInSphere(pos,45)) do
+		for k, v in pairs(gb5FastSphereSearch(pos,45)) do
 			if (v:IsPlayer() or v:IsNPC()) and v.GBombs_InHazSuit==false then
 				dmg:SetDamage(math.random(1,2))
 				dmg:SetDamageType(DMG_RADIATION)
@@ -163,7 +163,7 @@ function ENT:Think(ply)
 				end
 			end
 		end
-		for k, v in pairs(ents.FindInSphere(pos,30)) do
+		for k, v in pairs(gb5FastSphereSearch(pos,30)) do
 			if (v:IsPlayer() or v:IsNPC()) and v.GBombs_InHazSuit==false and self:IsValid() then
 				timer.Simple(0.3, function()			
 					if not v:IsValid() then return end

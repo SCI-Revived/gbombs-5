@@ -105,7 +105,7 @@ function ENT:Think()
 			EntTable.allowtrace = false
 		end
 
-		for k, v in pairs(ents.FindInSphere(pos,EntTable.CURRENTRANGE)) do
+		for k, v in pairs(gb5FastSphereSearch(pos,EntTable.CURRENTRANGE)) do
 			if IsValid(v) and v:IsPlayer() and not v.GBombs_InForcefield then
 				local i, c = 0, v:GetPhysicsObjectCount()
 				while i < c do

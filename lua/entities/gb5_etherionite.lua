@@ -25,7 +25,7 @@ function ENT:Think()
 	if not self:IsValid() then return end
 	local pos = self:GetPos()
 
-	for k, v in pairs(ents.FindInSphere(self:GetPos(), 80000)) do
+	for k, v in pairs(gb5FastSphereSearch(self:GetPos(), 80000)) do
 		if v:IsPlayer() then
 			if v.magicpower==nil then
 				v.magicpower=500

@@ -238,7 +238,7 @@ function ENT:Think()
 		net.WriteTable({["IsDead"]=false,["Seconds"]=self.Seconds,["Infected"]=self.infected,["IsDead"]=false})
 	net.Send(self.infected)
 	
-	for k, v in pairs(ents.FindInSphere(self:GetPos(),100)) do
+	for k, v in pairs(gb5FastSphereSearch(self:GetPos(),100)) do
 		if v:IsPlayer() and v:Alive() and not v.isinfected then
 			local ent = ents.Create("gb5_chemical_tvirus_entity")
 			ent:SetVar("infected", v)

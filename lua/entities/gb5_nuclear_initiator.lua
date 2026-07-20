@@ -75,7 +75,7 @@ function ENT:Explode()
 	 local pos = self:LocalToWorld(self:OBBCenter())
 	 self:SetModel("models/gibs/scanner_gib02.mdl")
 	 self.Exploding = true
-	 for k, v in pairs(ents.FindInSphere(pos,200)) do -- Here we do an initial count
+	 for k, v in pairs(gb5FastSphereSearch(pos,200)) do -- Here we do an initial count
 		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			if v:GetClass() == "gb5_nuclear_c_uranium" then
 				self.uranium_mul = self.uranium_mul + 1
@@ -162,7 +162,7 @@ function ENT:Explode()
 		local physo = self:GetPhysicsObject()
 		physo:Wake()
 		physo:EnableMotion(true)
-		for k, v in pairs(ents.FindInSphere(pos,2000)) do
+		for k, v in pairs(gb5FastSphereSearch(pos,2000)) do
 			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
@@ -170,7 +170,7 @@ function ENT:Explode()
 				end
 			end
 		 end
-		 for k, v in pairs(ents.FindInSphere(pos,500)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,500)) do
 			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() and not v:IsNPC() then
 					v:SetModel("models/Humans/Charple04.mdl")
@@ -227,14 +227,14 @@ function ENT:Explode()
 			end
 		end
 	elseif (self.uranium_mul>=3) and (self.uranium_mul<=6) then -- Then we have fissionnot  
-		for k, v in pairs(ents.FindInSphere(pos,1500*self.uranium_mul)) do
+		for k, v in pairs(gb5FastSphereSearch(pos,1500*self.uranium_mul)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
-		 for k, v in pairs(ents.FindInSphere(pos,2000)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,2000)) do
 			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() and not v:IsNPC() then
 					v:SetModel("models/Humans/Charple04.mdl")
@@ -344,14 +344,14 @@ function ENT:Explode()
 			 end
 		 end
 	elseif (self.uranium_mul>=7 and self.uranium_mul<=10) and (self.plutonium_mul >= 1 and self.plutonium_mul <=2) then -- Then we have fissionnot  	
-		for k, v in pairs(ents.FindInSphere(pos,900*self.uranium_mul)) do
+		for k, v in pairs(gb5FastSphereSearch(pos,900*self.uranium_mul)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
-		 for k, v in pairs(ents.FindInSphere(pos,2500)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,2500)) do
 			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() then
 					v:SetModel("models/Humans/Charple04.mdl")
@@ -519,14 +519,14 @@ function ENT:Explode()
 		 local physo = self:GetPhysicsObject()
 		 physo:Wake()
 		 physo:EnableMotion(true)
-		 for k, v in pairs(ents.FindInSphere(pos,(300*self.uranium_mul)*3)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,(300*self.uranium_mul)*3)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
-		 for k, v in pairs(ents.FindInSphere(pos,300*self.uranium_mul)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,300*self.uranium_mul)) do
 			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() and not v:IsNPC() then
 					v:SetModel("models/Humans/Charple04.mdl")
@@ -634,14 +634,14 @@ function ENT:Explode()
 		 ent:SetVar("DELAY",0.01)
 		 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/fat_explosion.mp3")
 		 
-		 for k, v in pairs(ents.FindInSphere(pos,(self.uranium_mul*250)*3)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,(self.uranium_mul*250)*3)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
-		 for k, v in pairs(ents.FindInSphere(pos,self.uranium_mul*250)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,self.uranium_mul*250)) do
 			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() then
 					v:SetModel("models/Humans/Charple04.mdl")
@@ -743,14 +743,14 @@ function ENT:Explode()
 		 ent:SetVar("DELAY",0.01)
 		 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/fat_explosion.mp3")
 		 
-		 for k, v in pairs(ents.FindInSphere(pos,(self.uranium_mul*250)*3)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,(self.uranium_mul*250)*3)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
-		 for k, v in pairs(ents.FindInSphere(pos,self.uranium_mul*250)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,self.uranium_mul*250)) do
 			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() then
 					v:SetModel("models/Humans/Charple04.mdl")

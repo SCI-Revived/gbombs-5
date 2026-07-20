@@ -63,7 +63,7 @@ function ENT:Think()
 		self.Range=GetConVar("gb5_maxforcefield_range"):GetInt()
 	end
 	
-	for k, v in pairs(ents.FindInSphere(self:GetPos(),self.Range)) do
+	for k, v in pairs(gb5FastSphereSearch(self:GetPos(),self.Range)) do
 		local phys = v:GetPhysicsObject()
 		if v:IsNPC() or v:IsPlayer() then
 			table.insert(self.TotalList, v )

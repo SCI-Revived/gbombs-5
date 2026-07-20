@@ -87,7 +87,7 @@ if SERVER then
 			 if not self:IsValid() then return end 
 			 self.Exploding = true
 			 local pos = self:GetPos()
-			 for k, v in pairs(ents.FindInSphere(self:GetPos(),5)) do
+			 for k, v in pairs(gb5FastSphereSearch(self:GetPos(),5)) do
 				if v:GetClass() == "prop_door_rotating" then
 					local ent = ents.Create("prop_physics")
 					local old_ent_constrains = constraint.GetAllConstrainedEntities( v )
@@ -204,7 +204,7 @@ end
 function ENT:Think()
 	if SERVER then
 		if not self:IsValid() then return end
-		for k, v in pairs(ents.FindInSphere(self:GetPos(),5)) do
+		for k, v in pairs(gb5FastSphereSearch(self:GetPos(),5)) do
 			local phys = v:GetPhysicsObject()
 			if v:GetClass() == "prop_door_rotating" or v:GetClass() == "func_door" or phys:IsValid() then
 				constraint.Weld( self, v, 0, 0, 5000, true, false )

@@ -30,7 +30,7 @@ function ENT:Think()
 	 dmg:SetDamage(math.random(1,2)*self.DAMAGE_MUL)
 	 dmg:SetDamageType(DMG_RADIATION)
 	 dmg:SetAttacker(self.GBOWNER)
-	 for k, v in pairs(ents.FindInSphere(pos,400)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,400)) do
          if v:IsPlayer() or v:IsNPC() then
 		    v:EmitSound("player/geiger3.wav", 100, 100)
 		    v:TakeDamageInfo(dmg)

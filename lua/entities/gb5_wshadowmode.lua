@@ -59,7 +59,7 @@ function ENT:Think()
 		local pos = self:GetPos()
 		self.TotalList={}
 
-		for k, v in pairs(ents.FindInSphere(self:GetPos(),120)) do
+		for k, v in pairs(gb5FastSphereSearch(self:GetPos(),120)) do
 			if v:GetClass()=="prop_combine_ball" then
 				v:Remove()
 			end

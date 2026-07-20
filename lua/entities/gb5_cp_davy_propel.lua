@@ -76,7 +76,7 @@ function ENT:Explode()
 	 if not self:IsValid() then return end 
 	 self.Exploding = true
 	 local pos = self:GetPos()
-	 for k, v in pairs(ents.FindInSphere(pos,45)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,45)) do
 		if v:GetClass()=="gb5_nuclear_davycrockett" then
 			sound.Play("gbombs_5/explosions/nuclear/davy_launch.mp3", self:GetPos(), 100, 100, 1)
 			local phys = v:GetPhysicsObject()

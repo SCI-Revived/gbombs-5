@@ -112,7 +112,7 @@ function ENT:Explode()
 	 ent:SetVar("DELAY",0.01)
 	 ent:SetVar("SOUND", self.ExplosionSound)
 	 ent:SetVar("Shocktime", self.Shocktime)
-	 for k, v in pairs(ents.FindInSphere(pos,900)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,900)) do
 		if v:IsPlayer() or v:IsNPC() then
 			v:Ignite(6,0)
 		else

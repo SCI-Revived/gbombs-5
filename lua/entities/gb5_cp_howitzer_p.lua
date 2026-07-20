@@ -75,7 +75,7 @@ function ENT:Explode()
 	 if not self:IsValid() then return end 
 	 self.Exploding = true
 	 local pos = self:GetPos()
-	 for k, v in pairs(ents.FindInSphere(pos,45)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,45)) do
 		if v:GetClass()=="gb5_proj_howitzer_shell_in" or v:GetClass()=="gb5_proj_howitzer_shell_he" or  v:GetClass()=="gb5_proj_howitzer_shell_frag" then
 			local phys = v:GetPhysicsObject()
 			if (phys:IsValid()) then

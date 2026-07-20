@@ -70,7 +70,7 @@ function ENT:Explode()
     if not self.Exploded then return end
 	if self.Exploding then return end
 	
-	for k, v in pairs(ents.FindInSphere(self:GetPos(), 200)) do
+	for k, v in pairs(gb5FastSphereSearch(self:GetPos(), 200)) do
 		if v:GetClass()=="gb5_sp_endothermic" then
 			
 			ParticleEffect("unison_beam",self:GetPos(),Angle(0,0,0),nil)	

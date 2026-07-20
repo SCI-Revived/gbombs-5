@@ -220,7 +220,7 @@ function ENT:Explode()
 	 ent:SetVar("SOUND", self.ExplosionSound)
 	 ent:SetVar("Shocktime", self.Shocktime)
 
-	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius)) do
 	     if v:IsValid() then
 		     --local phys = v:GetPhysicsObject()
 			 local i = 0

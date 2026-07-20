@@ -79,7 +79,7 @@ function ENT:Think()
 	
 	
 	self.TotalList={}
-	for k, v in pairs(ents.FindInSphere(pos,self.RadRadius)) do
+	for k, v in pairs(gb5FastSphereSearch(pos,self.RadRadius)) do
 		if v:IsPlayer() and not v:IsNPC() and v.gasmasked==false then
 			
 

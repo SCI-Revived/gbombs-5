@@ -77,7 +77,7 @@ function ENT:Explode()
 	ent:SetVar("DELAY",0.01)
 	ent:SetVar("SOUND", table.Random(ExploSnds))
 	ent:SetVar("Shocktime", self.Shocktime)
-	for k, v in pairs(ents.FindInSphere(pos,1700)) do
+	for k, v in pairs(gb5FastSphereSearch(pos,1700)) do
 		if v:IsPlayer() or v:IsNPC() then
 			if v:GetClass()=="npc_helicopter" then return end
 			v:Ignite(6,0)

@@ -45,7 +45,7 @@ function ENT:Think()
 	if not self:IsValid() then return end
 	local pos = self:GetPos()
 	self.TotalList={}
-	for k, v in pairs(ents.FindInSphere(pos,590)) do
+	for k, v in pairs(gb5FastSphereSearch(pos,590)) do
 		if v:IsNPC() then
 			if v.accumilation == nil then 
 				v.accumilation = 1

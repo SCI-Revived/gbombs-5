@@ -91,7 +91,7 @@ function ENT:Think()
      if not self:IsValid() then return end
 	 local pos = self:GetPos()
 	 local dmg = DamageInfo()
-	 for k, v in pairs(ents.FindInSphere(pos,300)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,300)) do
          if (v:IsPlayer() and v:Alive() and not (table.HasValue(self.AffectPlayers,v))) and v.gasmasked==false then		
 			table.insert(self.AffectPlayers, v)
 		 end

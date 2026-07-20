@@ -121,7 +121,7 @@ function ENT:Explode()
 		 util.ScreenShake( pos, 5555, 555, 10, 81000 )
 		 self:StopParticles()
 
-		 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius)) do
 			 if v:IsValid() then
 				 if v:IsValid() and v:GetPhysicsObject():IsValid() and not v:IsPlayer() then
 					 constraint.RemoveAll(v)

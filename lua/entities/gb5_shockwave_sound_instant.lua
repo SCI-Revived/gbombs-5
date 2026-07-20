@@ -36,7 +36,7 @@ function ENT:Think()
      if not self:IsValid() then return end
 	 local pos = self:GetPos()
 	 self.CURRENTRANGE = self.CURRENTRANGE+self.SHOCKWAVE_INCREMENT
-	 for k, v in pairs(ents.FindInSphere(pos,self.MAX_RANGE)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.MAX_RANGE)) do
 		 if v:IsValid() or v:IsPlayer() then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do

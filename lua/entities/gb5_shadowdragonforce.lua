@@ -68,7 +68,7 @@ function ENT:Think()
 		
 		local pos = self:GetPos()
 		self.TotalList={}
-		for k, v in pairs(ents.FindInSphere(pos,self.RadRadius)) do
+		for k, v in pairs(gb5FastSphereSearch(pos,self.RadRadius)) do
 			if v:IsPlayer() and not v:IsNPC() then
 				if v.accumilation==nil then 
 					v.accumilation = 0.5
@@ -86,7 +86,7 @@ function ENT:Think()
 
 			end
 		end
-		for k, v in pairs(ents.FindInSphere(self:GetPos(),120)) do
+		for k, v in pairs(gb5FastSphereSearch(self:GetPos(),120)) do
 			if v:GetClass()=="prop_combine_ball" then
 				v:Remove()
 			end

@@ -37,7 +37,7 @@ function ENT:Think(ply)
      if (SERVER) then
      if not self:IsValid() then return end
 	 local pos = self:GetPos()
-	 for k, v in pairs(ents.FindInSphere(pos,self.MAX_RANGE)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.MAX_RANGE)) do
 		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do

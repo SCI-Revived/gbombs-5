@@ -145,7 +145,7 @@ function ENT:Explode()
 	 local physo = self:GetPhysicsObject()
 	 physo:Wake()
 	 physo:EnableMotion(true)
-	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius*3)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius*3)) do
 		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			if v:IsValid() and v:GetPhysicsObject():IsValid() then
 				v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
@@ -153,7 +153,7 @@ function ENT:Explode()
 			end
 		 end
 	 end
-	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius)) do
 		if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			if v:IsPlayer() then
 			    v:SetModel("models/Humans/Charple04.mdl")
@@ -168,7 +168,7 @@ function ENT:Explode()
 		 constraint.RemoveAll(self)
 		 util.ScreenShake( pos, 55555, 255, 10, 121000 )
 		 self:StopParticles()
-		 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius*2)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius*2)) do
 			 if self.ShouldUnweld then
 			     if v:IsValid() then
 				     if v:IsValid() and v:GetPhysicsObject():IsValid() then
@@ -177,7 +177,7 @@ function ENT:Explode()
 				 end
 			 end
          end
-	     for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius*2)) do
+	     for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius*2)) do
 			 if v:IsValid() then
 				 local phys = v:GetPhysicsObject()
 				 if (phys:IsValid()) then

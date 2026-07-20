@@ -88,7 +88,7 @@ function ENT:Explode()
 	ent:SetVar("Shocktime",5)
 	ent:SetVar("SOUND", "gbombs_5/explosions/special/endothermic_bomb.mp3")
 	self.affected = {}
-	for k, v in pairs(ents.FindInSphere(pos,1800)) do
+	for k, v in pairs(gb5FastSphereSearch(pos,1800)) do
 		if v:IsPlayer() then	
 			table.insert(self.affected, v)
 		end

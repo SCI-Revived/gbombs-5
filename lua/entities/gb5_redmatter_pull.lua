@@ -51,7 +51,7 @@ function ENT:Think()
 	 local pos = self:GetPos()
 	 self.CURRENTRANGE = self.CURRENTRANGE+self.SHOCKWAVE_INCREMENT
 	 
-	 for k, v in pairs(ents.FindInSphere(pos,self.CURRENTRANGE)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.CURRENTRANGE)) do
 		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
@@ -78,7 +78,7 @@ function ENT:Think()
 			 end
 		 end
  	 end
-	 for k, v in pairs(ents.FindInSphere(pos,self.EventHorizon)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.EventHorizon)) do
 		 if v:IsValid() or v:IsPlayer() then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do

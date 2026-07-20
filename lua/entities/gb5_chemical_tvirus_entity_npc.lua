@@ -61,7 +61,7 @@ function ENT:Think()
 	pos = string.Explode( " ", tostring(self.infected:GetPos()) )
 	self:SetPos(Vector(pos[1],pos[2],pos[3]))
 	self.Bursts = self.Bursts + 1
-	for k, v in pairs(ents.FindInSphere(self:GetPos(),100)) do
+	for k, v in pairs(gb5FastSphereSearch(self:GetPos(),100)) do
 		if v:IsPlayer() and v:Alive() and not v.isinfected then
 			if v.gasmasked==false and v.GBombs_InHazSuit==false then
 				local ent = ents.Create("gb5_chemical_tvirus_entity")

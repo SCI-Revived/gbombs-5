@@ -33,7 +33,7 @@ function ENT:Think()
 	 dmg:SetDamage(self.DamageAmount)
 	 dmg:SetDamageType(self.DamageType)
 	 dmg:SetAttacker(self.GBOWNER)
-	 for k, v in pairs(ents.FindInSphere(pos,self.DamageRadius)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.DamageRadius)) do
          if v:IsPlayer() or v:IsNPC() then
 		    v:TakeDamageInfo(dmg)
 		 end

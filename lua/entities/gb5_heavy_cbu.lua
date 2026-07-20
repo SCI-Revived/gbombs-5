@@ -136,7 +136,7 @@ function ENT:Explode()
 			end
 		 end)
 	 end
-	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius/2)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius/2)) do
 		 if self.ShouldUnweld then
 			 if v:IsValid() then
 				 if v:IsValid() and v:GetPhysicsObject():IsValid() then
@@ -151,7 +151,7 @@ function ENT:Explode()
 			 v:Ignite(math.Rand(self.MaxIgnitionTime-2,self.MaxIgnitionTime),5)
 		 end
 	 end
-	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius)) do
 		 if v:IsValid() and (v ~= self) then
 			 local phys = v:GetPhysicsObject()
 			 if (phys:IsValid()) then

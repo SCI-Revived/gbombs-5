@@ -115,7 +115,7 @@ function ENT:Explode()
 			 
 			 self:SetModel("models/gibs/scanner_gib02.mdl")
 			 self.Exploding = true
-			 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
+			 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius)) do
 				 if v:IsValid() then
 					 if v:IsValid() and v:GetPhysicsObject():IsValid() and not v:IsPlayer() then
 						 constraint.RemoveAll(v)

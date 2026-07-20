@@ -101,7 +101,7 @@ function ENT:Explode()
 	self.Exploding = true
 	timer.Simple(0.2, function()
 		if not self:IsValid() then return end
-		for k, v in pairs(ents.FindInSphere(self:GetPos(), 5000)) do
+		for k, v in pairs(gb5FastSphereSearch(self:GetPos(), 5000)) do
 			if v:GetClass()=="gb5_redmatter_pull" then
 				v:SetMoveType( MOVETYPE_VPHYSICS )
 				ParticleEffectAttach("redmatter_swirl_overdrive", PATTACH_POINT_FOLLOW, v, 0)

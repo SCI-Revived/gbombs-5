@@ -38,7 +38,7 @@ function ENT:Think()
 		else
 			self.zombie:SetPlaybackRate( 2 )
 		end
-		for k, v in pairs(ents.FindInSphere(self:GetPos(),200)) do
+		for k, v in pairs(gb5FastSphereSearch(self:GetPos(),200)) do
 			if v:IsNPC() and (v:GetClass()=="npc_headcrab" or v:GetClass()=="npc_headcrab_fast" or v:GetClass()=="npc_headcrab_poison") and not v.isinfected then
 			
 				local ent = ents.Create("gb5_chemical_tvirus_entity_z")
@@ -55,7 +55,7 @@ function ENT:Think()
 			
 			end
 		end
-		for k, v in pairs(ents.FindInSphere(self:GetPos(),100)) do
+		for k, v in pairs(gb5FastSphereSearch(self:GetPos(),100)) do
 			if v:IsPlayer() and v:Alive() and not v.isinfected then
 				if v.gasmasked==false and v.GBombs_InHazSuit==false then
 					local ent = ents.Create("gb5_chemical_tvirus_entity")

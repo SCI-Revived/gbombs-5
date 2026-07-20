@@ -30,7 +30,7 @@ function ENT:Think()
 	if (SERVER) then
 	if not self:IsValid() then return end
 
-	for k, v in pairs(ents.FindInSphere(self:GetPos(), 50)) do
+	for k, v in pairs(gb5FastSphereSearch(self:GetPos(), 50)) do
 		if (v:IsPlayer() and v:Alive() and not v.isinfected) then
 			if v.gasmasked==false and v.GBombs_InHazSuit==false then
 				local ent = ents.Create("gb5_chemical_tvirus_entity")

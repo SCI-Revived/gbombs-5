@@ -194,7 +194,7 @@ function ENT:Explode()
 		 nbc:Activate()
 	 end
 
-	 for k, v in pairs(ents.FindInSphere(pos, self.ExplosionRadius)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
 		local phys = self:GetPhysicsObject()
 		if phys:IsValid() then
 			v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)

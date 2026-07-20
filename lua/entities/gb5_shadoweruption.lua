@@ -35,7 +35,7 @@ function ENT:Think(ply)
      if (SERVER) then
      if not self:IsValid() then return end
 	 local pos = self:GetPos()
-	 for k, v in pairs(ents.FindInSphere(pos,317)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,317)) do
 		 if (v:IsValid() or v:IsNPC() or v:IsPlayer()) then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do

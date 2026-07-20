@@ -39,7 +39,7 @@ function ENT:Think()
 		self.GBOWNER = table.Random(player.GetAll())
 	 end
 	 dmg:SetAttacker(self.GBOWNER)
-	 for k, v in pairs(ents.FindInSphere(pos,1400)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,1400)) do
          if (v:IsPlayer() and v:IsOnGround() and v:Alive()) or v:IsNPC() then
 			if v:GetClass()=="helicopter" then return end
 		    v:TakeDamageInfo(dmg)

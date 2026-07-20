@@ -93,7 +93,7 @@ function ENT:Explode(ply)
 	 if not self:IsValid() then return end 
 	 self:StopParticles()
 	
-	 for k, v in pairs(ents.FindInSphere(pos,30000)) do
+	 for k, v in pairs(gb5FastSphereSearch(pos,30000)) do
 		 if v:IsValid() then
 			 if(v.isWacAircraft) and (v.active==true) then
 				v:setEngine(false)

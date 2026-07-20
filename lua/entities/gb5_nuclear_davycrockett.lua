@@ -180,7 +180,7 @@ if SERVER then
 		 local physo = self:GetPhysicsObject()
 		 physo:Wake()
 		 physo:EnableMotion(true)
-		 for k, v in pairs(ents.FindInSphere(pos,2000)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,2000)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
@@ -188,7 +188,7 @@ if SERVER then
 				end
 			 end
 		 end
-		 for k, v in pairs(ents.FindInSphere(pos,350)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,350)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() and not v:IsNPC() then
 					v:SetModel("models/Humans/Charple04.mdl")
