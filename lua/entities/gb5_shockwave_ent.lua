@@ -57,7 +57,7 @@ function ENT:Trace()
 		if not self:IsValid() then return end
 		if gb5_decals:GetInt() >= 1 then
 			local pos = self:GetPos()
-			util.Decal(self.decal, pos, pos - Vector(0, 0, self.trace))
+			util.Decal(self.decal or "scorch_medium", pos, pos - Vector(0, 0, self.trace))
 		end
 	end
 end
@@ -106,48 +106,50 @@ function ENT:Think()
 		end
 
 		for k, v in pairs(ents.FindInSphere(pos,EntTable.CURRENTRANGE)) do
-			if (v:IsValid() or v:IsPlayer()) and not v.forcefielded then
-				local i = 0
-				while i < v:GetPhysicsObjectCount() do
+			if IsValid(v) and v:IsPlayer() and not v.forcefielded then
+				local i, c = 0, v:GetPhysicsObjectCount()
+				while i < c do
 					local dmg = DamageInfo()
 					dmg:SetDamage(math.random(1,20))
 					dmg:SetDamageType(DMG_BLAST)
 					if EntTable.GBOWNER == nil then
 						EntTable.GBOWNER = table.Random(player.GetAll())
 					end
+
 					if not IsValid(EntTable.GBOWNER) then
 						EntTable.GBOWNER = table.Random(player.GetAll())
 					end
+
 					dmg:SetAttacker(EntTable.GBOWNER)
-					phys = v:GetPhysicsObjectNum(i)
+					local phys = v:GetPhysicsObjectNum(i)
 					DoPhysicsEffects(v, phys, EntTable, pos)
 
-					if (v:IsPlayer()) then
-						v:SetMoveType( MOVETYPE_WALK )
+					if v:IsPlayer() then
+						v:SetMoveType(MOVETYPE_WALK)
 						v:TakeDamageInfo(dmg)
 						--local mass = phys:GetMass()
 						--local F_ang = EntTable.DEFAULT_PHYSFORCE_PLYAIR
 						--local dist = (pos - v:GetPos()):Length()
 						--local relation = math.Clamp((EntTable.CURRENTRANGE - dist) / EntTable.CURRENTRANGE, 0, 1)
 						local F_dir = (v:GetPos() - pos):GetNormal() * EntTable.DEFAULT_PHYSFORCE_PLYAIR
-						v:SetVelocity( F_dir )
+						v:SetVelocity(F_dir)
 					end
 
-					if (v:IsPlayer()) and v:IsOnGround() then
-						v:SetMoveType( MOVETYPE_WALK )
+					if v:IsPlayer() and v:IsOnGround() then
+						v:SetMoveType(MOVETYPE_WALK)
 						v:TakeDamageInfo(dmg)
 						--local mass = phys:GetMass()
 						--local F_ang = EntTable.DEFAULT_PHYSFORCE_PLYGROUND
 						--local dist = (pos - v:GetPos()):Length()
 						--local relation = math.Clamp((EntTable.CURRENTRANGE - dist) / EntTable.CURRENTRANGE, 0, 1)
 						local F_dir = (v:GetPos() - pos):GetNormal() * EntTable.DEFAULT_PHYSFORCE_PLYGROUND
-						v:SetVelocity( F_dir )
+						v:SetVelocity(F_dir)
 					end
 
 					if (v:IsNPC()) then
 						v:TakeDamageInfo(dmg)
 					end
-				i = i + 1
+					i = i + 1
 				end
 			end
 		end
