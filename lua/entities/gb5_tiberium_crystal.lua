@@ -149,7 +149,7 @@ function ENT:Think(ply)
 	local dmg = DamageInfo()
 	self:Spread()
 	for k, v in pairs(ents.FindInSphere(pos,530)) do
-		if (v:IsPlayer() or v:IsNPC()) and v.hazsuited==false and self:IsValid() then
+		if (v:IsPlayer() or v:IsNPC()) and v.GBombs_InHazSuit==false and self:IsValid() then
 		
 			if not v:IsValid() then return end
 			dmg:SetDamage(math.random(11,23))

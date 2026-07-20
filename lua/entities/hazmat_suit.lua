@@ -63,11 +63,11 @@ end
 
 if SERVER then
 	function ENT:Use( activator, caller )
-		if activator.gasmasked==true or activator.hazsuited==true then
+		if activator.gasmasked==true or activator.GBombs_InHazSuit==true then
 			activator:EmitSound("items/suitchargeno1.wav", 50, 100)
 		else		
 			activator:EmitSound("gbombs_5/protection_used.wav",50,80)
-			activator.hazsuited=true
+			activator.GBombs_InHazSuit=true
 			activator:SetRunSpeed(300)
 			activator:SetWalkSpeed(150)
 			activator:EmitSound("breathing2")
@@ -106,7 +106,7 @@ end
 
 function gb5_spawn(ply)
 	ply.gasmasked=false
-	ply.hazsuited=false
+	ply.GBombs_InHazSuit=false
 	ply.acid=0
 	net.Start( "gbombs5_net" )        
 		net.WriteBit( false )

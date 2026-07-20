@@ -39,7 +39,7 @@ concommand.Add( "gb5_tiberium_cleanup", gb5_tiberium_cleanup )
 
 function gb5_spawn(ply)
 	ply.gasmasked=false
-	ply.hazsuited=false
+	ply.GBombs_InHazSuit=false
 	net.Start( "gbombs5_net" )        
 		net.WriteBit( false )
 		ply:StopSound("breathing")

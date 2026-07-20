@@ -45,7 +45,7 @@ function ENT:Think()
 		local pos = self:GetPos()
 		self.TotalList={}
 		for k, v in pairs(ents.FindInSphere(pos,self.RadRadius)) do
-			if v:IsPlayer() and not v:IsNPC() and v.hazsuited==false then
+			if v:IsPlayer() and not v:IsNPC() and v.GBombs_InHazSuit==false then
 				local dist = (self:GetPos() - v:GetPos()):Length()
 				local relation = math.Clamp((self.RadRadius - dist) / self.RadRadius, 0, 1)
 				v:SetNWFloat("rad_relation", relation  )

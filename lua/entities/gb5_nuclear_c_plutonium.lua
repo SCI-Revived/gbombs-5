@@ -134,7 +134,7 @@ function ENT:Think(ply)
 	end
 	if self.EntCount == 0 then
 		for k, v in pairs(ents.FindInSphere(pos,50)) do
-			if (v:IsPlayer() or v:IsNPC()) and v.hazsuited==false then
+			if (v:IsPlayer() or v:IsNPC()) and v.GBombs_InHazSuit==false then
 				dmg:SetDamage(math.random(1))
 				dmg:SetDamageType(DMG_RADIATION)
 				if self.GBOWNER == nil then
@@ -149,7 +149,7 @@ function ENT:Think(ply)
 			end
 		end
 		for k, v in pairs(ents.FindInSphere(pos,45)) do
-			if (v:IsPlayer() or v:IsNPC()) and v.hazsuited==false then
+			if (v:IsPlayer() or v:IsNPC()) and v.GBombs_InHazSuit==false then
 				dmg:SetDamage(math.random(1,2))
 				dmg:SetDamageType(DMG_RADIATION)
 				if self.GBOWNER == nil then
@@ -164,7 +164,7 @@ function ENT:Think(ply)
 			end
 		end
 		for k, v in pairs(ents.FindInSphere(pos,30)) do
-			if (v:IsPlayer() or v:IsNPC()) and v.hazsuited==false and self:IsValid() then
+			if (v:IsPlayer() or v:IsNPC()) and v.GBombs_InHazSuit==false and self:IsValid() then
 				timer.Simple(0.3, function()			
 					if not v:IsValid() then return end
 					dmg:SetDamage(math.random(1,3))

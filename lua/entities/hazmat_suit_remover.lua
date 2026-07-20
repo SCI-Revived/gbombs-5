@@ -54,16 +54,16 @@ end
 
 if SERVER then
 	function ENT:Use( activator, caller )
-		if activator.hazsuited==true then	
+		if activator.GBombs_InHazSuit==true then	
 			activator:EmitSound("gbombs_5/protection_used.wav",50,190)
-			activator.hazsuited=true
+			activator.GBombs_InHazSuit=true
 			activator:SetRunSpeed(500)
 			activator:SetWalkSpeed(250)
 			net.Start( "gbombs5_net" )        
 				net.WriteBit( false )
 				activator:StopSound("breathing")				
 			net.Send(activator)
-			activator.hazsuited=false
+			activator.GBombs_InHazSuit=false
 			
 			self:Remove()
 		end

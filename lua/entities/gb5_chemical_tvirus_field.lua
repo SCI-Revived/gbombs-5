@@ -32,7 +32,7 @@ function ENT:Think()
 
 	for k, v in pairs(ents.FindInSphere(self:GetPos(), 50)) do
 		if (v:IsPlayer() and v:Alive() and not v.isinfected) then
-			if v.gasmasked==false and v.hazsuited==false then
+			if v.gasmasked==false and v.GBombs_InHazSuit==false then
 				local ent = ents.Create("gb5_chemical_tvirus_entity")
 				ent:SetVar("infected", v)
 				ent:SetPos( self:GetPos() ) 

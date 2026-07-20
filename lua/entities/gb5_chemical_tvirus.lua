@@ -77,7 +77,7 @@ function ENT:Explode()
 	sound.Play("physics/glass/glass_bottle_break1.wav", self:GetPos(), 100, 100, 1)
 	for k, v in pairs(ents.FindInSphere(self:GetPos(),100)) do
 		if (v:IsPlayer() and v:Alive() and not v.isinfected) then
-			if v.gasmasked==false and v.hazsuited==false then
+			if v.gasmasked==false and v.GBombs_InHazSuit==false then
 				local ent = ents.Create("gb5_chemical_tvirus_entity")
 				ent:SetVar("infected", v)
 				ent:SetPos( self:GetPos() ) 
