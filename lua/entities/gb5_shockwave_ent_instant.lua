@@ -38,7 +38,7 @@ function ENT:Think(ply)
      if not self:IsValid() then return end
 	 local pos = self:GetPos()
 	 for k, v in pairs(ents.FindInSphere(pos,self.MAX_RANGE)) do
-		 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
 				 local dmg = DamageInfo()

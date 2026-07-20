@@ -39,7 +39,7 @@ function ENT:Think()
 	if self.Activated ~= 1 then 
 		for k, v in pairs(self.EntList) do
 			if v:IsValid() then
-				v.forcefielded=false
+				v.GBombs_InForcefield=false
 			end
 			if not v:IsValid() then
 				table.remove(self.EntList, k)	
@@ -89,7 +89,7 @@ function ENT:Think()
 	for k, v in pairs(self.TotalList) do
 		if v:IsValid() and not table.HasValue(self.EntList,v) then
 			table.insert(self.EntList, v )
-			v.forcefielded=true
+			v.GBombs_InForcefield=true
 		end
 		if not v:IsValid() then
 			table.remove(self.EntList, k)	
@@ -98,7 +98,7 @@ function ENT:Think()
 	for k_, v_ in pairs(self.EntList) do
 		if not table.HasValue(self.TotalList, v_) then
 			table.remove(self.EntList, k_)
-			v_.forcefielded=false
+			v_.GBombs_InForcefield=false
 			
 		end
 	end		
@@ -109,7 +109,7 @@ end
 function ENT:OnRemove()
 	if SERVER then
 		for k_, v_ in pairs(self.EntList) do
-			v_.forcefielded=false	
+			v_.GBombs_InForcefield=false	
 		end		
 	end
 end

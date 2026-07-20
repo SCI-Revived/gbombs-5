@@ -76,7 +76,7 @@ function ENT:Explode()
 	 self:SetModel("models/gibs/scanner_gib02.mdl")
 	 self.Exploding = true
 	 for k, v in pairs(ents.FindInSphere(pos,200)) do -- Here we do an initial count
-		 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			if v:GetClass() == "gb5_nuclear_c_uranium" then
 				self.uranium_mul = self.uranium_mul + 1
 				v:Remove()
@@ -163,7 +163,7 @@ function ENT:Explode()
 		physo:Wake()
 		physo:EnableMotion(true)
 		for k, v in pairs(ents.FindInSphere(pos,2000)) do
-			if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
 					v:Ignite(4,0)
@@ -171,7 +171,7 @@ function ENT:Explode()
 			end
 		 end
 		 for k, v in pairs(ents.FindInSphere(pos,500)) do
-			if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() and not v:IsNPC() then
 					v:SetModel("models/Humans/Charple04.mdl")
 					ParticleEffectAttach("nuke_player_vaporize_fatman",PATTACH_POINT_FOLLOW,ent,0) 
@@ -228,14 +228,14 @@ function ENT:Explode()
 		end
 	elseif (self.uranium_mul>=3) and (self.uranium_mul<=6) then -- Then we have fissionnot  
 		for k, v in pairs(ents.FindInSphere(pos,1500*self.uranium_mul)) do
-			 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
 		 for k, v in pairs(ents.FindInSphere(pos,2000)) do
-			if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() and not v:IsNPC() then
 					v:SetModel("models/Humans/Charple04.mdl")
 					ParticleEffectAttach("nuke_player_vaporize_fatman",PATTACH_POINT_FOLLOW,ent,0) 
@@ -345,14 +345,14 @@ function ENT:Explode()
 		 end
 	elseif (self.uranium_mul>=7 and self.uranium_mul<=10) and (self.plutonium_mul >= 1 and self.plutonium_mul <=2) then -- Then we have fissionnot  	
 		for k, v in pairs(ents.FindInSphere(pos,900*self.uranium_mul)) do
-			 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
-				if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
+				if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
 		 for k, v in pairs(ents.FindInSphere(pos,2500)) do
-			if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() then
 					v:SetModel("models/Humans/Charple04.mdl")
 					v:Kill()
@@ -520,14 +520,14 @@ function ENT:Explode()
 		 physo:Wake()
 		 physo:EnableMotion(true)
 		 for k, v in pairs(ents.FindInSphere(pos,(300*self.uranium_mul)*3)) do
-			 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
 		 for k, v in pairs(ents.FindInSphere(pos,300*self.uranium_mul)) do
-			if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() and not v:IsNPC() then
 					v:SetModel("models/Humans/Charple04.mdl")
 					v:Kill()
@@ -635,14 +635,14 @@ function ENT:Explode()
 		 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/fat_explosion.mp3")
 		 
 		 for k, v in pairs(ents.FindInSphere(pos,(self.uranium_mul*250)*3)) do
-			 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
 		 for k, v in pairs(ents.FindInSphere(pos,self.uranium_mul*250)) do
-			if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() then
 					v:SetModel("models/Humans/Charple04.mdl")
 					v:Kill()
@@ -744,14 +744,14 @@ function ENT:Explode()
 		 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/fat_explosion.mp3")
 		 
 		 for k, v in pairs(ents.FindInSphere(pos,(self.uranium_mul*250)*3)) do
-			 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsValid() and v:GetPhysicsObject():IsValid() then
 					v:Ignite(4,0)
 				end
 			 end
 		 end
 		 for k, v in pairs(ents.FindInSphere(pos,self.uranium_mul*250)) do
-			if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() then
 					v:SetModel("models/Humans/Charple04.mdl")
 					v:Kill()

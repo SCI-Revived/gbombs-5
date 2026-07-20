@@ -106,7 +106,7 @@ function ENT:Think()
 		end
 
 		for k, v in pairs(ents.FindInSphere(pos,EntTable.CURRENTRANGE)) do
-			if IsValid(v) and v:IsPlayer() and not v.forcefielded then
+			if IsValid(v) and v:IsPlayer() and not v.GBombs_InForcefield then
 				local i, c = 0, v:GetPhysicsObjectCount()
 				while i < c do
 					local dmg = DamageInfo()

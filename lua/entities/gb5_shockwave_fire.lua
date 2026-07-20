@@ -40,7 +40,7 @@ function ENT:Think(ply)
 	 local pos = self:GetPos()
 	 self.CURRENTRANGE = self.CURRENTRANGE+self.SHOCKWAVE_INCREMENT
 	 for k, v in pairs(ents.FindInSphere(pos,self.CURRENTRANGE)) do
-		 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
 				 local dmg = DamageInfo()

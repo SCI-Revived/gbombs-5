@@ -146,7 +146,7 @@ function ENT:Explode()
 	 physo:Wake()
 	 physo:EnableMotion(true)
 	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius*3)) do
-		 if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			if v:IsValid() and v:GetPhysicsObject():IsValid() then
 				v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
 				v:Ignite(4,0)
@@ -154,7 +154,7 @@ function ENT:Explode()
 		 end
 	 end
 	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do
-		if (v:IsValid() or v:IsPlayer()) and (v.forcefielded==false or v.forcefielded==nil) then
+		if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			if v:IsPlayer() then
 			    v:SetModel("models/Humans/Charple04.mdl")
 				v:Kill()
