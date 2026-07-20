@@ -13,3 +13,4 @@ CreateConVar("gb5_realistic_sound", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVA
 CreateConVar("gb5_sound_shake", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )
 CreateConVar("gb5_nuclear_fallout", "1", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )
 CreateConVar("gb5_nmrih_zombies", "0", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )
+CreateConVar("gb5_deleteconstraints", "0", { FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )
