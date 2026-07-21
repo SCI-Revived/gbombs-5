@@ -35,7 +35,6 @@ ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  15
-ENT.PropExplosionDamage              =  100
 ENT.PhysForce                        =  1500
 ENT.ExplosionRadius                  =  100
 ENT.SpecialRadius                    =  575
