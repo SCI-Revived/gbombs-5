@@ -53,7 +53,7 @@ function gb5CommitShockwave()
     CurrentShockwavePtr = CurrentShockwavePtr - 1
 
     local Shockwave = ents.Create(CurrentShockwaveBuilder.Class)
-    Shockwave:SetPos(Origin)
+    Shockwave:SetPos(CurrentShockwaveBuilder.Origin)
     Shockwave:Spawn()
     Shockwave:Activate()
 
