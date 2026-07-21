@@ -110,7 +110,7 @@ function ENT:Think()
 				local i, c = 0, v:GetPhysicsObjectCount()
 				while i < c do
 					local dmg = DamageInfo()
-					dmg:SetDamage(math.random(1,20))
+					dmg:SetDamage(math.random(1,10))
 					dmg:SetDamageType(DMG_BLAST)
 					if EntTable.GBOWNER == nil then
 						EntTable.GBOWNER = table.Random(player.GetAll())
