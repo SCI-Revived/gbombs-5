@@ -300,7 +300,7 @@ function ENT:ApplyDupeInfo(ply, ent, info, GetEntByID)
      WireLib.ApplyDupeInfo( ply, ent, info, GetEntByID )
 end
 
-function ENT:PrentityCopy()
+function ENT:PreEntityCopy()
      local DupeInfo = self:BuildDupeInfo()
      if(DupeInfo) then
          duplicator.StorentityModifier(self,"WireDupeInfo",DupeInfo)
