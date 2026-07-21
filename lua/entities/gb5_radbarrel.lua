@@ -43,15 +43,9 @@ ENT.GBOWNER                          =  nil             -- don't you fucking tou
 
 
 
-function ENT:SpawnFunction( ply, tr )
-     if ( not tr.Hit ) then return end
-	 self.GBOWNER = ply
-     local ent = ents.Create( self.ClassName )
-	 ent:SetPhysicsAttacker(ply)
-     ent:SetPos( tr.HitPos + tr.HitNormal * 16 ) 
-     ent:Spawn()
-     ent:Activate()
-	 self.Armed= true
-
-     return ent
-end
+gb5RegisterSpawnFunction( ENT, {
+	offset    = 16,
+	postSpawn = function( stored, ent )
+		ent.Armed = true
+	end,
+} )

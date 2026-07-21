@@ -107,12 +107,4 @@ function ENT:Explode()
 	self:Remove()
 end
 
-function ENT:SpawnFunction( ply, tr )
-     if ( not tr.Hit ) then return end
-     local ent = ents.Create( self.ClassName )
-     ent:SetPhysicsAttacker(ply)
-     ent:SetPos( tr.HitPos + tr.HitNormal * 26 ) 
-     ent:Spawn()
-     ent:Activate()
-     return ent
-end
+gb5RegisterSpawnFunction( ENT, 26 )

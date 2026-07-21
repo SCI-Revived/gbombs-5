@@ -50,14 +50,4 @@ ENT.DEFAULT_PHYSFORCE                = 2555
 ENT.DEFAULT_PHYSFORCE_PLYAIR         = 20
 ENT.DEFAULT_PHYSFORCE_PLYGROUND         = 1000       
 ENT.Decal                            = "scorch_big_2"
-function ENT:SpawnFunction( ply, tr )
-     if ( not tr.Hit ) then return end
-     self.GBOWNER = ply
-     local ent = ents.Create( self.ClassName )
-     ent:SetPhysicsAttacker(ply)
-     ent:SetPos( tr.HitPos + tr.HitNormal * 16 ) 
-     ent:Spawn()
-     ent:Activate()
-
-     return ent
-end
+gb5RegisterSpawnFunction( ENT, 16 )

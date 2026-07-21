@@ -55,14 +55,4 @@ function ENT:ExploSound(pos)
 	gb5CommitShockwave() end
 end
 
-function ENT:SpawnFunction( ply, tr )
-     if ( not tr.Hit ) then return end
-	 self.GBOWNER = ply
-     local ent = ents.Create( self.ClassName )
-	 ent:SetPhysicsAttacker(ply)
-     ent:SetPos( tr.HitPos + tr.HitNormal * -600 ) 
-     ent:Spawn()
-     ent:Activate()
-
-     return ent
-end
+gb5RegisterSpawnFunction( ENT, -600 )

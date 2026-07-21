@@ -195,15 +195,10 @@ function ENT:Explode()
 end
 
 
-function ENT:SpawnFunction( ply, tr )
-     if ( not tr.Hit ) then return end
-	 self.GBOWNER = ply
-     local ent = ents.Create( self.ClassName )
-	 ent:SetPhysicsAttacker(ply)
-     ent:SetPos( tr.HitPos + tr.HitNormal * 26 ) 
-     ent:Spawn()
-     ent:Activate()
-     ParticleEffectAttach("anti_glow",PATTACH_POINT_FOLLOW,ent,0 ) 
-	 ent:EmitSound("gbombs_5/explosions/nuclear/antimatter_flicker.mp3",50,100)
-     return ent
-end
+gb5RegisterSpawnFunction( ENT, {
+	offset    = 26,
+	postSpawn = function( stored, ent )
+		ParticleEffectAttach( "anti_glow", PATTACH_POINT_FOLLOW, ent, 0 )
+		ent:EmitSound( "gbombs_5/explosions/nuclear/antimatter_flicker.mp3", 50, 100 )
+	end,
+} )

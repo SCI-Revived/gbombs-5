@@ -188,15 +188,7 @@ function ENT:Launch()
      end)		 
 end
 
-function ENT:SpawnFunction( ply, tr )
-     if ( not tr.Hit ) then return end
-	 self.GBOWNER = ply
-     local ent = ents.Create( self.ClassName )
-	 ent:SetPhysicsAttacker(ply)
-     ent:SetPos( tr.HitPos + tr.HitNormal * 500 ) 
-     ent:Spawn()
-	 ent:SetAngles(Angle(-90,0,0))
-     ent:Activate()
-
-     return ent
-end
+gb5RegisterSpawnFunction( ENT, {
+	offset = 500,
+	angle  = Angle( -90, 0, 0 ),
+} )

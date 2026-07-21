@@ -293,15 +293,7 @@ function ENT:Explode()
 	 self:Remove()
 end
 
-function ENT:SpawnFunction( ply, tr )
-     if ( not tr.Hit ) then return end
-	 self.GBOWNER = ply
-     local ent = ents.Create( self.ClassName )
-	 ent:SetPhysicsAttacker(ply)
-     ent:SetPos( tr.HitPos + tr.HitNormal * 46 ) 
-	 ent:SetAngles(Angle(-90,0,0))
-     ent:Spawn()
-     ent:Activate()
-
-     return ent
-end
+gb5RegisterSpawnFunction( ENT, {
+	offset = 46,
+	angle  = Angle( -90, 0, 0 ),
+} )

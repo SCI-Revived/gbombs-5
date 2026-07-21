@@ -5,6 +5,36 @@ function gb5FastSphereSearch(Origin, Radius)
     return ents_FindInSphere(Origin, Radius)
 end
 
+function gb5RegisterSpawnFunction(ENT, opts)
+    if isnumber(opts) then opts = { offset = opts } end
+    opts = opts or {}
+
+    local offset    = opts.offset or 16
+    local angle     = opts.angle
+    local postSpawn = opts.postSpawn
+
+    function ENT:SpawnFunction(ply, tr, ClassName)
+        if not tr.Hit then return end
+
+        local ent = ents.Create(ClassName or self.ClassName)
+        if not IsValid(ent) then return end
+
+        ent:SetPos(tr.HitPos + tr.HitNormal * offset)
+        if angle then ent:SetAngles(angle) end
+        ent:SetPhysicsAttacker(ply)
+
+        -- Set the owner on the ENTITY instance!!!
+        ent.GBOWNER = ply
+
+        ent:Spawn()
+        ent:Activate()
+
+        if postSpawn then postSpawn(self, ent, ply, tr) end
+
+        return ent
+    end
+end
+
 local ShockwaveBuilderTables = {}
 local CurrentShockwavePtr     = 0
 function gb5BeginShockwave()

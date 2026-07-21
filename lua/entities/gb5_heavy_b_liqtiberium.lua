@@ -51,17 +51,7 @@ ENT.Shocktime                        = 4
 ENT.GBOWNER                          =  nil             -- don't you fucking touch this.
 
 
-function ENT:SpawnFunction( ply, tr )
-     if ( not tr.Hit ) then return end
-     self.GBOWNER = ply
-     local ent = ents.Create( self.ClassName )
-     ent:SetPhysicsAttacker(ply)
-     ent:SetPos( tr.HitPos + tr.HitNormal * 16 )  
-     ent:Spawn()
-     ent:Activate()
-
-     return ent
-end
+gb5RegisterSpawnFunction( ENT, 16 )
 
 function ENT:SpawnCrystals()
 

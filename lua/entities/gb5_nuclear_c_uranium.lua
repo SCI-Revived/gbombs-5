@@ -65,19 +65,13 @@ function ENT:Initialize()
 	end
 end
 
-function ENT:SpawnFunction( ply, tr )
-     if ( not tr.Hit ) then return end
-	 self.GBOWNER = ply
-	 self.EntList={}
-	 self.EntCount = 0
-     local ent = ents.Create( self.ClassName )
-	 ent:SetPhysicsAttacker(ply)
-     ent:SetPos( tr.HitPos + tr.HitNormal * 16 ) 
-     ent:Spawn()
-     ent:Activate()
-     return ent
-
-end
+gb5RegisterSpawnFunction( ENT, {
+	offset    = 16,
+	postSpawn = function( stored, ent )
+		ent.EntList  = {}
+		ent.EntCount = 0
+	end,
+} )
 
 if (CLIENT) then
 	function Radiation()
