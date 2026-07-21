@@ -35,3 +35,39 @@ function gb5FastSphereSearch(Origin, Radius)
     end
     return Result
 end
+
+local ShockwaveBuilderTables = {}
+local CurrentShockwavePtr     = 0
+function gb5BeginShockwave()
+    if CurrentShockwavePtr >= #ShockwaveBuilderTables then
+        ShockwaveBuilderTables[CurrentShockwavePtr + 1] = {}
+    end
+    CurrentShockwavePtr = CurrentShockwavePtr + 1
+    local CurrentShockwaveBuilder = ShockwaveBuilderTables[CurrentShockwavePtr]
+    CurrentShockwaveBuilder.Class = "gb5_shockwave_ent"
+    return CurrentShockwaveBuilder
+end
+
+function gb5CommitShockwave()
+    local CurrentShockwaveBuilder = ShockwaveBuilderTables[CurrentShockwavePtr]
+    CurrentShockwavePtr = CurrentShockwavePtr - 1
+
+    local Shockwave = ents.Create(CurrentShockwaveBuilder.Class)
+    Shockwave:SetPos(Origin)
+    Shockwave:Spawn()
+    Shockwave:Activate()
+
+    local EntTable = Shockwave:GetTable()
+    EntTable.DEFAULT_PHYSFORCE              = CurrentShockwaveBuilder.PhysForce
+    EntTable.DEFAULT_PHYSFORCE_PLYAIR       = CurrentShockwaveBuilder.PhysForceAir      or CurrentShockwaveBuilder.PhysForce
+    EntTable.DEFAULT_PHYSFORCE_PLYGROUND    = CurrentShockwaveBuilder.PhysForceGround   or CurrentShockwaveBuilder.PhysForce
+    EntTable.DEFAULT_PHYSFORCE              = CurrentShockwaveBuilder.PhysForce
+    EntTable.GBOWNER                        = CurrentShockwaveBuilder.Attacker
+    EntTable.MAX_RANGE                      = CurrentShockwaveBuilder.MaxRange
+    EntTable.SHOCKWAVE_INCREMENT            = CurrentShockwaveBuilder.ShockwaveIncrement
+    EntTable.DELAY                          = CurrentShockwaveBuilder.Delay
+    EntTable.SOUND                          = CurrentShockwaveBuilder.Sound
+    EntTable.trace                          = CurrentShockwaveBuilder.Trace
+    EntTable.Shocktime                      = CurrentShockwaveBuilder.Shocktime
+    EntTable.decal                          = CurrentShockwaveBuilder.Decal
+end
