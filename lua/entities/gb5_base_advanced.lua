@@ -38,6 +38,7 @@ ENT.Timed                            =  false
 ENT.IsNBC                            =  false
 
 ENT.ExplosionDamage                  =  5000
+ENT.PropExplosionDamage              =  nil -- if a bomb does not use this, defaults to ENT.ExplosionDamage
 ENT.PhysForce                        =  0
 ENT.ExplosionRadius                  =  255
 ENT.SpecialRadius                    =  0
@@ -231,6 +232,8 @@ function ENT:Explode()
 		local phys = self:GetPhysicsObject()
 		if phys:IsValid() then
 			v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)
+		else
+			v:TakeDamage(self.PropExplosionDamage or self.ExplosionDamage, self.GBOWNER, self)
 		end
 	end
 
