@@ -47,10 +47,10 @@ function gb5BeginShockwave()
     local CurrentShockwaveBuilder = ShockwaveBuilderTables[CurrentShockwavePtr]
 
     CurrentShockwaveBuilder.Class = "gb5_shockwave_ent"
+    CurrentShockwaveBuilder.Origin = nil
     CurrentShockwaveBuilder.PhysForce = nil
     CurrentShockwaveBuilder.PhysForceAir = nil
     CurrentShockwaveBuilder.PhysForceGround = nil
-    CurrentShockwaveBuilder.PhysForce = nil
     CurrentShockwaveBuilder.Attacker = nil
     CurrentShockwaveBuilder.MaxRange = nil
     CurrentShockwaveBuilder.ShockwaveIncrement = nil
@@ -59,6 +59,11 @@ function gb5BeginShockwave()
     CurrentShockwaveBuilder.Trace = nil
     CurrentShockwaveBuilder.Shocktime = nil
     CurrentShockwaveBuilder.Decal = nil
+    CurrentShockwaveBuilder.Burst = nil
+    CurrentShockwaveBuilder.MaxBursts = nil
+    CurrentShockwaveBuilder.PropForce = nil
+    CurrentShockwaveBuilder.PlyForce = nil
+    CurrentShockwaveBuilder.PlyAirForce = nil
 
     return CurrentShockwaveBuilder
 end
@@ -73,16 +78,20 @@ function gb5CommitShockwave()
     Shockwave:Activate()
 
     local EntTable = Shockwave:GetTable()
-    EntTable.DEFAULT_PHYSFORCE              = EntTable.DEFAULT_PHYSFORCE or CurrentShockwaveBuilder.PhysForce
-    EntTable.DEFAULT_PHYSFORCE_PLYAIR       = EntTable.DEFAULT_PHYSFORCE_PLYAIR or CurrentShockwaveBuilder.PhysForceAir or CurrentShockwaveBuilder.PhysForce
-    EntTable.DEFAULT_PHYSFORCE_PLYGROUND    = EntTable.DEFAULT_PHYSFORCE_PLYGROUND or CurrentShockwaveBuilder.PhysForceGround or CurrentShockwaveBuilder.PhysForce
-    EntTable.DEFAULT_PHYSFORCE              = EntTable.DEFAULT_PHYSFORCE or CurrentShockwaveBuilder.PhysForce
-    EntTable.GBOWNER                        = EntTable.GBOWNER or CurrentShockwaveBuilder.Attacker
-    EntTable.MAX_RANGE                      = EntTable.MAX_RANGE or CurrentShockwaveBuilder.MaxRange
-    EntTable.SHOCKWAVE_INCREMENT            = EntTable.SHOCKWAVE_INCREMENT or CurrentShockwaveBuilder.ShockwaveIncrement
-    EntTable.DELAY                          = EntTable.DELAY or CurrentShockwaveBuilder.Delay
-    EntTable.SOUND                          = EntTable.SOUND or CurrentShockwaveBuilder.Sound
-    EntTable.trace                          = EntTable.trace or CurrentShockwaveBuilder.Trace
-    EntTable.Shocktime                      = EntTable.Shocktime or CurrentShockwaveBuilder.Shocktime
-    EntTable.decal                          = EntTable.decal or CurrentShockwaveBuilder.Decal
+    EntTable.DEFAULT_PHYSFORCE              = CurrentShockwaveBuilder.PhysForce        or EntTable.DEFAULT_PHYSFORCE
+    EntTable.DEFAULT_PHYSFORCE_PLYAIR       = CurrentShockwaveBuilder.PhysForceAir     or CurrentShockwaveBuilder.PhysForce or EntTable.DEFAULT_PHYSFORCE_PLYAIR
+    EntTable.DEFAULT_PHYSFORCE_PLYGROUND    = CurrentShockwaveBuilder.PhysForceGround  or CurrentShockwaveBuilder.PhysForce or EntTable.DEFAULT_PHYSFORCE_PLYGROUND
+    EntTable.GBOWNER                        = CurrentShockwaveBuilder.Attacker           or EntTable.GBOWNER
+    EntTable.MAX_RANGE                      = CurrentShockwaveBuilder.MaxRange           or EntTable.MAX_RANGE
+    EntTable.SHOCKWAVE_INCREMENT            = CurrentShockwaveBuilder.ShockwaveIncrement or EntTable.SHOCKWAVE_INCREMENT
+    EntTable.DELAY                          = CurrentShockwaveBuilder.Delay              or EntTable.DELAY
+    EntTable.SOUND                          = CurrentShockwaveBuilder.Sound              or EntTable.SOUND
+    EntTable.trace                          = CurrentShockwaveBuilder.Trace              or EntTable.trace
+    EntTable.Shocktime                      = CurrentShockwaveBuilder.Shocktime          or EntTable.Shocktime
+    EntTable.decal                          = CurrentShockwaveBuilder.Decal              or EntTable.decal
+    EntTable.Burst                          = CurrentShockwaveBuilder.Burst              or EntTable.Burst
+    EntTable.MAX_BURSTS                     = CurrentShockwaveBuilder.MaxBursts          or EntTable.MAX_BURSTS
+    EntTable.PropForce                      = CurrentShockwaveBuilder.PropForce          or EntTable.PropForce
+    EntTable.PlyForce                       = CurrentShockwaveBuilder.PlyForce           or EntTable.PlyForce
+    EntTable.PlyAirForce                    = CurrentShockwaveBuilder.PlyAirForce        or EntTable.PlyAirForce
 end
