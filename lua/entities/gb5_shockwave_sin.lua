@@ -42,7 +42,7 @@ function ENT:Think(ply)
 		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if (phys:IsValid()) then
 					 local mass = phys:GetMass()
 					 local F_ang = self.DEFAULT_PHYSFORCE

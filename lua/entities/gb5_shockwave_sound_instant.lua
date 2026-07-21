@@ -40,7 +40,7 @@ function ENT:Think()
 		 if v:IsValid() or v:IsPlayer() then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if (v:IsPlayer()) then
 					 if not (table.HasValue(self.FILTER,v:SteamID())) then
 						net.Start("gb5_net_sound_lowsh")

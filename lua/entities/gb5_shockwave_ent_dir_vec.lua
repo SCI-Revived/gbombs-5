@@ -41,7 +41,7 @@ function ENT:Think(ply)
 		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if (phys:IsValid()) then
 					 phys:AddVelocity(Vector(0,0,self.PropForce))
 					 if(GetConVar("gb5_shockwave_unfreeze"):GetInt() >= 1) then

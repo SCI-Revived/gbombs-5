@@ -119,7 +119,7 @@ function ENT:Explode()
 	     if v:IsValid() and not v:IsNPC() then
 			 local i = 0
 		     while i < v:GetPhysicsObjectCount() do
-			 phys = v:GetPhysicsObjectNum(i)
+			 local phys = v:GetPhysicsObjectNum(i)
 			 i = i + 1
 			 end
 		 end

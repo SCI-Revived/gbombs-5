@@ -169,22 +169,35 @@ function ENT:Explode()
 	end
 	self:Remove()
 end
-net.Receive("c4_datastream",function()
-	local entity 		= net.ReadEntity()
-	local c4_timer  	= net.ReadFloat()
-	entity.AllowDetonate=false
-	
-	timer.Simple(c4_timer, function()
-		if not entity:IsValid() then return end
-		entity.Exploded=true
-		
-		entity:Explode()
-	end)
+if SERVER then
+	net.Receive("c4_datastream",function( len, pl )
+		local entity 		= net.ReadEntity()
+		local c4_timer  	= net.ReadFloat()
 
-end)
+		if not IsValid( pl ) then return end
+		if not IsValid( entity ) then return end
+		if entity:GetClass() ~= "gb5_light_b_c4" then return end
+
+		if entity.Detonator ~= pl then return end
+		if entity.Exploded or entity.Exploding then return end
+		if not entity.AllowDetonate then return end
+
+		c4_timer = math.Clamp( tonumber( c4_timer ) or 1, 1, 60 )
+
+		entity.AllowDetonate = false
+
+		timer.Simple(c4_timer, function()
+			if not IsValid(entity) then return end
+			entity.Exploded = true
+			entity:Explode()
+		end)
+	end)
+end
+if CLIENT then
 net.Receive("c4_diagbox",function()
 
 	local self=net.ReadEntity()
+	if not IsValid( self ) then return end
 	local win=vgui.Create("DFrame")
 	win:SetSize(200,200)
 	win:Center()
@@ -245,10 +258,13 @@ net.Receive("c4_diagbox",function()
 	win:SetDeleteOnClose(true)
 	win:MakePopup()
 end)
+end
 
 function ENT:Use(activator,caller)
 	if(not activator:IsPlayer())then return end
 	if activator:KeyDown(IN_WALK) and self.AllowDetonate==true then
+		-- Remember who is allowed to arm this specific C4 (checked in c4_datastream).
+		self.Detonator = activator
 		net.Start("c4_diagbox")
 		net.WriteEntity(self)
 		net.Send(activator)

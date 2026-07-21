@@ -43,7 +43,7 @@ function ENT:Think(ply)
 		 if v:IsValid() or v:IsPlayer() then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if (v:GetClass()=="func_breakable" or class=="func_breakable_surf" or class=="func_physbox") then
 					v:Fire("Break", 0)
 				 end

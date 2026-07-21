@@ -37,7 +37,7 @@ function ENT:Think()
 		 if v:IsValid() or v:IsPlayer() then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if (phys:IsValid()) then
 					 local mass = phys:GetMass()
 					 local F_ang = self.PULLPROP
@@ -64,7 +64,7 @@ function ENT:Think()
 		 if v:IsValid() or v:IsPlayer() then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if (phys:IsValid() and not v:IsPlayer()) then
 					v:Remove()
 				 end

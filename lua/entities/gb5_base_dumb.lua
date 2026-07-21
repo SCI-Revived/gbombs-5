@@ -127,7 +127,7 @@ function ENT:Explode()
 		     --local phys = v:GetPhysicsObject()
 			 local i = 0
 		     while i < v:GetPhysicsObjectCount() do
-			 phys = v:GetPhysicsObjectNum(i)
+			 local phys = v:GetPhysicsObjectNum(i)
 			 i = i + 1
 			 end
 	     end

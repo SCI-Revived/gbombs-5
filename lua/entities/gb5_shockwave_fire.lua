@@ -47,7 +47,7 @@ function ENT:Think(ply)
 				 dmg:SetDamage(math.random(1,3))
 				 dmg:SetDamageType(DMG_RADIATION)
 				 dmg:SetAttacker(self.GBOWNER)
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if v:IsOnFire() then
 					v:Extinguish()
 					v:Ignite(14,0)

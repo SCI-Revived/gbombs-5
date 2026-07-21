@@ -51,7 +51,7 @@ function ENT:Think()
 		 if (v:IsValid() or v:IsNPC() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
-				phys = v:GetPhysicsObjectNum(i)
+				local phys = v:GetPhysicsObjectNum(i)
 				local gravity_equation = (self:GetPos().z+500)-(v:GetPos().z+v:GetVelocity().z)
 
 				

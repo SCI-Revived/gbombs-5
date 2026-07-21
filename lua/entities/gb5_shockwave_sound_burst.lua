@@ -41,7 +41,7 @@ function ENT:Think(ply)
 		 if v:IsValid() or v:IsPlayer() then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if (phys:IsValid()) then
 					 local mass = phys:GetMass()
 					 local F_ang = math.random(1,10)

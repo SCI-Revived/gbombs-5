@@ -39,7 +39,7 @@ function ENT:Think(ply)
 		 if (v:IsValid() or v:IsNPC() or v:IsPlayer()) then
 			 local i = 0
 			 while i < v:GetPhysicsObjectCount() do
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if v:IsPlayer() and not (v==self.GBOWNER) then			
 					local dmg = DamageInfo()
 					dmg:SetDamage(math.random(1,5))

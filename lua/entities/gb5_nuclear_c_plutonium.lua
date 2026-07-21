@@ -116,7 +116,7 @@ function ENT:Think(ply)
 	for k, v in pairs(self.TotalList) do
 		if v:IsValid() then 
 			if (not (self:GetClass() == v:GetClass()) and not (v:IsWeapon()) and not (table.HasValue(self.EntList,v))) then
-				phys = v:GetPhysicsObject( )
+				local phys = v:GetPhysicsObject( )
 				if (v:IsValid()) and not (table.HasValue(self.EntList,v)) and (phys:IsValid()) then
 					if not v:IsPlayer() and not v:IsNPC() then
 						table.insert(self.EntList, v )

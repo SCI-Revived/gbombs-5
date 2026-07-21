@@ -119,7 +119,7 @@ function ENT:Explode()
 	     if v:IsValid() then
 			 local i = 0
 		     while i < v:GetPhysicsObjectCount() do
-			 phys = v:GetPhysicsObjectNum(i)
+			 local phys = v:GetPhysicsObjectNum(i)
 		     if (phys:IsValid()) then
 				 local mass = phys:GetMass()
 				 local F_ang = self.PhysForce

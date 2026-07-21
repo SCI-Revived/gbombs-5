@@ -45,7 +45,7 @@ function ENT:Think(ply)
 			         dmg:SetDamage(math.random(25,100))
 			         dmg:SetDamageType(DMG_RADIATION)
 			         dmg:SetAttacker(self.GBOWNER)
-				 phys = v:GetPhysicsObjectNum(i)
+				 local phys = v:GetPhysicsObjectNum(i)
 				 if (phys:IsValid()) then
 					 local mass = phys:GetMass()
 					 local F_ang = self.DEFAULT_PHYSFORCE
