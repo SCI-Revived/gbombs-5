@@ -85,16 +85,17 @@ function ENT:Initialize()
 end
 
 function ENT:ExploSound(pos)
-	 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-	 ent:SetPos( pos ) 
-	 ent:Spawn()
-	 ent:Activate()
-	 ent:SetVar("GBOWNER", self.GBOWNER)
-	 ent:SetVar("MAX_RANGE",500000)
-	 ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-	 ent:SetVar("DELAY",0.01)
-	 ent:SetVar("SOUND", self.ExplosionSound)
-	 ent:SetVar("Shocktime",4)
+	 local EntTable = self:GetTable()
+	local Shockwave = gb5BeginShockwave() do
+		Shockwave.Class					= "gb5_shockwave_sound_lowsh"
+		Shockwave.Origin				= pos
+		Shockwave.Attacker 				= EntTable.GBOWNER
+		Shockwave.MaxRange 				= 500000
+		Shockwave.ShockwaveIncrement 	= 20000
+		Shockwave.Delay 				= 0.01
+		Shockwave.Sound 				= EntTable.ExplosionSound
+		Shockwave.Shocktime 			= EntTable.Shocktime
+	gb5CommitShockwave() end
 end
 
 function ENT:Think()

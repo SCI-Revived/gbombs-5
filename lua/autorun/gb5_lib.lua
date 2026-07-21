@@ -42,9 +42,24 @@ function gb5BeginShockwave()
     if CurrentShockwavePtr >= #ShockwaveBuilderTables then
         ShockwaveBuilderTables[CurrentShockwavePtr + 1] = {}
     end
+
     CurrentShockwavePtr = CurrentShockwavePtr + 1
     local CurrentShockwaveBuilder = ShockwaveBuilderTables[CurrentShockwavePtr]
+
     CurrentShockwaveBuilder.Class = "gb5_shockwave_ent"
+    CurrentShockwaveBuilder.PhysForce = nil
+    CurrentShockwaveBuilder.PhysForceAir = nil
+    CurrentShockwaveBuilder.PhysForceGround = nil
+    CurrentShockwaveBuilder.PhysForce = nil
+    CurrentShockwaveBuilder.Attacker = nil
+    CurrentShockwaveBuilder.MaxRange = nil
+    CurrentShockwaveBuilder.ShockwaveIncrement = nil
+    CurrentShockwaveBuilder.Delay = nil
+    CurrentShockwaveBuilder.Sound = nil
+    CurrentShockwaveBuilder.Trace = nil
+    CurrentShockwaveBuilder.Shocktime = nil
+    CurrentShockwaveBuilder.Decal = nil
+
     return CurrentShockwaveBuilder
 end
 
@@ -58,16 +73,16 @@ function gb5CommitShockwave()
     Shockwave:Activate()
 
     local EntTable = Shockwave:GetTable()
-    EntTable.DEFAULT_PHYSFORCE              = CurrentShockwaveBuilder.PhysForce
-    EntTable.DEFAULT_PHYSFORCE_PLYAIR       = CurrentShockwaveBuilder.PhysForceAir      or CurrentShockwaveBuilder.PhysForce
-    EntTable.DEFAULT_PHYSFORCE_PLYGROUND    = CurrentShockwaveBuilder.PhysForceGround   or CurrentShockwaveBuilder.PhysForce
-    EntTable.DEFAULT_PHYSFORCE              = CurrentShockwaveBuilder.PhysForce
-    EntTable.GBOWNER                        = CurrentShockwaveBuilder.Attacker
-    EntTable.MAX_RANGE                      = CurrentShockwaveBuilder.MaxRange
-    EntTable.SHOCKWAVE_INCREMENT            = CurrentShockwaveBuilder.ShockwaveIncrement
-    EntTable.DELAY                          = CurrentShockwaveBuilder.Delay
-    EntTable.SOUND                          = CurrentShockwaveBuilder.Sound
-    EntTable.trace                          = CurrentShockwaveBuilder.Trace
-    EntTable.Shocktime                      = CurrentShockwaveBuilder.Shocktime
-    EntTable.decal                          = CurrentShockwaveBuilder.Decal
+    EntTable.DEFAULT_PHYSFORCE              = EntTable.DEFAULT_PHYSFORCE or CurrentShockwaveBuilder.PhysForce
+    EntTable.DEFAULT_PHYSFORCE_PLYAIR       = EntTable.DEFAULT_PHYSFORCE_PLYAIR or CurrentShockwaveBuilder.PhysForceAir or CurrentShockwaveBuilder.PhysForce
+    EntTable.DEFAULT_PHYSFORCE_PLYGROUND    = EntTable.DEFAULT_PHYSFORCE_PLYGROUND or CurrentShockwaveBuilder.PhysForceGround or CurrentShockwaveBuilder.PhysForce
+    EntTable.DEFAULT_PHYSFORCE              = EntTable.DEFAULT_PHYSFORCE or CurrentShockwaveBuilder.PhysForce
+    EntTable.GBOWNER                        = EntTable.GBOWNER or CurrentShockwaveBuilder.Attacker
+    EntTable.MAX_RANGE                      = EntTable.MAX_RANGE or CurrentShockwaveBuilder.MaxRange
+    EntTable.SHOCKWAVE_INCREMENT            = EntTable.SHOCKWAVE_INCREMENT or CurrentShockwaveBuilder.ShockwaveIncrement
+    EntTable.DELAY                          = EntTable.DELAY or CurrentShockwaveBuilder.Delay
+    EntTable.SOUND                          = EntTable.SOUND or CurrentShockwaveBuilder.Sound
+    EntTable.trace                          = EntTable.trace or CurrentShockwaveBuilder.Trace
+    EntTable.Shocktime                      = EntTable.Shocktime or CurrentShockwaveBuilder.Shocktime
+    EntTable.decal                          = EntTable.decal or CurrentShockwaveBuilder.Decal
 end
