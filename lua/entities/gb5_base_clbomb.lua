@@ -167,7 +167,7 @@ function ENT:Explode()
 		 local tr2 = util.TraceLine(trdat2)
 			 
 		 if tr2.Hit then
-		     ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil) 
+		     ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil) 
 		 end
 	 else
 		 local tracedata    = {}
@@ -179,7 +179,7 @@ function ENT:Explode()
 		 if trace.HitWorld then
 		     ParticleEffect(self.Effect,pos,self:GetAngles(),nil)		
 		 else 
-			 ParticleEffect(self.EffectAir,pos,Angle(0,0,0),nil) 
+			 ParticleEffect(self.EffectAir,pos,angle_zero,nil) 
          end
 	 end
 	 self:Remove()
@@ -303,7 +303,7 @@ end
 function ENT:PreEntityCopy()
      local DupeInfo = self:BuildDupeInfo()
      if(DupeInfo) then
-         duplicator.StorentityModifier(self,"WireDupeInfo",DupeInfo)
+         duplicator.StoreEntityModifier(self,"WireDupeInfo",DupeInfo)
      end
 end
 

@@ -68,7 +68,7 @@ function ENT:Think()
 	self:SetAngles(pl:EyeAngles())
 	if traceRes.HitWorld and self.spawns > 60 then
 		if (traceRes.HitPos:Distance(self:GetPos()) <= 5600) then
-			ParticleEffect("unholyshadowdragon_roar_tracer_hit",traceRes.HitPos,Angle(0,0,0),nil)		
+			ParticleEffect("unholyshadowdragon_roar_tracer_hit",traceRes.HitPos,angle_zero,nil)		
 			local Shockwave = gb5BeginShockwave() do
 				Shockwave.Class              = "gb5_shockwave_ent"
 				Shockwave.Origin             = pos

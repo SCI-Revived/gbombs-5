@@ -102,7 +102,7 @@ if SERVER then
 			local tr2 = util.TraceLine(trdat2)
 
 			if tr2.Hit then
-				ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+				ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 			end
 		else
 			local tracedata    = {}
@@ -113,9 +113,9 @@ if SERVER then
 			local trace = util.TraceLine(tracedata)
 
 			if trace.HitWorld then
-				ParticleEffect(self.Effect,pos,Angle(0,0,0),nil)
+				ParticleEffect(self.Effect,pos,angle_zero,nil)
 			else 
-				ParticleEffect(self.EffectAir,pos,Angle(0,0,0),nil) 
+				ParticleEffect(self.EffectAir,pos,angle_zero,nil) 
 			end
 		end
 		self:Remove()

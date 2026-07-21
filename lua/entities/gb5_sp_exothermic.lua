@@ -73,7 +73,7 @@ function ENT:Explode()
 	for k, v in pairs(gb5FastSphereSearch(self:GetPos(), 200)) do
 		if v:GetClass()=="gb5_sp_endothermic" then
 			
-			ParticleEffect("unison_beam",self:GetPos(),Angle(0,0,0),nil)	
+			ParticleEffect("unison_beam",self:GetPos(),angle_zero,nil)	
 			
 			local Shockwave = gb5BeginShockwave() do
 				Shockwave.Class              = "gb5_shockwave_sound_lowsh"
@@ -187,7 +187,7 @@ function ENT:Explode()
 			local tr2 = util.TraceLine(trdat2)
 
 			if tr2.Hit then
-				ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+				ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 			end
 		else
 			local tracedata    = {}
@@ -198,13 +198,13 @@ function ENT:Explode()
 			local trace = util.TraceLine(tracedata)
 
 			if trace.HitWorld then
-				ParticleEffect("beam_exothermic",pos,Angle(0,0,0),nil)	
+				ParticleEffect("beam_exothermic",pos,angle_zero,nil)	
 				timer.Simple(0.1, function()
 					if not self:IsValid() then return end 
-						ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+						ParticleEffect("",trace.HitPos,angle_zero,nil)	
 				end)	
 			else 
-				ParticleEffect("beam_exothermic",pos,Angle(0,0,0),nil) 
+				ParticleEffect("beam_exothermic",pos,angle_zero,nil) 
 
 			end
 		end

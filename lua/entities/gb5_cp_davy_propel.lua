@@ -126,7 +126,7 @@ function ENT:Explode()
 		 local tr2 = util.TraceLine(trdat2)
 		 
 		 if tr2.Hit then
-			 ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+			 ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 		
 		 end
 	 else
@@ -143,7 +143,7 @@ function ENT:Explode()
 				 self:Remove()
 			 end)	
 		 else 
-			 ParticleEffect(self.EffectAir,self:GetPos(),Angle(0,0,0),nil) 
+			 ParticleEffect(self.EffectAir,self:GetPos(),angle_zero,nil) 
 			 self:Remove()
 
 		 end

@@ -97,7 +97,7 @@ function ENT:Explode()
 	self:SetMoveType( MOVETYPE_NONE )
 	self:SetMaterial("phoenix_storms/glass")
 	self:SetModel("models/hunter/plates/plate.mdl")
-	ParticleEffect("antimatter_main_burst",pos,Angle(0,0,0),nil)	
+	ParticleEffect("antimatter_main_burst",pos,angle_zero,nil)	
 	self.Exploding = true
 	timer.Simple(0.2, function()
 		if not self:IsValid() then return end
@@ -105,8 +105,8 @@ function ENT:Explode()
 			if v:GetClass()=="gb5_redmatter_pull" then
 				v:SetMoveType( MOVETYPE_VPHYSICS )
 				ParticleEffectAttach("redmatter_swirl_overdrive", PATTACH_POINT_FOLLOW, v, 0)
-				ParticleEffect("fusionbomb_main",self:GetPos(),Angle(0,0,0),nil) 
-				ParticleEffect("spacenuke_main",self:GetPos(),Angle(0,0,0),nil) 
+				ParticleEffect("fusionbomb_main",self:GetPos(),angle_zero,nil) 
+				ParticleEffect("spacenuke_main",self:GetPos(),angle_zero,nil) 
 				
 				local Shockwave = gb5BeginShockwave() do
 					Shockwave.Class              = "gb5_shockwave_sound_lowsh"

@@ -215,7 +215,7 @@ function ENT:Explode()
 		 local tr2 = util.TraceLine(trdat2)
 		 
 		 if tr2.Hit then
-			 ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+			 ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 		
 		 end
 	 else
@@ -227,17 +227,17 @@ function ENT:Explode()
 		 local trace = util.TraceLine(tracedata)
 	 
 		 if trace.HitWorld then
-			 ParticleEffect(self.Effect,pos,Angle(0,0,0),nil)	
+			 ParticleEffect(self.Effect,pos,angle_zero,nil)	
 			 timer.Simple(2, function()
 				 if not self:IsValid() then return end 
-				 ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+				 ParticleEffect("",trace.HitPos,angle_zero,nil)	
 				 self:Remove()
 		 end)	
 		 else 
-			 ParticleEffect(self.EffectAir,pos,Angle(0,0,0),nil) 
+			 ParticleEffect(self.EffectAir,pos,angle_zero,nil) 
 			 timer.Simple(2, function()
 				 if not self:IsValid() then return end 
-				 ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+				 ParticleEffect("",trace.HitPos,angle_zero,nil)	
 				 self:Remove()
 			end)	
 			 --Here we do an emp check

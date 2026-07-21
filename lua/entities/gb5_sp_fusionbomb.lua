@@ -145,7 +145,7 @@ function ENT:Explode()
 		local tr2 = util.TraceLine(trdat2)
 
 		if tr2.Hit then
-			ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+			ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 		end
 	else
 		local tracedata    = {}
@@ -159,10 +159,10 @@ function ENT:Explode()
 			ParticleEffect("fusionbomb_main",pos,self:GetAngles(),nil)	
 			timer.Simple(0.1, function()
 				if not self:IsValid() then return end 
-					ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+					ParticleEffect("",trace.HitPos,angle_zero,nil)	
 			end)	
 		else 
-			ParticleEffect("fusionbomb_main",pos,Angle(0,0,0),nil) 
+			ParticleEffect("fusionbomb_main",pos,angle_zero,nil) 
 
 		end
 	end

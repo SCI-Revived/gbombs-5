@@ -66,7 +66,7 @@ function ENT:Think()
 	self:SetAngles(pl:EyeAngles())
 	if traceRes.HitWorld and self.spawns > 26 then
 		if traceRes.HitPos:Distance(self:GetPos()) <= 2586 then
-			ParticleEffect("shadowdragon_roar_tracer_hit",traceRes.HitPos,Angle(0,0,0),nil)
+			ParticleEffect("shadowdragon_roar_tracer_hit",traceRes.HitPos,angle_zero,nil)
 		end
 	end
 	if self.spawns > 26 then 

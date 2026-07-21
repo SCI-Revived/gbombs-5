@@ -143,7 +143,7 @@ function ENT:Explode()
 			 local tr2 = util.TraceLine(trdat2)
 			 
 			 if tr2.Hit then
-				 ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+				 ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 			
 			 end
 		 else
@@ -157,7 +157,7 @@ function ENT:Explode()
 			 if trace.HitWorld then
 				 timer.Simple(0.2, function()
 					 if not self:IsValid() then return end 
-					 ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+					 ParticleEffect("",trace.HitPos,angle_zero,nil)	
 					 self:Remove()
 			 end)	
 			 else 

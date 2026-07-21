@@ -201,7 +201,7 @@ function ENT:Explode()
 			local tr2 = util.TraceLine(trdat2)
 
 			if tr2.Hit then
-				ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+				ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 			
 			end
 		else
@@ -213,10 +213,10 @@ function ENT:Explode()
 			local trace = util.TraceLine(tracedata)
 			 
 			if trace.HitWorld then
-				 ParticleEffect("davycrockett_main",pos,Angle(0,0,0),nil)	
+				 ParticleEffect("davycrockett_main",pos,angle_zero,nil)	
 				 self:Remove()
 			else 
-				ParticleEffect("davycrockett_air",pos,Angle(0,0,0),nil) 
+				ParticleEffect("davycrockett_air",pos,angle_zero,nil) 
 				self:Remove()
 				if(GetConVar("gb5_nuclear_emp"):GetInt() >= 1) then
 					local ent = ents.Create("gb5_emp_entity")
@@ -309,7 +309,7 @@ function ENT:Explode()
 			 local tr2 = util.TraceLine(trdat2)
 			 
 			 if tr2.Hit then
-				 ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+				 ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 			
 			 end
 		 else
@@ -321,17 +321,17 @@ function ENT:Explode()
 			 local trace = util.TraceLine(tracedata)
 		 
 			 if trace.HitWorld then
-				 ParticleEffect("littleboy_main",pos,Angle(0,0,0),nil)	
+				 ParticleEffect("littleboy_main",pos,angle_zero,nil)	
 				 timer.Simple(2, function()
 					 if not self:IsValid() then return end 
-					 ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+					 ParticleEffect("",trace.HitPos,angle_zero,nil)	
 					 self:Remove()
 			 end)	
 			 else 
-				 ParticleEffect("littleboy_air_main",pos,Angle(0,0,0),nil) 
+				 ParticleEffect("littleboy_air_main",pos,angle_zero,nil) 
 				 timer.Simple(2, function()
 					 if not self:IsValid() then return end 
-					 ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+					 ParticleEffect("",trace.HitPos,angle_zero,nil)	
 					 self:Remove()
 				end)	
 				 --Here we do an emp check
@@ -432,7 +432,7 @@ function ENT:Explode()
 				 local tr2 = util.TraceLine(trdat2)
 				 
 				 if tr2.Hit then
-					 ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+					 ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 				
 				 end
 			 else
@@ -444,13 +444,13 @@ function ENT:Explode()
 				 local trace = util.TraceLine(tracedata)
 			 
 				 if trace.HitWorld then
-					 ParticleEffect("trinity_main",pos,Angle(0,0,0),nil)	
+					 ParticleEffect("trinity_main",pos,angle_zero,nil)	
 					 timer.Simple(2, function()
 						 if not self:IsValid() then return end 
 						 self:Remove()
 				 end)	
 				 else 
-					 ParticleEffect("trinity_air",pos,Angle(0,0,0),nil) 
+					 ParticleEffect("trinity_air",pos,angle_zero,nil) 
 					 
 					 --Here we do an emp check
 				if(GetConVar("gb5_nuclear_emp"):GetInt() >= 1) then
@@ -558,7 +558,7 @@ function ENT:Explode()
 			 local tr2 = util.TraceLine(trdat2)
 			 
 			 if tr2.Hit then
-				 ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+				 ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 			
 			 end
 		 else
@@ -570,16 +570,16 @@ function ENT:Explode()
 			 local trace = util.TraceLine(tracedata)
 		 
 			 if trace.HitWorld then
-				 ParticleEffect("fatman_main",pos,Angle(0,0,0),nil)	
+				 ParticleEffect("fatman_main",pos,angle_zero,nil)	
 				 timer.Simple(2, function()
 					 if not self:IsValid() then return end 
 					 self:Remove()
 			 end)	
 			 else 
-				 ParticleEffect("fatman_air",pos,Angle(0,0,0),nil) 
+				 ParticleEffect("fatman_air",pos,angle_zero,nil) 
 				 timer.Simple(2, function()
 					 if not self:IsValid() then return end 
-					 ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+					 ParticleEffect("",trace.HitPos,angle_zero,nil)	
 					 self:Remove()
 				end)	
 				if(GetConVar("gb5_nuclear_emp"):GetInt() >= 1) then
@@ -667,7 +667,7 @@ function ENT:Explode()
 			 local tr2 = util.TraceLine(trdat2)
 			 
 			 if tr2.Hit then
-				 ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+				 ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 			
 			 end
 		 else
@@ -679,16 +679,16 @@ function ENT:Explode()
 			 local trace = util.TraceLine(tracedata)
 		 
 			 if trace.HitWorld then
-				 ParticleEffect("highyield_nuke_ground_main",pos,Angle(0,0,0),nil)	
+				 ParticleEffect("highyield_nuke_ground_main",pos,angle_zero,nil)	
 				 timer.Simple(2, function()
 					 if not self:IsValid() then return end 
 					 self:Remove()
 			 end)	
 			 else 
-				 ParticleEffect("highyield_nuke_air_main",pos,Angle(0,0,0),nil) 
+				 ParticleEffect("highyield_nuke_air_main",pos,angle_zero,nil) 
 				 timer.Simple(2, function()
 					 if not self:IsValid() then return end 
-					 ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+					 ParticleEffect("",trace.HitPos,angle_zero,nil)	
 					 self:Remove()
 				 end)	
 				 if(GetConVar("gb5_nuclear_emp"):GetInt() >= 1) then
@@ -776,7 +776,7 @@ function ENT:Explode()
 			 local tr2 = util.TraceLine(trdat2)
 			 
 			 if tr2.Hit then
-				 ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)
+				 ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
 			
 			 end
 		 else
@@ -788,7 +788,7 @@ function ENT:Explode()
 			 local trace = util.TraceLine(tracedata)
 		 
 			 if trace.HitWorld then
-				 ParticleEffect("tsar_bomba_ground",pos,Angle(0,0,0),nil)	
+				 ParticleEffect("tsar_bomba_ground",pos,angle_zero,nil)	
 				 timer.Simple(2, function()
 					 if not self:IsValid() then return end 
 					 self:Remove()
@@ -796,10 +796,10 @@ function ENT:Explode()
 			 else 
 				 timer.Simple(2, function()
 					 if not self:IsValid() then return end 
-					 ParticleEffect("",trace.HitPos,Angle(0,0,0),nil)	
+					 ParticleEffect("",trace.HitPos,angle_zero,nil)	
 					 self:Remove()
 				end)				 
-				 ParticleEffect("tsar_bomba_air",pos,Angle(0,0,0),nil) 
+				 ParticleEffect("tsar_bomba_air",pos,angle_zero,nil) 
 				 --Here we do an emp check
 				 if(GetConVar("gb5_nuclear_emp"):GetInt() >= 1) then
 					 local ent = ents.Create("gb5_emp_entity")

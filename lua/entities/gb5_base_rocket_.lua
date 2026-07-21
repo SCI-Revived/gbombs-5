@@ -1,6 +1,7 @@
 AddCSLuaFile()
 
-local gb5_fragility = GetConVar("gb5_fragility")
+local gb5_fragility 	= GetConVar("gb5_fragility")
+local gb5_easyuse	 	= GetConVar("gb5_easyuse")
 
 -- Sounds
 sound.Add( {
@@ -188,22 +189,22 @@ end
 function ENT:Explode()
 	if not self.Exploded then return end
 	local pos = self:LocalToWorld(self:OBBCenter())
-	
-		local Shockwave = gb5BeginShockwave() do
-			Shockwave.Class              = "gb5_shockwave_ent"
-			Shockwave.Origin             = pos
-			Shockwave.PhysForce          = self.DEFAULT_PHYSFORCE
-			Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
-			Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
-			Shockwave.Attacker           = self.GBOWNER
-			Shockwave.MaxRange           = self.ExplosionRadius
-			Shockwave.ShockwaveIncrement = 100
-			Shockwave.Delay              = 0.01
-			Shockwave.Trace              = self.TraceLength
-			Shockwave.Decal              = self.Decal
-		gb5CommitShockwave() end
-	
+
 	local Shockwave = gb5BeginShockwave() do
+		Shockwave.Class              = "gb5_shockwave_ent"
+		Shockwave.Origin             = pos
+		Shockwave.PhysForce          = self.DEFAULT_PHYSFORCE
+		Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
+		Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
+		Shockwave.Attacker           = self.GBOWNER
+		Shockwave.MaxRange           = self.ExplosionRadius
+		Shockwave.ShockwaveIncrement = 100
+		Shockwave.Delay              = 0.01
+		Shockwave.Trace              = self.TraceLength
+		Shockwave.Decal              = self.Decal
+	gb5CommitShockwave() end
+
+	Shockwave = gb5BeginShockwave() do
 		Shockwave.Class              = "gb5_shockwave_sound_lowsh"
 		Shockwave.Origin             = pos
 		Shockwave.Attacker           = self.GBOWNER
@@ -232,18 +233,18 @@ function ENT:Explode()
 			--local phys = v:GetPhysicsObject()
 			local i = 0
 			while i < v:GetPhysicsObjectCount() do
-			local phys = v:GetPhysicsObjectNum(i)	  
-			if (phys:IsValid()) then		
-				local mass = phys:GetMass()
-				local F_ang = self.PhysForce
-				local dist = (pos - v:GetPos()):Length()
-				local relation = math.Clamp((self.SpecialRadius - dist) / self.SpecialRadius, 0, 1)
-				local F_dir = (v:GetPos() - pos):GetNormal() * self.PhysForce
-				
-				phys:AddAngleVelocity(Vector(F_ang, F_ang, F_ang) * relation)
-				phys:AddVelocity(F_dir)
-			end
-			i = i + 1
+				local phys = v:GetPhysicsObjectNum(i)
+				if IsValid(phys) then
+					-- local mass = phys:GetMass()
+					local F_ang = self.PhysForce
+					local dist = (pos - v:GetPos()):Length()
+					local relation = math.Clamp((self.SpecialRadius - dist) / self.SpecialRadius, 0, 1)
+					local F_dir = (v:GetPos() - pos):GetNormal() * self.PhysForce
+
+					phys:AddAngleVelocity(Vector(F_ang, F_ang, F_ang) * relation)
+					phys:AddVelocity(F_dir)
+				end
+				i = i + 1
 			end
 		end
 	end
@@ -266,7 +267,7 @@ function ENT:Explode()
 		local tr2 = util.TraceLine(trdat2)
 			
 		if tr2.Hit then
-			ParticleEffect(self.EffectWater, tr2.HitPos, Angle(0,0,0), nil)   
+			ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)   
 		end
 	else
 		local tracedata    = {}
@@ -277,9 +278,9 @@ function ENT:Explode()
 		local trace = util.TraceLine(tracedata)
 		
 		if trace.HitWorld then
-			ParticleEffect(self.Effect,pos,Angle(0,0,0),nil)
+			ParticleEffect(self.Effect,pos,angle_zero,nil)
 		else 
-			ParticleEffect(self.EffectAir,pos,Angle(0,0,0),nil) 
+			ParticleEffect(self.EffectAir,pos,angle_zero,nil) 
 		end
 	end
 	if self.IsNBC then
@@ -451,10 +452,11 @@ function ENT:Arm()
 	end)
 end	 
 
-function ENT:Use( activator, caller )
-	if(self.Exploded) then return end
-	if(self.Dumb) then return end
-	if(GetConVar("gb5_easyuse"):GetInt() >= 1) then
+function ENT:Use(activator, caller)
+	if self.Exploded then return end
+	if self.Dumb then return end
+
+	if gb5_easyuse:GetInt() >= 1 then
 		if(self:IsValid()) then
 			if (not self.Exploded) and (not self.Burnt) and (not self.Fired) then
 				if (activator:IsPlayer()) then
@@ -471,10 +473,10 @@ function ENT:OnRemove()
 	self:StopParticles()
 end
 
-if ( CLIENT ) then
+if CLIENT then
 	function ENT:Draw()
 		self:DrawModel()
-		if not (WireAddon == nil) then Wire_Render(self) end
+		if WireAddon ~= nil then Wire_Render(self) end
 	end
 end
 
@@ -493,7 +495,7 @@ end
 function ENT:PreEntityCopy()
 	local DupeInfo = self:BuildDupeInfo()
 	if DupeInfo then
-		duplicator.StorentityModifier(self, "WireDupeInfo", DupeInfo)
+		duplicator.StoreEntityModifier(self, "WireDupeInfo", DupeInfo)
 	end
 end
 
