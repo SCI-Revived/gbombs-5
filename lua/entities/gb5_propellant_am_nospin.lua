@@ -95,7 +95,7 @@ function ENT:ExploSound(pos)
 		Shockwave.ShockwaveIncrement 	= 20000
 		Shockwave.Delay 				= 0.01
 		Shockwave.Sound 				= EntTable.ExplosionSound
-		Shockwave.Shocktime 			= EntTable.Shocktime
+		Shockwave.Shocktime 			= 4
 	gb5CommitShockwave() end
 end
 
