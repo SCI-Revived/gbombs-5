@@ -76,17 +76,17 @@ function ENT:Explode()
 	local physo = self:GetPhysicsObject()
 	physo:Wake()
 	physo:EnableMotion(false)
-	local ent = ents.Create("gb5_shockwave_sound_lowsh")
-	ent:SetPos( pos ) 
-	ent:Spawn()
-	ent:Activate()
-	--ent:SetPhysicsAttacker(ply)
-	ent:SetVar("GBOWNER", self.GBOWNER)
-	ent:SetVar("MAX_RANGE",500000)
-	ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-	ent:SetVar("DELAY",0.01)
-	ent:SetVar("Shocktime",5)
-	ent:SetVar("SOUND", "gbombs_5/explosions/special/endothermic_bomb.mp3")
+	local Shockwave = gb5BeginShockwave() do
+		Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+		Shockwave.Origin             = pos
+		--ent:SetPhysicsAttacker(ply)
+		Shockwave.Attacker           = self.GBOWNER
+		Shockwave.MaxRange           = 500000
+		Shockwave.ShockwaveIncrement = 20000
+		Shockwave.Delay              = 0.01
+		Shockwave.Shocktime          = 5
+		Shockwave.Sound              = "gbombs_5/explosions/special/endothermic_bomb.mp3"
+	gb5CommitShockwave() end
 	self.affected = {}
 	for k, v in pairs(gb5FastSphereSearch(pos,1800)) do
 		if v:IsPlayer() then	
@@ -96,29 +96,29 @@ function ENT:Explode()
 
 	timer.Simple(2.5, function()
 		if not self:IsValid() then return end
-		local ent = ents.Create("gb5_shockwave_sound_lowsh")
-		ent:SetPos( pos ) 
-		ent:Spawn()
-		ent:Activate()
-		--ent:SetPhysicsAttacker(ply)
-		ent:SetVar("GBOWNER", self.GBOWNER)
-		ent:SetVar("MAX_RANGE",1500)
-		ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		ent:SetVar("DELAY",0.01)
-		ent:SetVar("Shocktime",1)
-		ent:SetVar("SOUND", "gbombs_5/explosions/special/endothermic_freeze.wav")
+		local Shockwave = gb5BeginShockwave() do
+			Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+			Shockwave.Origin             = pos
+			--ent:SetPhysicsAttacker(ply)
+			Shockwave.Attacker           = self.GBOWNER
+			Shockwave.MaxRange           = 1500
+			Shockwave.ShockwaveIncrement = 100
+			Shockwave.Delay              = 0.01
+			Shockwave.Shocktime          = 1
+			Shockwave.Sound              = "gbombs_5/explosions/special/endothermic_freeze.wav"
+		gb5CommitShockwave() end
 		
-		local ent = ents.Create("gb5_shockwave_cold")
-		ent:SetPos( pos ) 
-		ent:Spawn()
-		ent:Activate()
-		ent:SetVar("DEFAULT_PHYSFORCE", 25)
-		ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", 25)
-		ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", 25)
-		ent:SetVar("GBOWNER", self.GBOWNER)
-		ent:SetVar("MAX_RANGE", 1500)
-		ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		ent:SetVar("DELAY",0.1)
+		local Shockwave = gb5BeginShockwave() do
+			Shockwave.Class              = "gb5_shockwave_cold"
+			Shockwave.Origin             = pos
+			Shockwave.PhysForce          = 25
+			Shockwave.PhysForceAir       = 25
+			Shockwave.PhysForceGround    = 25
+			Shockwave.Attacker           = self.GBOWNER
+			Shockwave.MaxRange           = 1500
+			Shockwave.ShockwaveIncrement = 100
+			Shockwave.Delay              = 0.1
+		gb5CommitShockwave() end
 		timer.Simple(10, function()
 			if not self:IsValid() then return end
 			self:Remove()

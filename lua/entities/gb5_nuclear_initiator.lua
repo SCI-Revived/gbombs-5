@@ -101,50 +101,50 @@ function ENT:Explode()
 		self:SetModel("models/gibs/scanner_gib02.mdl")
 		self.Exploding = true
 
-		local ent = ents.Create("gb5_shockwave_sound_instant")
-		ent:SetPos( pos ) 
-		ent:Spawn()
-		ent:Activate()
-		ent:SetVar("MAX_BURSTS", 1)
-		ent:SetVar("MAX_RANGE",50000)
-		ent:SetVar("DELAY",0.1)
-		ent:SetVar("sound", "gbombs_5/explosions/nuclear/tsar_in.mp3")
-		ent:SetVar("Shocktime",1)
+		local Shockwave = gb5BeginShockwave() do
+			Shockwave.Class              = "gb5_shockwave_sound_instant"
+			Shockwave.Origin             = pos
+			Shockwave.MaxBursts          = 1
+			Shockwave.MaxRange           = 50000
+			Shockwave.Delay              = 0.1
+			Shockwave.Sound              = "gbombs_5/explosions/nuclear/tsar_in.mp3"
+			Shockwave.Shocktime          = 1
+		gb5CommitShockwave() end
 
-		local ent = ents.Create("gb5_shockwave_ent")
-		ent:SetPos( pos ) 
-		ent:Spawn()
-		ent:Activate()
-		ent:SetVar("DEFAULT_PHYSFORCE", self.DEFAULT_PHYSFORCE)
-		ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", self.DEFAULT_PHYSFORCE_PLYAIR)
-		ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", self.DEFAULT_PHYSFORCE_PLYGROUND)
-		ent:SetVar("GBOWNER", self.GBOWNER)
-		ent:SetVar("MAX_RANGE",2000*self.uranium_mul)
-		ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		ent:SetVar("DELAY",0.01)
-		ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/abomb.mp3")
-		ent.trace=500
-		ent.decal="nuke_small"
+		local Shockwave = gb5BeginShockwave() do
+			Shockwave.Class              = "gb5_shockwave_ent"
+			Shockwave.Origin             = pos
+			Shockwave.PhysForce          = self.DEFAULT_PHYSFORCE
+			Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
+			Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
+			Shockwave.Attacker           = self.GBOWNER
+			Shockwave.MaxRange           = 2000*self.uranium_mul
+			Shockwave.ShockwaveIncrement = 100
+			Shockwave.Delay              = 0.01
+			Shockwave.Sound              = "gbombs_5/explosions/nuclear/abomb.mp3"
+			Shockwave.Trace              = 500
+			Shockwave.Decal              = "nuke_small"
+		gb5CommitShockwave() end
 		 
-		local ent = ents.Create("gb5_shockwave_rumbling")
-		ent:SetPos( pos ) 
-		ent:Spawn()
-		ent:Activate()
-		ent:SetVar("GBOWNER", self.GBOWNER)
-		ent:SetVar("MAX_RANGE",6000)
-		ent:SetVar("SHOCKWAVE_INCREMENT",200)
-		ent:SetVar("DELAY",0.01)
+		local Shockwave = gb5BeginShockwave() do
+			Shockwave.Class              = "gb5_shockwave_rumbling"
+			Shockwave.Origin             = pos
+			Shockwave.Attacker           = self.GBOWNER
+			Shockwave.MaxRange           = 6000
+			Shockwave.ShockwaveIncrement = 200
+			Shockwave.Delay              = 0.01
+		gb5CommitShockwave() end
 		
-		local ent = ents.Create("gb5_shockwave_sound_lowsh")
-		ent:SetPos( pos ) 
-		ent:Spawn()
-		ent:Activate()
-		ent:SetVar("GBOWNER", self.GBOWNER)
-		ent:SetVar("MAX_RANGE",50000)
-		ent:SetVar("SHOCKWAVE_INCREMENT", 100)
-		ent:SetVar("DELAY",0.01)
-		ent:SetVar("shocktime", 4)
-		ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/davy_explosion.mp3")
+		local Shockwave = gb5BeginShockwave() do
+			Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+			Shockwave.Origin             = pos
+			Shockwave.Attacker           = self.GBOWNER
+			Shockwave.MaxRange           = 50000
+			Shockwave.ShockwaveIncrement = 100
+			Shockwave.Delay              = 0.01
+			Shockwave.Shocktime          = 4
+			Shockwave.Sound              = "gbombs_5/explosions/nuclear/davy_explosion.mp3"
+		gb5CommitShockwave() end
 		
 		local ent = ents.Create("gb5_base_radiation_draw_ent")
 		ent:SetPos( pos ) 
@@ -246,47 +246,47 @@ function ENT:Explode()
 		
 		 timer.Simple(2, function()
 			 if not self:IsValid() then return end 
-			 local ent = ents.Create("gb5_shockwave_ent")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("DEFAULT_PHYSFORCE", self.DEFAULT_PHYSFORCE)
-			 ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", self.DEFAULT_PHYSFORCE_PLYAIR)
-			 ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", self.DEFAULT_PHYSFORCE_PLYGROUND)
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",1500*self.uranium_mul)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-			 ent:SetVar("DELAY",0.01)
-			 ent.trace=1000
-			 ent.decal="nuke_medium"
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_ent"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.PhysForce          = self.DEFAULT_PHYSFORCE
+			 	Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
+			 	Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 1500*self.uranium_mul
+			 	Shockwave.ShockwaveIncrement = 100
+			 	Shockwave.Delay              = 0.01
+			 	Shockwave.Trace              = 1000
+			 	Shockwave.Decal              = "nuke_medium"
+			 gb5CommitShockwave() end
 
-			 local ent = ents.Create("gb5_shockwave_rumbling")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",2250*self.uranium_mul)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",200)
-			 ent:SetVar("DELAY",0.01)
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_rumbling"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 2250*self.uranium_mul
+			 	Shockwave.ShockwaveIncrement = 200
+			 	Shockwave.Delay              = 0.01
+			 gb5CommitShockwave() end
 			 
-			 local ent = ents.Create("gb5_shockwave_sound_burst")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",50000)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-			 ent:SetVar("DELAY",0.01)
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_sound_burst"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 50000
+			 	Shockwave.ShockwaveIncrement = 100
+			 	Shockwave.Delay              = 0.01
+			 gb5CommitShockwave() end
 			
-			 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",12000)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-			 ent:SetVar("DELAY",0.01)
-			 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/abomb.mp3")
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 12000
+			 	Shockwave.ShockwaveIncrement = 100
+			 	Shockwave.Delay              = 0.01
+			 	Shockwave.Sound              = "gbombs_5/explosions/nuclear/abomb.mp3"
+			 gb5CommitShockwave() end
 			 self.Exploding = true
 		
 			 self:StopParticles()
@@ -362,52 +362,52 @@ function ENT:Explode()
 		
 		 timer.Simple(2, function()
 			 if not self:IsValid() then return end 
-			 local ent = ents.Create("gb5_shockwave_ent")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("DEFAULT_PHYSFORCE", self.DEFAULT_PHYSFORCE)
-			 ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", self.DEFAULT_PHYSFORCE_PLYAIR)
-			 ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", self.DEFAULT_PHYSFORCE_PLYGROUND)
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",(900*self.uranium_mul)+(150*self.plutonium_mul))
-			 ent:SetVar("SHOCKWAVE_INCREMENT",180)
-			 ent:SetVar("DELAY",0.01)
-			 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/fat_explosion.mp3")
-			 ent.trace=1500
-			 ent.decal="nuke_medium"
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_ent"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.PhysForce          = self.DEFAULT_PHYSFORCE
+			 	Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
+			 	Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = (900*self.uranium_mul)+(150*self.plutonium_mul)
+			 	Shockwave.ShockwaveIncrement = 180
+			 	Shockwave.Delay              = 0.01
+			 	Shockwave.Sound              = "gbombs_5/explosions/nuclear/fat_explosion.mp3"
+			 	Shockwave.Trace              = 1500
+			 	Shockwave.Decal              = "nuke_medium"
+			 gb5CommitShockwave() end
 			 
 			 
-			 local ent = ents.Create("gb5_shockwave_rumbling")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",10000)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",260)
-			 ent:SetVar("DELAY",0.01)
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_rumbling"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 10000
+			 	Shockwave.ShockwaveIncrement = 260
+			 	Shockwave.Delay              = 0.01
+			 gb5CommitShockwave() end
 			 self:SetModel("models/gibs/scanner_gib02.mdl")
 			 
-			 local ent = ents.Create("gb5_shockwave_sound_burst")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",50000)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",180)
-			 ent:SetVar("DELAY",0.01)
-			 ent:SetVar("SOUND", self.ExplosionSound)
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_sound_burst"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 50000
+			 	Shockwave.ShockwaveIncrement = 180
+			 	Shockwave.Delay              = 0.01
+			 	Shockwave.Sound              = self.ExplosionSound
+			 gb5CommitShockwave() end
 			 self:SetModel("models/gibs/scanner_gib02.mdl")
 			 
-			 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",13000)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",180)
-			 ent:SetVar("DELAY",0.01)
-			 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/nuke_trinity.mp3")
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 13000
+			 	Shockwave.ShockwaveIncrement = 180
+			 	Shockwave.Delay              = 0.01
+			 	Shockwave.Sound              = "gbombs_5/explosions/nuclear/nuke_trinity.mp3"
+			 gb5CommitShockwave() end
 			 
 			 self.Exploding = true
 			 constraint.RemoveAll(self)
@@ -466,52 +466,52 @@ function ENT:Explode()
 			 end
 		end
 	elseif (self.uranium_mul>=11 and self.uranium_mul<=15) and (self.plutonium_mul >= 3 and self.plutonium_mul <=5) then 
-		 local ent = ents.Create("gb5_shockwave_ent")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("DEFAULT_PHYSFORCE", self.DEFAULT_PHYSFORCE)
-		 ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", self.DEFAULT_PHYSFORCE_PLYAIR)
-		 ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", self.DEFAULT_PHYSFORCE_PLYGROUND)
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",(666*self.uranium_mul)+(150*self.plutonium_mul))
-		 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", self.ExplosionSound)
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_ent"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.PhysForce          = self.DEFAULT_PHYSFORCE
+		 	Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
+		 	Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = (666*self.uranium_mul)+(150*self.plutonium_mul)
+		 	Shockwave.ShockwaveIncrement = 100
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = self.ExplosionSound
+		 	Shockwave.Trace              = 1500
+		 	Shockwave.Decal              = "nuke_medium"
+		 gb5CommitShockwave() end
 		 self:SetModel("models/gibs/scanner_gib02.mdl")
-		 ent.trace=1500
-		 ent.decal="nuke_medium"
 		 
-		 local ent = ents.Create("gb5_shockwave_rumbling")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",11000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",200)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", self.ExplosionSound)
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_rumbling"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 11000
+		 	Shockwave.ShockwaveIncrement = 200
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = self.ExplosionSound
+		 gb5CommitShockwave() end
 
 		 
-		 local ent = ents.Create("gb5_shockwave_sound_burst")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",45000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", self.ExplosionSound)
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_sound_burst"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 45000
+		 	Shockwave.ShockwaveIncrement = 100
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = self.ExplosionSound
+		 gb5CommitShockwave() end
 
-		 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",15000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", self.ExplosionSound)
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 15000
+		 	Shockwave.ShockwaveIncrement = 100
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = self.ExplosionSound
+		 gb5CommitShockwave() end
 		 self:SetModel("models/gibs/scanner_gib02.mdl")
 
 		 self.Exploding = true
@@ -592,47 +592,47 @@ function ENT:Explode()
 		 end
 	elseif (self.uranium_mul>=16 and self.uranium_mul<=20) and (self.plutonium_mul >= 6 and self.plutonium_mul <=10) and (self.tritium_mul >= 1 and self.tritium_mul <=2) then 
 		 local pos = self:LocalToWorld(self:OBBCenter())
-		 local ent = ents.Create("gb5_shockwave_ent")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",(900*self.uranium_mul)+(150*self.plutonium_mul)+(300*self.tritium_mul))
-		 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/abomb.mp3")
-		 ent.trace=2000
-		 ent.decal="nuke_big"
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_ent"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = (900*self.uranium_mul)+(150*self.plutonium_mul)+(300*self.tritium_mul)
+		 	Shockwave.ShockwaveIncrement = 100
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = "gbombs_5/explosions/nuclear/abomb.mp3"
+		 	Shockwave.Trace              = 2000
+		 	Shockwave.Decal              = "nuke_big"
+		 gb5CommitShockwave() end
 			 
-		 local ent = ents.Create("gb5_shockwave_rumbling")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",19000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",200)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", self.ExplosionSound)
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_rumbling"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 19000
+		 	Shockwave.ShockwaveIncrement = 200
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = self.ExplosionSound
+		 gb5CommitShockwave() end
 		 
-		 local ent = ents.Create("gb5_shockwave_sound_burst")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",35000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", self.ExplosionSound)
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_sound_burst"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 35000
+		 	Shockwave.ShockwaveIncrement = 100
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = self.ExplosionSound
+		 gb5CommitShockwave() end
 
-		 local ent = ents.Create("gb5_shockwave_sound_lowsh")	 
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",21000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/fat_explosion.mp3")
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 21000
+		 	Shockwave.ShockwaveIncrement = 100
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = "gbombs_5/explosions/nuclear/fat_explosion.mp3"
+		 gb5CommitShockwave() end
 		 
 		 for k, v in pairs(gb5FastSphereSearch(pos,(self.uranium_mul*250)*3)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
@@ -701,47 +701,47 @@ function ENT:Explode()
 		 end
 	elseif (self.uranium_mul>=21 and self.uranium_mul<=50) and (self.plutonium_mul >= 11 and self.plutonium_mul <=50) and (self.tritium_mul >= 3 and self.tritium_mul <=50) then 
 		 local pos = self:LocalToWorld(self:OBBCenter())
-		 local ent = ents.Create("gb5_shockwave_ent")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",(900*self.uranium_mul)+(150*self.plutonium_mul)+(300*self.tritium_mul))
-		 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/abomb.mp3")
-		 ent.trace=2000
-		 ent.decal="nuke_tsar"
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_ent"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = (900*self.uranium_mul)+(150*self.plutonium_mul)+(300*self.tritium_mul)
+		 	Shockwave.ShockwaveIncrement = 100
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = "gbombs_5/explosions/nuclear/abomb.mp3"
+		 	Shockwave.Trace              = 2000
+		 	Shockwave.Decal              = "nuke_tsar"
+		 gb5CommitShockwave() end
 			 
-		 local ent = ents.Create("gb5_shockwave_rumbling")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",19000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",200)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", self.ExplosionSound)
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_rumbling"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 19000
+		 	Shockwave.ShockwaveIncrement = 200
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = self.ExplosionSound
+		 gb5CommitShockwave() end
 		 
-		 local ent = ents.Create("gb5_shockwave_sound_burst")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",35000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", self.ExplosionSound)
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_sound_burst"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 35000
+		 	Shockwave.ShockwaveIncrement = 100
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = self.ExplosionSound
+		 gb5CommitShockwave() end
 
-		 local ent = ents.Create("gb5_shockwave_sound_lowsh")	 
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",21000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", "gbombs_5/explosions/nuclear/fat_explosion.mp3")
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 21000
+		 	Shockwave.ShockwaveIncrement = 100
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = "gbombs_5/explosions/nuclear/fat_explosion.mp3"
+		 gb5CommitShockwave() end
 		 
 		 for k, v in pairs(gb5FastSphereSearch(pos,(self.uranium_mul*250)*3)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then

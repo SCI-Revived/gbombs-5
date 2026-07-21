@@ -81,29 +81,29 @@ function ENT:Explode()
 	physo:Wake()
 	physo:EnableMotion(false)
 
-	local ent = ents.Create("gb5_shockwave_sound_lowsh")
-	ent:SetPos( pos ) 
-	ent:Spawn()
-	ent:Activate()
-	--ent:SetPhysicsAttacker(ply)
-	ent:SetVar("GBOWNER", self.GBOWNER)
-	ent:SetVar("MAX_RANGE",500000)
-	ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-	ent:SetVar("DELAY",0.01)
-	ent:SetVar("Shocktime",10)
-	ent:SetVar("SOUND", "")
+	local Shockwave = gb5BeginShockwave() do
+		Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+		Shockwave.Origin             = pos
+		--ent:SetPhysicsAttacker(ply)
+		Shockwave.Attacker           = self.GBOWNER
+		Shockwave.MaxRange           = 500000
+		Shockwave.ShockwaveIncrement = 20000
+		Shockwave.Delay              = 0.01
+		Shockwave.Shocktime          = 10
+		Shockwave.Sound              = ""
+	gb5CommitShockwave() end
 
-	local ent = ents.Create("gb5_shockwave_ent_gravity")
-	ent:SetPos( pos ) 
-	ent:Spawn()
-	ent:Activate()
-	ent:SetVar("PropForce", 300)
-	ent:SetVar("PlyForce", 300)
-	ent:SetVar("PlyAirForce", 200)
-	ent:SetVar("GBOWNER", self.GBOWNER)
-	ent:SetVar("MAX_RANGE",2400)
-	ent:SetVar("Burst",200)
-	ent:SetVar("DELAY",0.2)
+	local Shockwave = gb5BeginShockwave() do
+		Shockwave.Class              = "gb5_shockwave_ent_gravity"
+		Shockwave.Origin             = pos
+		Shockwave.PropForce          = 300
+		Shockwave.PlyForce           = 300
+		Shockwave.PlyAirForce        = 200
+		Shockwave.Attacker           = self.GBOWNER
+		Shockwave.MaxRange           = 2400
+		Shockwave.Burst              = 200
+		Shockwave.Delay              = 0.2
+	gb5CommitShockwave() end
 	if(self:WaterLevel() >= 1) then
 		local trdata   = {}
 		local trlength = Vector(0,0,9000)

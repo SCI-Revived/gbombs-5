@@ -92,42 +92,42 @@ function ENT:Explode()
      if not self.Exploded then return end
 	 local pos = self:LocalToWorld(self:OBBCenter())
 	 
-	 local ent = ents.Create("gb5_shockwave_ent")
-	 ent:SetPos( pos ) 
-	 ent:Spawn()
-	 ent:Activate()
-	 ent:SetVar("DEFAULT_PHYSFORCE", self.DEFAULT_PHYSFORCE)
-	 ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", self.DEFAULT_PHYSFORCE_PLYAIR)
-	 ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", self.DEFAULT_PHYSFORCE_PLYGROUND)
-	 ent:SetVar("GBOWNER", self.GBOWNER)
-	 ent:SetVar("MAX_RANGE",self.ExplosionRadius)
-	 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-	 ent:SetVar("DELAY",0.01)
-	 ent.trace=self.TraceLength
-	 ent.decal=self.Decal
+	 local Shockwave = gb5BeginShockwave() do
+	 	Shockwave.Class              = "gb5_shockwave_ent"
+	 	Shockwave.Origin             = pos
+	 	Shockwave.PhysForce          = self.DEFAULT_PHYSFORCE
+	 	Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
+	 	Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
+	 	Shockwave.Attacker           = self.GBOWNER
+	 	Shockwave.MaxRange           = self.ExplosionRadius
+	 	Shockwave.ShockwaveIncrement = 100
+	 	Shockwave.Delay              = 0.01
+	 	Shockwave.Trace              = self.TraceLength
+	 	Shockwave.Decal              = self.Decal
+	 gb5CommitShockwave() end
 	 
-	 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-	 ent:SetPos( pos ) 
-	 ent:Spawn()
-	 ent:Activate()
-	 ent:SetVar("GBOWNER", self.GBOWNER)
-	 ent:SetVar("MAX_RANGE",50000)
-	if GetConVar("gb5_sound_speed"):GetInt() == 0 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",200)
-	elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",300)
-	elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",400)
-	elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",100)
-	elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",50)
-	else
-		ent:SetVar("SHOCKWAVE_INCREMENT",200)
-	end
-	 ent:SetVar("DELAY",0.01)
-	 ent:SetVar("SOUND", self.ExplosionSound)
-	 ent:SetVar("Shocktime", self.Shocktime)
+	 local Shockwave = gb5BeginShockwave() do
+	 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+	 	Shockwave.Origin             = pos
+	 	Shockwave.Attacker           = self.GBOWNER
+	 	Shockwave.MaxRange           = 50000
+		if GetConVar("gb5_sound_speed"):GetInt() == 0 then
+	 	Shockwave.ShockwaveIncrement = 200
+		elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
+	 	Shockwave.ShockwaveIncrement = 300
+		elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
+	 	Shockwave.ShockwaveIncrement = 400
+		elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
+	 	Shockwave.ShockwaveIncrement = 100
+		elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
+	 	Shockwave.ShockwaveIncrement = 50
+		else
+	 	Shockwave.ShockwaveIncrement = 200
+		end
+	 	Shockwave.Delay              = 0.01
+	 	Shockwave.Sound              = self.ExplosionSound
+	 	Shockwave.Shocktime          = self.Shocktime
+	 gb5CommitShockwave() end
 	 
 	 if(self:WaterLevel() >= 1) then
 		 local trdata   = {}

@@ -94,16 +94,16 @@ function ENT:Explode()
 			end
 		end
 	 end
-	 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-	 ent:SetPos( pos ) 
-	 ent:Spawn()
-	 ent:Activate()
-	 ent:SetVar("GBOWNER", self.GBOWNER)
-	 ent:SetVar("MAX_RANGE",50000)
-	 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-	 ent:SetVar("DELAY",0.01)
-	 ent:SetVar("SOUND","gbombs_5/explosions/medium_bomb/ex2.mp3")
-	 ent:SetVar("Shocktime", self.Shocktime)
+	 local Shockwave = gb5BeginShockwave() do
+	 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+	 	Shockwave.Origin             = pos
+	 	Shockwave.Attacker           = self.GBOWNER
+	 	Shockwave.MaxRange           = 50000
+	 	Shockwave.ShockwaveIncrement = 100
+	 	Shockwave.Delay              = 0.01
+	 	Shockwave.Sound              = "gbombs_5/explosions/medium_bomb/ex2.mp3"
+	 	Shockwave.Shocktime          = self.Shocktime
+	 gb5CommitShockwave() end
 	
 	 self:StopParticles()
 

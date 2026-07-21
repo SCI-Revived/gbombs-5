@@ -94,26 +94,26 @@ function ENT:Explode()
   	 timer.Simple(5, function()
 	     if not self:IsValid() then return end 
 				
-			 local ent = ents.Create("gb5_shockwave_sin")
-			 ent:SetPos( pos_cache ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",24000)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",65)
-			 ent:SetVar("DELAY",0.1)
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_sin"
+			 	Shockwave.Origin             = pos_cache
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 24000
+			 	Shockwave.ShockwaveIncrement = 65
+			 	Shockwave.Delay              = 0.1
+			 gb5CommitShockwave() end
 
 			 
-			 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-			 ent:SetPos( pos_cache ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",500000)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-			 ent:SetVar("DELAY",0.01)
-			 ent:SetVar("SOUND", "gbombs_5/explosions/special/singularity_bomb.mp3")
-			 ent:SetVar("Shocktime",40)
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+			 	Shockwave.Origin             = pos_cache
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 500000
+			 	Shockwave.ShockwaveIncrement = 20000
+			 	Shockwave.Delay              = 0.01
+			 	Shockwave.Sound              = "gbombs_5/explosions/special/singularity_bomb.mp3"
+			 	Shockwave.Shocktime          = 40
+			 gb5CommitShockwave() end
 
 			 
 			 self:SetModel("models/gibs/scanner_gib02.mdl")

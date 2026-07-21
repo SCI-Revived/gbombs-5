@@ -47,6 +47,7 @@ function gb5BeginShockwave()
     local CurrentShockwaveBuilder = ShockwaveBuilderTables[CurrentShockwavePtr]
 
     CurrentShockwaveBuilder.Class = "gb5_shockwave_ent"
+    CurrentShockwaveBuilder.Model = nil
     CurrentShockwaveBuilder.Origin = nil
     CurrentShockwaveBuilder.PhysForce = nil
     CurrentShockwaveBuilder.PhysForceAir = nil
@@ -64,6 +65,8 @@ function gb5BeginShockwave()
     CurrentShockwaveBuilder.PropForce = nil
     CurrentShockwaveBuilder.PlyForce = nil
     CurrentShockwaveBuilder.PlyAirForce = nil
+    CurrentShockwaveBuilder.Ignore = nil
+    CurrentShockwaveBuilder.Ignoreowner = nil
 
     return CurrentShockwaveBuilder
 end
@@ -74,6 +77,7 @@ function gb5CommitShockwave()
 
     local Shockwave = ents.Create(CurrentShockwaveBuilder.Class)
     Shockwave:SetPos(CurrentShockwaveBuilder.Origin)
+    if CurrentShockwaveBuilder.Model then Shockwave:SetModel(CurrentShockwaveBuilder.Model) end
     Shockwave:Spawn()
     Shockwave:Activate()
 
@@ -94,4 +98,6 @@ function gb5CommitShockwave()
     EntTable.PropForce                      = CurrentShockwaveBuilder.PropForce          or EntTable.PropForce
     EntTable.PlyForce                       = CurrentShockwaveBuilder.PlyForce           or EntTable.PlyForce
     EntTable.PlyAirForce                    = CurrentShockwaveBuilder.PlyAirForce        or EntTable.PlyAirForce
+    EntTable.Ignore                         = CurrentShockwaveBuilder.Ignore             or EntTable.Ignore
+    EntTable.Ignoreowner                    = CurrentShockwaveBuilder.Ignoreowner        or EntTable.Ignoreowner
 end

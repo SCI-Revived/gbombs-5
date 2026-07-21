@@ -73,16 +73,16 @@ function ENT:Think()
 		else
 			self.shocktime = self:GetVar("Shocktime")
 		end
-	 	local ent = ents.Create("gb5_shockwave_sound_instant")
-		ent:SetPos( pos ) 
-		ent:Spawn()
-		ent:Activate()
-		-- ent:SetPhysicsAttacker(ply)
-		ent:SetVar("GBOWNER", self.GBOWNER)
-		ent:SetVar("MAX_RANGE",50000)
-		ent:SetVar("DELAY",0.01)
-		ent:SetVar("Shocktime",self.shocktime)
-		ent:SetVar("SOUND", self:GetVar("SOUND"))
+	 	local Shockwave = gb5BeginShockwave() do
+	 		Shockwave.Class              = "gb5_shockwave_sound_instant"
+	 		Shockwave.Origin             = pos
+			-- ent:SetPhysicsAttacker(ply)
+	 		Shockwave.Attacker           = self.GBOWNER
+	 		Shockwave.MaxRange           = 50000
+	 		Shockwave.Delay              = 0.01
+	 		Shockwave.Shocktime          = self.shocktime
+	 		Shockwave.Sound              = self:GetVar("SOUND")
+	 	gb5CommitShockwave() end
 		self:Remove()
 	 end
 	 self.Bursts = self.Bursts + 1

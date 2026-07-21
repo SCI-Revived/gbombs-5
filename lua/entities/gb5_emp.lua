@@ -80,16 +80,16 @@ function ENT:Explode(ply)
 	 physo:Wake()
 	 physo:EnableMotion(false)
 
-	local ent = ents.Create("gb5_shockwave_sound_lowsh")
-	ent:SetPos( pos ) 
-	ent:Spawn()
-	ent:Activate()
-	ent:SetVar("GBOWNER", self.GBOWNER)
-	ent:SetVar("MAX_RANGE",500000)
-	ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-	ent:SetVar("DELAY",0.01)
-	ent:SetVar("SOUND", "gbombs_5/explosions/special/emp.mp3")
-	ent:SetVar("Shocktime",1)
+	local Shockwave = gb5BeginShockwave() do
+		Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+		Shockwave.Origin             = pos
+		Shockwave.Attacker           = self.GBOWNER
+		Shockwave.MaxRange           = 500000
+		Shockwave.ShockwaveIncrement = 20000
+		Shockwave.Delay              = 0.01
+		Shockwave.Sound              = "gbombs_5/explosions/special/emp.mp3"
+		Shockwave.Shocktime          = 1
+	gb5CommitShockwave() end
 	 if not self:IsValid() then return end 
 	 self:StopParticles()
 	

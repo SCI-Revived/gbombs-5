@@ -124,31 +124,31 @@ function ENT:Explode()
 		 if trace.HitWorld then
 		     ParticleEffect(self.Effect,pos,Angle(0,0,0),nil)		 
 			 
-			 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE",500000)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-			 ent:SetVar("DELAY",0.01)
-			 ent:SetVar("SOUND", "gbombs_5/explosions/special/liquid_tiberium.mp3")
-			 ent:SetVar("Shocktime",1)
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 500000
+			 	Shockwave.ShockwaveIncrement = 20000
+			 	Shockwave.Delay              = 0.01
+			 	Shockwave.Sound              = "gbombs_5/explosions/special/liquid_tiberium.mp3"
+			 	Shockwave.Shocktime          = 1
+			 gb5CommitShockwave() end
 			 
 			 timer.Simple(1, function()
 				 if not self:IsValid() then return end
-				 local ent = ents.Create("gb5_shockwave_ent")
-				 ent:SetPos( pos ) 
-				 ent:Spawn()
-				 ent:Activate()
-				 ent:SetVar("DEFAULT_PHYSFORCE", self.DEFAULT_PHYSFORCE)
-				 ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", self.DEFAULT_PHYSFORCE_PLYAIR)
-				 ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", self.DEFAULT_PHYSFORCE_PLYGROUND)
-				 ent:SetVar("GBOWNER", self.GBOWNER)
-				 ent:SetVar("MAX_RANGE",self.ExplosionRadius)
-				 ent:SetVar("SHOCKWAVE_INCREMENT",500)
-				 ent:SetVar("DELAY",0.01)
-				 ent.decal="tiberium"
+				 local Shockwave = gb5BeginShockwave() do
+				 	Shockwave.Class              = "gb5_shockwave_ent"
+				 	Shockwave.Origin             = pos
+				 	Shockwave.PhysForce          = self.DEFAULT_PHYSFORCE
+				 	Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
+				 	Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
+				 	Shockwave.Attacker           = self.GBOWNER
+				 	Shockwave.MaxRange           = self.ExplosionRadius
+				 	Shockwave.ShockwaveIncrement = 500
+				 	Shockwave.Delay              = 0.01
+				 	Shockwave.Decal              = "tiberium"
+				 gb5CommitShockwave() end
 			 end)
 			
 			 

@@ -75,17 +75,16 @@ function ENT:Explode()
 			
 			ParticleEffect("unison_beam",self:GetPos(),Angle(0,0,0),nil)	
 			
-			local ent = ents.Create("gb5_shockwave_sound_lowsh")
-			ent:SetPos( self:GetPos() ) 
-			ent:Spawn()
-			ent:Activate()
-			ent:SetPhysicsAttacker(self.GBOWNER)
-
-			ent:SetVar("MAX_RANGE",500000)
-			ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-			ent:SetVar("DELAY",0.01)
-			ent:SetVar("Shocktime",12)
-			ent:SetVar("SOUND", "gbombs_5/explosions/special/unison_exend.mp3")		
+			local Shockwave = gb5BeginShockwave() do
+				Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+				Shockwave.Origin             = self:GetPos()
+				Shockwave.Attacker           = self.GBOWNER
+				Shockwave.MaxRange           = 500000
+				Shockwave.ShockwaveIncrement = 20000
+				Shockwave.Delay              = 0.01
+				Shockwave.Shocktime          = 12
+				Shockwave.Sound              = "gbombs_5/explosions/special/unison_exend.mp3"
+			gb5CommitShockwave() end
 			
 			local pos = self:GetPos()
 			local gbowner = self.GBOWNER
@@ -95,42 +94,42 @@ function ENT:Explode()
 			
 			timer.Simple(10, function() 
 				
-				local ent = ents.Create("gb5_shockwave_fire")
-				ent:SetPos( pos ) 
-				ent:Spawn()
-				ent:Activate()
-				ent:SetVar("DEFAULT_PHYSFORCE", 25)
-				ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", 25)
-				ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", 25)
-				ent:SetVar("GBOWNER", self.GBOWNER)
-				ent:SetVar("MAX_RANGE", 650)
-				ent:SetVar("SHOCKWAVE_INCREMENT",100)
-				ent:SetVar("DELAY",0.1)			
+				local Shockwave = gb5BeginShockwave() do
+					Shockwave.Class              = "gb5_shockwave_fire"
+					Shockwave.Origin             = pos
+					Shockwave.PhysForce          = 25
+					Shockwave.PhysForceAir       = 25
+					Shockwave.PhysForceGround    = 25
+					Shockwave.Attacker           = self.GBOWNER
+					Shockwave.MaxRange           = 650
+					Shockwave.ShockwaveIncrement = 100
+					Shockwave.Delay              = 0.1
+				gb5CommitShockwave() end
 			
 			
-				local ent = ents.Create("gb5_shockwave_cold")
-				ent:SetPos( pos ) 
-				ent:Spawn()
-				ent:Activate()
-				ent:SetVar("DEFAULT_PHYSFORCE", 25)
-				ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", 25)
-				ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", 25)
-				ent:SetVar("GBOWNER", self.GBOWNER)
-				ent:SetVar("MAX_RANGE", 650)
-				ent:SetVar("SHOCKWAVE_INCREMENT",100)
-				ent:SetVar("DELAY",0.1)
+				local Shockwave = gb5BeginShockwave() do
+					Shockwave.Class              = "gb5_shockwave_cold"
+					Shockwave.Origin             = pos
+					Shockwave.PhysForce          = 25
+					Shockwave.PhysForceAir       = 25
+					Shockwave.PhysForceGround    = 25
+					Shockwave.Attacker           = self.GBOWNER
+					Shockwave.MaxRange           = 650
+					Shockwave.ShockwaveIncrement = 100
+					Shockwave.Delay              = 0.1
+				gb5CommitShockwave() end
 				
-				local ent = ents.Create("gb5_shockwave_ent")
-				ent:SetPos( pos ) 
-				ent:Spawn()
-				ent:Activate()
-				ent:SetVar("DEFAULT_PHYSFORCE", 50)
-				ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", 50)
-				ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", 50)
-				ent:SetVar("GBOWNER", gbowner)
-				ent:SetVar("MAX_RANGE", 19000)
-				ent:SetVar("SHOCKWAVE_INCREMENT",40)
-				ent:SetVar("DELAY",0.01)				
+				local Shockwave = gb5BeginShockwave() do
+					Shockwave.Class              = "gb5_shockwave_ent"
+					Shockwave.Origin             = pos
+					Shockwave.PhysForce          = 50
+					Shockwave.PhysForceAir       = 50
+					Shockwave.PhysForceGround    = 50
+					Shockwave.Attacker           = gbowner
+					Shockwave.MaxRange           = 19000
+					Shockwave.ShockwaveIncrement = 40
+					Shockwave.Delay              = 0.01
+				gb5CommitShockwave() end
 				
 			end)
 			
@@ -144,30 +143,30 @@ function ENT:Explode()
 		local physo = self:GetPhysicsObject()
 		physo:Wake()
 		physo:EnableMotion(false)
-		local ent = ents.Create("gb5_shockwave_sound_lowsh")
-		ent:SetPos( pos ) 
-		ent:Spawn()
-		ent:Activate()
+		local Shockwave = gb5BeginShockwave() do
+			Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+			Shockwave.Origin             = pos
+			Shockwave.Attacker           = self.GBOWNER
+			Shockwave.MaxRange           = 500000
+			Shockwave.ShockwaveIncrement = 20000
+			Shockwave.Delay              = 0.01
+			Shockwave.Sound              = "gbombs_5/explosions/special/exothermic_bomb.mp3"
+			Shockwave.Shocktime          = 12
+		gb5CommitShockwave() end
 		--ent:SetPhysicsAttacker(ply)
-		ent:SetVar("GBOWNER", self.GBOWNER)
-		ent:SetVar("MAX_RANGE",500000)
-		ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-		ent:SetVar("DELAY",0.01)
-		ent:SetVar("Shocktime",12)
-		ent:SetVar("SOUND", "gbombs_5/explosions/special/exothermic_bomb.mp3")
 
 		timer.Simple(5.6, function()
-			 local ent = ents.Create("gb5_shockwave_fire")
-			 ent:SetPos( pos ) 
-			 ent:Spawn()
-			 ent:Activate()
-			 ent:SetVar("DEFAULT_PHYSFORCE", 25)
-			 ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", 25)
-			 ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", 25)
-			 ent:SetVar("GBOWNER", self.GBOWNER)
-			 ent:SetVar("MAX_RANGE", 3500)
-			 ent:SetVar("SHOCKWAVE_INCREMENT",100)
-			 ent:SetVar("DELAY",0.1)
+			 local Shockwave = gb5BeginShockwave() do
+			 	Shockwave.Class              = "gb5_shockwave_fire"
+			 	Shockwave.Origin             = pos
+			 	Shockwave.PhysForce          = 25
+			 	Shockwave.PhysForceAir       = 25
+			 	Shockwave.PhysForceGround    = 25
+			 	Shockwave.Attacker           = self.GBOWNER
+			 	Shockwave.MaxRange           = 3500
+			 	Shockwave.ShockwaveIncrement = 100
+			 	Shockwave.Delay              = 0.1
+			 gb5CommitShockwave() end
 			 self:Remove()
 		end)
 		if(self:WaterLevel() >= 1) then

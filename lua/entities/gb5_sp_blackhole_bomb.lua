@@ -98,16 +98,16 @@ function ENT:Explode()
   	 timer.Simple(1, function()
 	     if not self:IsValid() then return end 
 
-		 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-		 ent:SetPos( pos ) 
-	 	 ent:Spawn()
-	 	 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-	 	 ent:SetVar("MAX_RANGE",500000)
-	 	 ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-	 	 ent:SetVar("DELAY",0.01)
-	         ent:SetVar("Shocktime",12)
-	 	 ent:SetVar("SOUND", "gbombs_5/explosions/special/blackhole_effect.mp3")
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 500000
+		 	Shockwave.ShockwaveIncrement = 20000
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Shocktime          = 12
+		 	Shockwave.Sound              = "gbombs_5/explosions/special/blackhole_effect.mp3"
+		 gb5CommitShockwave() end
 
 		 local ent = ents.Create("gb5_blackhole_pull")
 		 ent:SetPos( pos ) 

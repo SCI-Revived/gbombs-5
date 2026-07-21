@@ -132,30 +132,30 @@ function ENT:Explode()
      if not self.Exploded then return end
 	 local pos = self:LocalToWorld(self:OBBCenter())
 	 
-	 local ent = ents.Create("gb5_shockwave_ent")
-	 ent:SetPos( pos ) 
-	 ent:Spawn()
-	 ent:Activate()
-	 ent:SetVar("DEFAULT_PHYSFORCE", self.DEFAULT_PHYSFORCE)
-	 ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", self.DEFAULT_PHYSFORCE_PLYAIR)
-	 ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", self.DEFAULT_PHYSFORCE_PLYGROUND)
-	 ent:SetVar("GBOWNER", self.GBOWNER)
-	 ent:SetVar("MAX_RANGE",self.ExplosionRadius)
-	 ent:SetVar("SHOCKWAVE_INCREMENT",400)
-	 ent:SetVar("DELAY",0.01)
-	 ent.trace=self.TraceLength
-	 ent.decal=self.Decal
+	 local Shockwave = gb5BeginShockwave() do
+	 	Shockwave.Class              = "gb5_shockwave_ent"
+	 	Shockwave.Origin             = pos
+	 	Shockwave.PhysForce          = self.DEFAULT_PHYSFORCE
+	 	Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
+	 	Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
+	 	Shockwave.Attacker           = self.GBOWNER
+	 	Shockwave.MaxRange           = self.ExplosionRadius
+	 	Shockwave.ShockwaveIncrement = 400
+	 	Shockwave.Delay              = 0.01
+	 	Shockwave.Trace              = self.TraceLength
+	 	Shockwave.Decal              = self.Decal
+	 gb5CommitShockwave() end
 	 timer.Simple(0.2, function() 
-		 local ent = ents.Create("gb5_shockwave_sound_lowsh")
-		 ent:SetPos( pos ) 
-		 ent:Spawn()
-		 ent:Activate()
-		 ent:SetVar("GBOWNER", self.GBOWNER)
-		 ent:SetVar("MAX_RANGE",500000)
-		 ent:SetVar("SHOCKWAVE_INCREMENT",20000)
-		 ent:SetVar("DELAY",0.01)
-		 ent:SetVar("SOUND", table.Random(Photon_Explo))
-		 ent:SetVar("Shocktime", self.Shocktime)
+		 local Shockwave = gb5BeginShockwave() do
+		 	Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+		 	Shockwave.Origin             = pos
+		 	Shockwave.Attacker           = self.GBOWNER
+		 	Shockwave.MaxRange           = 500000
+		 	Shockwave.ShockwaveIncrement = 20000
+		 	Shockwave.Delay              = 0.01
+		 	Shockwave.Sound              = table.Random(Photon_Explo)
+		 	Shockwave.Shocktime          = self.Shocktime
+		 gb5CommitShockwave() end
 	 end)
      if(self:WaterLevel() >= 1) then
 		 local trdata   = {}

@@ -26,20 +26,20 @@ function ENT:SpawnMulti()
 	local x = 1
 	for i=0, (60-1) do
 		x = x + 1
-		local ent = ents.Create("gb5_shockwave_roar")
-		local pos = self:GetPos()
-		ent:SetModel("models/hunter/blocks/cube025x025x025.mdl")
-		ent:SetPos(self:GetPos() + (90*x) * self:GetForward() )
-		ent:Spawn() 
-		ent:SetVar("DEFAULT_PHYSFORCE", 155)
-		ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", 155)
-		ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", 55)
-		ent:SetVar("MAX_RANGE", 400)
-		ent:SetVar("SHOCKWAVE_INCREMENT",100)
-		ent:SetVar("DELAY",0.01)
-		ent.Ignoreowner=true
-		ent.Ignore=self.GBOWNER
-		ent.GBOWNER = self.GBOWNER
+		local Shockwave = gb5BeginShockwave() do
+			Shockwave.Class              = "gb5_shockwave_roar"
+			Shockwave.Model              = "models/hunter/blocks/cube025x025x025.mdl"
+			Shockwave.Origin             = self:GetPos() + (90*x) * self:GetForward()
+			Shockwave.PhysForce          = 155
+			Shockwave.PhysForceAir       = 155
+			Shockwave.PhysForceGround    = 55
+			Shockwave.Attacker           = self.GBOWNER
+			Shockwave.MaxRange           = 400
+			Shockwave.ShockwaveIncrement = 100
+			Shockwave.Delay              = 0.01
+			Shockwave.Ignore             = self.GBOWNER
+			Shockwave.Ignoreowner        = true
+		gb5CommitShockwave() end
 		self.tracehitted=false
 	end
 end
@@ -47,63 +47,64 @@ function ENT:Think()
 	if (SERVER) then
 	if not self:IsValid() then return end
 	self.spawns = self.spawns+2
-	local ent = ents.Create("gb5_shockwave_roar")
 	local pos = self:GetPos()
-	ent:SetModel("models/hunter/blocks/cube025x025x025.mdl")
-	ent:SetPos(self:GetPos() + (90*self.spawns) * self:GetForward() )
-	ent:Spawn() 
-	ent:SetVar("DEFAULT_PHYSFORCE", 155)
-	ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", 155)
-	ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", 55)
-	ent:SetVar("MAX_RANGE", 400)
-	ent:SetVar("SHOCKWAVE_INCREMENT",100)
-	ent:SetVar("DELAY",0.01)
-	ent.Ignoreowner=true
-	ent.Ignore=self.GBOWNER
-	ent.GBOWNER = self.GBOWNER
-	local pl = ent.GBOWNER
+	local Shockwave = gb5BeginShockwave() do
+		Shockwave.Class              = "gb5_shockwave_roar"
+		Shockwave.Model              = "models/hunter/blocks/cube025x025x025.mdl"
+		Shockwave.Origin             = self:GetPos() + (90*self.spawns) * self:GetForward()
+		Shockwave.PhysForce          = 155
+		Shockwave.PhysForceAir       = 155
+		Shockwave.PhysForceGround    = 55
+		Shockwave.Attacker           = self.GBOWNER
+		Shockwave.MaxRange           = 400
+		Shockwave.ShockwaveIncrement = 100
+		Shockwave.Delay              = 0.01
+		Shockwave.Ignore             = self.GBOWNER
+		Shockwave.Ignoreowner        = true
+	gb5CommitShockwave() end
+	local pl = self.GBOWNER
 	local traceRes=pl:GetEyeTrace()
 	self:SetPos( pl:GetPos() ) 
 	self:SetAngles(pl:EyeAngles())
 	if traceRes.HitWorld and self.spawns > 60 then
 		if (traceRes.HitPos:Distance(self:GetPos()) <= 5600) then
 			ParticleEffect("unholyshadowdragon_roar_tracer_hit",traceRes.HitPos,Angle(0,0,0),nil)		
-			local ent = ents.Create("gb5_shockwave_ent")
-			ent:SetPos( pos ) 
-			ent:Spawn()
-			ent:Activate()
-			ent:SetVar("DEFAULT_PHYSFORCE", 500)
-			ent:SetVar("DEFAULT_PHYSFORCE_PLYAIR", 155)
-			ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", 155)
-			ent:SetVar("GBOWNER", self.GBOWNER)
-			ent:SetVar("MAX_RANGE",3800)
-			ent:SetVar("SHOCKWAVE_INCREMENT",200)
-			ent:SetVar("DELAY",0.01)
-			ent.trace=self.TraceLength
-			ent.decal=self.Decal
+			local Shockwave = gb5BeginShockwave() do
+				Shockwave.Class              = "gb5_shockwave_ent"
+				Shockwave.Origin             = pos
+				Shockwave.PhysForce          = 500
+				Shockwave.PhysForceAir       = 155
+				Shockwave.PhysForceGround    = 155
+				Shockwave.Attacker           = self.GBOWNER
+				Shockwave.MaxRange           = 3800
+				Shockwave.ShockwaveIncrement = 200
+				Shockwave.Delay              = 0.01
+				Shockwave.Trace              = self.TraceLength
+				Shockwave.Decal              = self.Decal
+			gb5CommitShockwave() end
 
-			local ent = ents.Create("gb5_shockwave_sound_lowsh")
-			ent:SetPos( pos ) 
-			ent:Spawn()
-			ent:Activate()
-			ent:SetVar("GBOWNER", self.GBOWNER)
-			ent:SetVar("MAX_RANGE",50000)
-			if GetConVar("gb5_sound_speed"):GetInt() == 0 then
-				ent:SetVar("SHOCKWAVE_INCREMENT",200)
-			elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
-				ent:SetVar("SHOCKWAVE_INCREMENT",300)
-			elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
-				ent:SetVar("SHOCKWAVE_INCREMENT",400)
-			elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
-				ent:SetVar("SHOCKWAVE_INCREMENT",100)
-			elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
-				ent:SetVar("SHOCKWAVE_INCREMENT",50)
-			else
-				ent:SetVar("SHOCKWAVE_INCREMENT",200)
-			end
-			ent:SetVar("DELAY",0.01)
-			ent:SetVar("SOUND", "gbombs_5/explosions/special/explosion_1.mp3")
-			ent:SetVar("Shocktime", 2)
+			local Shockwave = gb5BeginShockwave() do
+				Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+				Shockwave.Origin             = pos
+				Shockwave.Attacker           = self.GBOWNER
+				Shockwave.MaxRange           = 50000
+				if GetConVar("gb5_sound_speed"):GetInt() == 0 then
+					Shockwave.ShockwaveIncrement = 200
+				elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
+					Shockwave.ShockwaveIncrement = 300
+				elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
+					Shockwave.ShockwaveIncrement = 400
+				elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
+					Shockwave.ShockwaveIncrement = 100
+				elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
+					Shockwave.ShockwaveIncrement = 50
+				else
+					Shockwave.ShockwaveIncrement = 200
+				end
+				Shockwave.Delay              = 0.01
+				Shockwave.Sound              = "gbombs_5/explosions/special/explosion_1.mp3"
+				Shockwave.Shocktime          = 2
+			gb5CommitShockwave() end
 			self:Remove()
 		end
 	end

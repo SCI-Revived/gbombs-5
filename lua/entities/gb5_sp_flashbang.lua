@@ -115,16 +115,16 @@ function ENT:Explode()
 	self:SetMoveType( MOVETYPE_NONE )
 	self:SetMaterial("phoenix_storms/glass")
 	self:SetModel("models/hunter/plates/plate.mdl")
-	local ent = ents.Create("gb5_shockwave_sound_lowsh")
-	ent:SetPos( pos ) 
-	ent:Spawn()
-	ent:Activate()
-	ent:SetVar("GBOWNER", self.GBOWNER)
-	ent:SetVar("MAX_RANGE",1500)
-	ent:SetVar("SHOCKWAVE_INCREMENT",100)
-	ent:SetVar("DELAY",0.01)
-	ent:SetVar("Shocktime",2)
-	ent:SetVar("SOUND", "gbombs_5/explosions/light_bomb/flashbang.mp3")
+	local Shockwave = gb5BeginShockwave() do
+		Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+		Shockwave.Origin             = pos
+		Shockwave.Attacker           = self.GBOWNER
+		Shockwave.MaxRange           = 1500
+		Shockwave.ShockwaveIncrement = 100
+		Shockwave.Delay              = 0.01
+		Shockwave.Shocktime          = 2
+		Shockwave.Sound              = "gbombs_5/explosions/light_bomb/flashbang.mp3"
+	gb5CommitShockwave() end
 	for k, v in pairs(gb5FastSphereSearch(pos,500)) do
 		if v:IsPlayer() then
 			local dist = (self:GetPos() - v:GetPos()):Length()

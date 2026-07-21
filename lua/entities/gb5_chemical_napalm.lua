@@ -55,28 +55,28 @@ function ENT:Explode()
 	ent:Spawn()
 	ent:Activate()
 	ent:SetVar("GBOWNER",self.GBOWNER)
- 	local ent = ents.Create("gb5_shockwave_sound_lowsh")
-	ent:SetPos( pos ) 
-	ent:Spawn()
-	ent:Activate()
-	ent:SetVar("GBOWNER", self.GBOWNER)
-	ent:SetVar("MAX_RANGE",50000)
-	if GetConVar("gb5_sound_speed"):GetInt() == 0 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",200)
-	elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",300)
-	elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",400)
-	elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",100)
-	elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
-		ent:SetVar("SHOCKWAVE_INCREMENT",50)
-	else
-		ent:SetVar("SHOCKWAVE_INCREMENT",200)
-	end
-	ent:SetVar("DELAY",0.01)
-	ent:SetVar("SOUND", table.Random(ExploSnds))
-	ent:SetVar("Shocktime", self.Shocktime)
+ 	local Shockwave = gb5BeginShockwave() do
+ 		Shockwave.Class              = "gb5_shockwave_sound_lowsh"
+ 		Shockwave.Origin             = pos
+ 		Shockwave.Attacker           = self.GBOWNER
+ 		Shockwave.MaxRange           = 50000
+		if GetConVar("gb5_sound_speed"):GetInt() == 0 then
+ 		Shockwave.ShockwaveIncrement = 200
+		elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
+ 		Shockwave.ShockwaveIncrement = 300
+		elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
+ 		Shockwave.ShockwaveIncrement = 400
+		elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
+ 		Shockwave.ShockwaveIncrement = 100
+		elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
+ 		Shockwave.ShockwaveIncrement = 50
+		else
+ 		Shockwave.ShockwaveIncrement = 200
+		end
+ 		Shockwave.Delay              = 0.01
+ 		Shockwave.Sound              = table.Random(ExploSnds)
+ 		Shockwave.Shocktime          = self.Shocktime
+ 	gb5CommitShockwave() end
 	for k, v in pairs(gb5FastSphereSearch(pos,1700)) do
 		if v:IsPlayer() or v:IsNPC() then
 			if v:GetClass()=="npc_helicopter" then return end
