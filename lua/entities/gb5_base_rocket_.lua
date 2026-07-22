@@ -334,14 +334,21 @@ function ENT:PhysicsCollide(data, physobj)
 	if SelfTbl.Exploded then return end
 	if SelfTbl.Life <= 0 then return end
 
-	if gb5_fragility:GetInt() >= 1 and data.Speed > SelfTbl.ImpactSpeed and (not SelfTbl.Armed and not SelfTbl.Arming) then
-		self:EmitSound(damagesound)
-		self:Arm()
+	if gb5_fragility:GetInt() >= 1 then
+		if(not self.Fired and not self.Burnt and not self.Arming and not self.Armed ) and (data.Speed > self.ImpactSpeed * 5) then --and not self.Arming and not self.Armed
+			if(math.random(0,9) == 1) then
+				self:Launch()
+				self:EmitSound(damagesound)
+			else
+				self:Arm()
+				self:EmitSound(damagesound)
+			end
+		end
 	end
 
 	if not SelfTbl.Armed then return end
 
-	if SelfTbl.ShouldExplodeOnImpact and data.Speed > SelfTbl.ImpactSpeed then
+	if data.Speed > SelfTbl.ImpactSpeed then
 		self:EnqueueExplosion()
 	end
 end
