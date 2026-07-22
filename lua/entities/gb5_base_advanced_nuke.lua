@@ -2,6 +2,10 @@ AddCSLuaFile()
 
 DEFINE_BASECLASS( "base_anim" )
 
+local gb5_easyuse 				= GetConVar("gb5_easyuse")
+local gb5_deleteconstraints 	= GetConVar("gb5_deleteconstraints")
+local gb5_explosion_damage 		= GetConVar("gb5_explosion_damage")
+
 local Models = {}
 Models[1]                            =  "testmodel"
 
@@ -10,97 +14,113 @@ ExploSnds[1]                         =  "BaseExplosionEffect.Sound"
 
 local damagesound                    =  "weapons/rpg/shotdown.wav"
 
-ENT.Spawnable		            	 =  false         
-ENT.AdminSpawnable		             =  false       
+ENT.Spawnable		            	 =  false
+ENT.AdminSpawnable		             =  false
 
-ENT.PrintName		                 =  "Name"        
-ENT.Author			                 =  "natsu"      
-ENT.Contact			                 =  "natsu" 
-ENT.Category                         =  ""            
+ENT.PrintName		                 =  "Name"
+ENT.Author			                 =  "natsu"
+ENT.Contact			                 =  "natsu"
+ENT.Category                         =  ""
 
-ENT.Model                            =  ""            
-ENT.Effect                           =  ""            
-ENT.EffectAir                        =  ""           
-ENT.EffectWater                      =  ""            
-ENT.ExplosionSound                   =  ""            
-ENT.ArmSound                         =  ""            
-ENT.ActivationSound                  =  ""    
-ENT.NBCEntity                        =  ""   
-ENT.GASENTITY                        =  ""   
-ENT.PARALIZentITY                   =  ""   
+ENT.Model                            =  ""
+ENT.Effect                           =  ""
+ENT.EffectAir                        =  ""
+ENT.EffectWater                      =  ""
+ENT.ExplosionSound                   =  ""
+ENT.ArmSound                         =  ""
+ENT.ActivationSound                  =  ""
+ENT.NBCEntity                        =  ""
+ENT.GASENTITY                        =  ""
+ENT.PARALIZentITY                    =  ""
 
-ENT.ShouldUnweld                     =  false         
-ENT.ShouldIgnite                     =  false         
-ENT.ShouldExplodeOnImpact            =  false         
-ENT.Flamable                         =  false        
-ENT.UseRandomSounds                  =  false         
-ENT.UseRandomModels                  =  false                
-ENT.Timed                            =  false    
-ENT.IsParalize                       =  false     
+ENT.ShouldUnweld                     =  false
+ENT.ShouldIgnite                     =  false
+ENT.ShouldExplodeOnImpact            =  false
+ENT.Flamable                         =  false
+ENT.UseRandomSounds                  =  false
+ENT.UseRandomModels                  =  false
+ENT.Timed                            =  false
+ENT.IsParalize                       =  false
 ENT.IsNBC                            =  false
 ENT.IsGas                            =  false
 
-ENT.ExplosionDamage                  =  10000             
-ENT.PhysForce                        =  0             
-ENT.ExplosionRadius                  =  1000            
-ENT.SpecialRadius                    =  0             
-ENT.MaxIgnitionTime                  =  5             
-ENT.Life                             =  20           
-ENT.MaxDelay                         =  2             
-ENT.TraceLength                      =  500           
-ENT.ImpactSpeed                      =  500          
-ENT.Mass                             =  0                     
-ENT.ArmDelay                         =  2                      
+ENT.ExplosionDamage                  =  10000
+ENT.PhysForce                        =  0
+ENT.ExplosionRadius                  =  1000
+ENT.SpecialRadius                    =  0
+ENT.MaxIgnitionTime                  =  5
+ENT.Life                             =  20
+ENT.MaxDelay                         =  2
+ENT.TraceLength                      =  500
+ENT.ImpactSpeed                      =  500
+ENT.Mass                             =  0
+ENT.ArmDelay                         =  2
 ENT.Timer                            =  0
 
-ENT.GBOWNER                          =  nil            
+ENT.GBOWNER                          =  nil
 
 function ENT:Initialize()
-if (SERVER) then
-	self:LoadModel()
-	self:PhysicsInit( SOLID_VPHYSICS )
-	self:SetSolid( SOLID_VPHYSICS )
-	self:SetMoveType( MOVETYPE_VPHYSICS )
-	self:SetUseType( ONOFF_USE ) 
-	local phys = self:GetPhysicsObject()
-	local skincount = self:SkinCount()
-	if (phys:IsValid()) then
-		phys:SetMass(self.Mass)
-		phys:Wake()
-	end
-	if (skincount > 0) then
-		self:SetSkin(math.random(0,skincount))
-	end
-	self.Armed    = false
-	self.Exploded = false
-	self.Used     = false
-	self.Arming   = false
-	if not (WireAddon == nil) then self.Inputs   = Wire_CreateInputs(self, { "Arm", "Detonate" }) end
+	if SERVER then
+		self:LoadModel()
+
+		self:PhysicsInit(SOLID_VPHYSICS)
+		self:SetSolid(SOLID_VPHYSICS)
+		self:SetMoveType(MOVETYPE_VPHYSICS)
+		self:SetUseType(ONOFF_USE)
+
+		local phys = self:GetPhysicsObject()
+		local skincount = self:SkinCount()
+
+		if IsValid(phys) then
+			phys:SetMass(self.Mass)
+			phys:Wake()
+		end
+
+		if skincount > 0 then
+			self:SetSkin(math.random(0,skincount))
+		end
+
+		self.Armed    = false
+		self.Exploded = false
+		self.Used     = false
+		self.Arming   = false
+
+		if WireAddon ~= nil then self.Inputs = Wire_CreateInputs(self, { "Arm", "Detonate" }) end
 	end
 end
 
-function ENT:TriggerInput(iname, value)
-	if (not self:IsValid()) then return end
-	if (iname == "Detonate") then
-		if (value >= 1) then
-			if (not self.Exploded and self.Armed) then
-				timer.Simple(math.Rand(0,self.MaxDelay),function()
-					if not self:IsValid() then return end
-					self.Exploded = true
-					self:Explode()
-				end)
-			end
-		end
+local InputFunctions = {}
+function InputFunctions:Arm(Value)
+	if Value < 1 then return end
+
+	local SelfTbl = self:GetTable()
+
+	if not SelfTbl.Exploded and not SelfTbl.Armed and not SelfTbl.Arming then
+		self:EmitSound(SelfTbl.ActivationSound)
+		self:Arm()
 	end
-	if (iname == "Arm") then
-		if (value >= 1) then
-			if (not self.Exploded and not self.Armed and not self.Arming) then
-				self:EmitSound(self.ActivationSound)
-				self:Arm()
-			end 
-		end
-	end		 
-end 
+end
+
+function InputFunctions:Detonate(Value)
+	if Value < 1 then return end
+
+	local SelfTbl = self:GetTable()
+
+	if (not SelfTbl.Exploded and SelfTbl.Armed) then
+		timer.Simple(math.Rand(0,SelfTbl.MaxDelay),function()
+			if not IsValid(self) then return end
+			SelfTbl.Exploded = true
+			self:Explode()
+		end)
+	end
+end
+
+function ENT:TriggerInput(Name, Value)
+	if not IsValid(self) then return end
+
+	local Fn = InputFunctions[Name]
+	if Fn then Fn(self, Value) end
+end
 
 function ENT:LoadModel()
 	if self.UseRandomModels then
@@ -109,8 +129,6 @@ function ENT:LoadModel()
 		self:SetModel(self.Model)
 	end
 end
-	
-
 
 function ENT:Explode()
 	if not self.Exploded then return end
@@ -121,7 +139,7 @@ function ENT:Explode()
 			while i < v:GetPhysicsObjectCount() do
 			local phys = v:GetPhysicsObjectNum(i)
 			if (phys:IsValid()) then
-				local mass = phys:GetMass()
+				-- local mass = phys:GetMass()
 				local F_ang = self.PhysForce
 				local dist = (pos - v:GetPos()):Length()
 				local relation = math.Clamp((self.SpecialRadius - dist) / self.SpecialRadius, 0, 1)
@@ -137,14 +155,15 @@ function ENT:Explode()
 			end
 		end
 	end
-	for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius/2)) do
-		if(GetConVar("gb5_deleteconstraints"):GetInt() >= 1) then
-			if self.ShouldUnweld then
-				if v:IsValid() and v:GetPhysicsObject():IsValid() then
-					constraint.RemoveAll(v)
-				end
-			end
+
+	local deleteConstraints = gb5_deleteconstraints:GetInt() >= 1
+	local explosionDamage = gb5_explosion_damage:GetInt() >= 1
+
+	for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius / 2)) do
+		if deleteConstraints and self.ShouldUnweld and IsValid(v) and IsValid(v:GetPhysicsObject()) then
+			constraint.RemoveAll(v)
 		end
+
 		if self.ShouldIgnite then
 			if v:IsOnFire() then
 				v:Extinguish()
@@ -152,11 +171,11 @@ function ENT:Explode()
 			v:Ignite(math.Rand(self.MaxIgnitionTime-2,self.MaxIgnitionTime),5)
 		end
 	end
-	if(GetConVar("gb5_explosion_damage"):GetInt() >= 1) then
-		if not (self.GBOWNER==nil) then
-			util.BlastDamage(self, self.GBOWNER, pos, self.ExplosionRadius, self.ExplosionDamage)
-		end
+
+	if explosionDamage and IsValid(self.GBOWNER) then
+		util.BlastDamage(self, self.GBOWNER, pos, self.ExplosionRadius, self.ExplosionDamage)
 	end
+
 	if(self:WaterLevel() >= 1) then
 		local trdata   = {}
 		local trlength = Vector(0,0,9000)
@@ -273,22 +292,18 @@ function ENT:Arm()
 			end)
 		end
 	end)
-end	 
+end
 
-function ENT:Use( activator, caller )
-	if(self.Exploded) then return end
-	if(self:IsValid()) then
-		if(GetConVar("gb5_easyuse"):GetInt() >= 1) then
-			if(not self.Armed) then
-				if(not self.Exploded) and (not self.Used) then
-					if(activator:IsPlayer()) then
-						self:EmitSound(self.ActivationSound)
-						self:Arm()
-					end
-				end
-			end
-		end
-	end
+function ENT:Use(Activator, Caller)
+	if not IsValid(self) then return end
+	local SelfTbl = self:GetTable()
+
+	if gb5_easyuse:GetInt() < 1 then return end
+	if SelfTbl.Armed or SelfTbl.Exploded or SelfTbl.Used then return end
+	if not IsValid(Activator) or not Activator:IsPlayer() then return end
+
+	self:EmitSound(self.ActivationSound)
+	self:Arm()
 end
 
 function ENT:OnRemove()
@@ -296,19 +311,19 @@ function ENT:OnRemove()
 	-- Wire_Remove(self)
 end
 
-if ( CLIENT ) then
+if CLIENT then
 	function ENT:Draw()
 		self:DrawModel()
-		if not (WireAddon == nil) then Wire_Render(self.Entity) end
+		if WireAddon ~= nil then Wire_Render(self) end
 	end
 end
 
 function ENT:OnRestore()
-	Wire_Restored(self.Entity)
+	Wire_Restored(self)
 end
 
 function ENT:BuildDupeInfo()
-	return WireLib.BuildDupeInfo(self.Entity)
+	return WireLib.BuildDupeInfo(self)
 end
 
 function ENT:ApplyDupeInfo(ply, ent, info, GetEntByID)
@@ -317,8 +332,8 @@ end
 
 function ENT:PreEntityCopy()
 	local DupeInfo = self:BuildDupeInfo()
-	if(DupeInfo) then
-		duplicator.StoreEntityModifier(self,"WireDupeInfo",DupeInfo)
+	if DupeInfo then
+		duplicator.StoreEntityModifier(self, "WireDupeInfo", DupeInfo)
 	end
 end
 
