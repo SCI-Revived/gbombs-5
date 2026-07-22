@@ -289,10 +289,12 @@ end
 -- This should run after physics, some bombs spawn physics-changing entities in callbacks which
 -- likely will cause issues down the line (hence why I (March) put this here, instead of trying to change the cluster bomb itself)
 function ENT:EnqueueExplosion()
+	self.GBOMBS_EXPLODING_SOON = true
 	timer.Simple(0, function()
 		if not IsValid(self) then return end
 		if self.Exploded then return end -- double check
 
+		self.GBOMBS_EXPLODING_SOON = false
 		self.Exploded = true
 		self:Explode()
 	end)

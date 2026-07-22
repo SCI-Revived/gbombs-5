@@ -100,3 +100,10 @@ function gb5CommitShockwave()
     EntTable.Ignore                         = CurrentShockwaveBuilder.Ignore             or EntTable.Ignore
     EntTable.Ignoreowner                    = CurrentShockwaveBuilder.Ignoreowner        or EntTable.Ignoreowner
 end
+
+hook.Add("EntityTakeDamage", "GBombs_BlockPhysicsDamageFromExplodingBombs", function(Target, DamageInfo)
+    local Inflictor = DamageInfo:GetInflictor()
+    if IsValid(Inflictor) and Inflictor.GBOMBS_EXPLODING_SOON then
+        return true
+    end
+end)

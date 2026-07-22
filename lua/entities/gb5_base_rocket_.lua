@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
-local gb5_fragility 	= GetConVar("gb5_fragility")
-local gb5_easyuse	 	= GetConVar("gb5_easyuse")
+local gb5_fragility 		= GetConVar("gb5_fragility")
+local gb5_easyuse	 		= GetConVar("gb5_easyuse")
 
 -- Sounds
 sound.Add( {
@@ -327,29 +327,37 @@ function ENT:OnTakeDamage(dmginfo)
 end
 
 
-function ENT:PhysicsCollide( data, physobj )
+function ENT:PhysicsCollide(data, physobj)
 	if not IsValid(self) then return end
-	if self.Exploded then return end
-	if self.Life <= 0 then return end
-	
-	if gb5_fragility:GetInt() >= 1 then
-		if(not self.Fired and not self.Burnt and not self.Arming and not self.Armed ) and (data.Speed > self.ImpactSpeed * 5) then --and not self.Arming and not self.Armed
-			if(math.random(0,9) == 1) then
-				self:Launch()
-				self:EmitSound(damagesound)
-			else
-				self:Arm()
-				self:EmitSound(damagesound)
-			end
-		end
+
+	local SelfTbl = self:GetTable()
+	if SelfTbl.Exploded then return end
+	if SelfTbl.Life <= 0 then return end
+
+	if gb5_fragility:GetInt() >= 1 and data.Speed > SelfTbl.ImpactSpeed and (not SelfTbl.Armed and not SelfTbl.Arming) then
+		self:EmitSound(damagesound)
+		self:Arm()
 	end
 
-	if(not self.Armed) then return end
-		
-	if (data.Speed > self.ImpactSpeed )then
+	if not SelfTbl.Armed then return end
+
+	if SelfTbl.ShouldExplodeOnImpact and data.Speed > SelfTbl.ImpactSpeed then
+		self:EnqueueExplosion()
+	end
+end
+
+-- This should run after physics, some bombs spawn physics-changing entities in callbacks which
+-- likely will cause issues down the line (hence why I (March) put this here, instead of trying to change the cluster bomb itself)
+function ENT:EnqueueExplosion()
+	self.GBOMBS_EXPLODING_SOON = true
+	timer.Simple(0, function()
+		if not IsValid(self) then return end
+		if self.Exploded then return end -- double check
+
+		self.GBOMBS_EXPLODING_SOON = false
 		self.Exploded = true
 		self:Explode()
-	end
+	end)
 end
 
 function ENT:Launch()

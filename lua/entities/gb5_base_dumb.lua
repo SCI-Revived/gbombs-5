@@ -3,7 +3,9 @@ DEFINE_BASECLASS("base_anim")
 
 util.PrecacheSound("BaseExplosionEffect.Sound")
 
-local gb5_sound_speed = GetConVar("gb5_sound_speed")
+local gb5_sound_speed 		= GetConVar("gb5_sound_speed")
+local gb5_fragility 		= GetConVar("gb5_fragility")
+
 
 local ExploSnds = {}
 ExploSnds[1]                         =  "BaseExplosionEffect.Sound"
@@ -217,13 +219,30 @@ end
 
 function ENT:PhysicsCollide(data, physobj)
 	if not IsValid(self) then return end
-	if self.Exploded then return end
-	if self.Life <= 0 then return end
 
-	if self.ShouldExplodeOnImpact and (data.Speed > self.ImpactSpeed ) then
+	local SelfTbl = self:GetTable()
+	if SelfTbl.Exploded then return end
+	if SelfTbl.Life <= 0 then return end
+
+	if not SelfTbl.Armed then return end
+
+	if SelfTbl.ShouldExplodeOnImpact and data.Speed > SelfTbl.ImpactSpeed then
+		self:EnqueueExplosion()
+	end
+end
+
+-- This should run after physics, some bombs spawn physics-changing entities in callbacks which
+-- likely will cause issues down the line (hence why I (March) put this here, instead of trying to change the cluster bomb itself)
+function ENT:EnqueueExplosion()
+	self.GBOMBS_EXPLODING_SOON = true
+	timer.Simple(0, function()
+		if not IsValid(self) then return end
+		if self.Exploded then return end -- double check
+
+		self.GBOMBS_EXPLODING_SOON = false
 		self.Exploded = true
 		self:Explode()
-	end
+	end)
 end
 
 function ENT:OnRemove()

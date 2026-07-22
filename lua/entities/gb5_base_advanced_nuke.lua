@@ -5,6 +5,7 @@ DEFINE_BASECLASS( "base_anim" )
 local gb5_easyuse 				= GetConVar("gb5_easyuse")
 local gb5_deleteconstraints 	= GetConVar("gb5_deleteconstraints")
 local gb5_explosion_damage 		= GetConVar("gb5_explosion_damage")
+local gb5_fragility 			= GetConVar("gb5_fragility")
 
 local Models = {}
 Models[1]                            =  "testmodel"
@@ -226,7 +227,7 @@ function ENT:OnTakeDamage(dmginfo)
 	local phys = self:GetPhysicsObject()
 	
 	if (self.Life <= 0) then return end
-	if(GetConVar("gb5_fragility"):GetInt() >= 1) then
+	if gb5_fragility:GetInt() >= 1 then
 		if(not self.Armed and not self.Arming) then
 			self:Arm()
 		end
@@ -249,25 +250,37 @@ function ENT:OnTakeDamage(dmginfo)
 	end
 end
 
-function ENT:PhysicsCollide( data, physobj )
-	if(self.Exploded) then return end
-	if(not self:IsValid()) then return end
-	if(self.Life <= 0) then return end
-	if(GetConVar("gb5_fragility"):GetInt() >= 1) then
-		if(data.Speed > self.ImpactSpeed) then
-			if(not self.Armed and not self.Arming) then
-				self:EmitSound(damagesound)
-				self:Arm()
-			end
-		end
+function ENT:PhysicsCollide(data, physobj)
+	if not IsValid(self) then return end
+
+	local SelfTbl = self:GetTable()
+	if SelfTbl.Exploded then return end
+	if SelfTbl.Life <= 0 then return end
+
+	if gb5_fragility:GetInt() >= 1 and data.Speed > SelfTbl.ImpactSpeed and (not SelfTbl.Armed and not SelfTbl.Arming) then
+		self:EmitSound(damagesound)
+		self:Arm()
 	end
-	if(not self.Armed) then return end
-	if self.ShouldExplodeOnImpact then
-		if (data.Speed > self.ImpactSpeed ) then
-			self.Exploded = true
-			self:Explode()
-		end
+
+	if not SelfTbl.Armed then return end
+
+	if SelfTbl.ShouldExplodeOnImpact and data.Speed > SelfTbl.ImpactSpeed then
+		self:EnqueueExplosion()
 	end
+end
+
+-- This should run after physics, some bombs spawn physics-changing entities in callbacks which
+-- likely will cause issues down the line (hence why I (March) put this here, instead of trying to change the cluster bomb itself)
+function ENT:EnqueueExplosion()
+	self.GBOMBS_EXPLODING_SOON = true
+	timer.Simple(0, function()
+		if not IsValid(self) then return end
+		if self.Exploded then return end -- double check
+
+		self.GBOMBS_EXPLODING_SOON = false
+		self.Exploded = true
+		self:Explode()
+	end)
 end
 
 function ENT:Arm()
