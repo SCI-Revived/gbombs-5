@@ -34,9 +34,9 @@ ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  99
+ENT.ExplosionDamage                  =  40
 ENT.PhysForce                        =  32
-ENT.ExplosionRadius                  =  1555
+ENT.ExplosionRadius                  =  500
 ENT.SpecialRadius                    =  575
 ENT.MaxIgnitionTime                  =  0 
 ENT.Life                             =  20                                  
