@@ -23,7 +23,7 @@ ENT.Flamable                         =  false
 ENT.UseRandomSounds                  =  false
 ENT.Timed                            =  true
 
-ENT.ExplosionDamage                  =  200
+ENT.ExplosionDamage                  =  100
 ENT.PhysForce                        =  200
 ENT.ExplosionRadius                  =  100
 ENT.SpecialRadius                    =  500
