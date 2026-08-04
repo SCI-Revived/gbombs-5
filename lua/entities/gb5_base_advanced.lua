@@ -230,7 +230,11 @@ function ENT:Explode()
 	for k, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
 		local phys = self:GetPhysicsObject()
 		if phys:IsValid() then
-			v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)
+			if v:IsPlayer() then
+				v:TakeDamage(self.ExplosionDamage * GetConVar("gb5_player_damage_scale"):GetFloat(), self.GBOWNER, self)
+			else
+				v:TakeDamage(self.ExplosionDamage * GetConVar("gb5_prop_damage_scale"):GetFloat(), self.GBOWNER, self)
+			end
 		end
 	end
 
