@@ -98,6 +98,8 @@ ENT.IsNBC                            =  false
 
 ENT.ExplosionDamage                  =  0            
 ENT.ExplosionRadius                  =  0             
+ENT.PlayerDamageScale                =  1
+ENT.PropDamageScale                  =  1
 ENT.PhysForce                        =  0             
 ENT.SpecialRadius                    =  0             
 ENT.MaxIgnitionTime                  =  5             

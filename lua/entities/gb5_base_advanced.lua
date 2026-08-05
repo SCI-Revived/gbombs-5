@@ -40,6 +40,8 @@ ENT.IsNBC                            =  false
 ENT.ExplosionDamage                  =  5000
 ENT.PhysForce                        =  0
 ENT.ExplosionRadius                  =  255
+ENT.PlayerDamageScale                =  1
+ENT.PropDamageScale                  =  1
 ENT.SpecialRadius                    =  0
 ENT.MaxIgnitionTime                  =  5
 ENT.Life                             =  20
@@ -231,9 +233,9 @@ function ENT:Explode()
 		local phys = self:GetPhysicsObject()
 		if phys:IsValid() then
 			if v:IsPlayer() then
-				v:TakeDamage(self.ExplosionDamage * GetConVar("gb5_player_damage_scale"):GetFloat(), self.GBOWNER, self)
+				v:TakeDamage(self.ExplosionDamage * GetConVar("gb5_player_damage_scale"):GetFloat() * self.PlayerDamageScale, self.GBOWNER, self)
 			else
-				v:TakeDamage(self.ExplosionDamage * GetConVar("gb5_prop_damage_scale"):GetFloat(), self.GBOWNER, self)
+				v:TakeDamage(self.ExplosionDamage * GetConVar("gb5_prop_damage_scale"):GetFloat() * self.PropDamageScale, self.GBOWNER, self)
 			end
 		end
 	end
