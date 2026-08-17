@@ -32,11 +32,11 @@ ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  99
+ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  600
-ENT.ExplosionRadius                  =  2550
+ENT.ExplosionRadius                  =  1500
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  1
+ENT.PropDamageScale                  =  400 -- 20,000 damage. Use for especially strong bases.
 ENT.SpecialRadius                    =  575
 ENT.MaxIgnitionTime                  =  0 
 ENT.Life                             =  20                                  

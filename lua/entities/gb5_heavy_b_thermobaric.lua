@@ -34,11 +34,11 @@ ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  99
+ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  32
-ENT.ExplosionRadius                  =  2155
-ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  1
+ENT.ExplosionRadius                  =  1800 -- Bigger blast because thermobaric.
+ENT.PlayerDamageScale                =  1.2 -- 60 player damage, standard for heavy bombs.
+ENT.PropDamageScale                  =  100 -- 5000 damage.
 ENT.SpecialRadius                    =  575
 ENT.MaxIgnitionTime                  =  0 
 ENT.Life                             =  20                                  

@@ -31,11 +31,11 @@ ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  99
+ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  2600
-ENT.ExplosionRadius                  =  2050
+ENT.ExplosionRadius                  =  1000 -- This is the British Tall Boy earthquake bomb from WW2, it was meant to pierce the ground and then explode. That is replicated in the smaller blast radius.
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  1
+ENT.PropDamageScale                  =  200 -- 10,000 damage, meant to replicate the earthquake bomb's purpose of destroying structures with seismic waves.
 ENT.SpecialRadius                    =  575
 ENT.MaxIgnitionTime                  =  0 
 ENT.Life                             =  20                                  

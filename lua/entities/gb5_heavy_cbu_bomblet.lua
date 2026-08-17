@@ -32,11 +32,11 @@ ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  99
+ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  600
-ENT.ExplosionRadius                  =  300
+ENT.ExplosionRadius                  =  500
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  1
+ENT.PropDamageScale                  =  0.5 -- Anti-Infantry, not recommended against buildings.
 ENT.SpecialRadius                    =  575
 ENT.MaxIgnitionTime                  =  0 
 ENT.Life                             =  98                                 

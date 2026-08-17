@@ -25,7 +25,7 @@ ENT.Flamable                         =  false
 ENT.UseRandomSounds                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  200
+ENT.ExplosionDamage                  =  1 -- The damage is in the payload, not the bomb itself.
 ENT.PhysForce                        =  200
 ENT.ExplosionRadius                  =  100
 ENT.PlayerDamageScale                =  1
