@@ -135,8 +135,8 @@ end
 
 local gb5_sound_speed = GetConVar("gb5_sound_speed")
 
-ENT.ShockwaveClass        = nil    -- child overrides
-ENT.AppliesExplosionDamage = true  -- child overrides
+ENT.ShockwaveClass         = nil
+ENT.AppliesExplosionDamage = true
 
 function ENT:GetExplosionSound() return self.ExplosionSound end
 
