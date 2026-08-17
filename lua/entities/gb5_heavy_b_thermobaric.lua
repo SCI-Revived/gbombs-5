@@ -68,7 +68,7 @@ function ENT:Explode()
    	 	Shockwave.PhysForceAir       = 50
    	 	Shockwave.PhysForceGround    = 50
    	 	Shockwave.Attacker           = self.GBOWNER
-   	 	Shockwave.MaxRange           = 2100
+   	 	Shockwave.MaxRange           = 2800
    	 	Shockwave.ShockwaveIncrement = 100
    	 	Shockwave.Delay              = 0.01
    	 	Shockwave.Trace              = self.TraceLength
