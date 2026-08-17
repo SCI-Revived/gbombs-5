@@ -135,112 +135,105 @@ end
 
 local gb5_sound_speed = GetConVar("gb5_sound_speed")
 
+ENT.ShockwaveClass        = nil    -- child overrides
+ENT.AppliesExplosionDamage = true  -- child overrides
+
+function ENT:GetExplosionSound() return self.ExplosionSound end
+
+function ENT:DoExplosionEffects(pos)
+    if self:WaterLevel() >= 1 then
+        local trlength = Vector(0, 0, 9000)
+
+        local tr = util.TraceLine({
+            start  = pos,
+            endpos = pos + trlength,
+            filter = self,
+        })
+
+        local tr2 = util.TraceLine({
+            start  = tr.HitPos,
+            endpos = pos - trlength,
+            filter = self,
+            mask   = MASK_WATER + CONTENTS_TRANSLUCENT,
+        })
+
+        if tr2.Hit then
+            ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
+        end
+    else
+        local trace = util.TraceLine({
+            start  = pos,
+            endpos = pos - Vector(0, 0, self.TraceLength),
+            filter = self,
+        })
+
+        if trace.HitWorld then
+            ParticleEffect(self.Effect, pos, angle_zero, nil)
+        else
+            ParticleEffect(self.EffectAir, pos, angle_zero, nil)
+        end
+    end
+end
+
+function ENT:DoNBC()
+    if not self.IsNBC then return end
+    local nbc = ents.Create(self.NBCEntity)
+    nbc:SetVar("GBOWNER", self.GBOWNER)
+    nbc:SetPos(self:GetPos())
+    nbc:Spawn()
+    nbc:Activate()
+end
+
+function ENT:ApplyExplosionDamage(pos)
+    if not self.AppliesExplosionDamage then return end
+    for _, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
+        if self:GetPhysicsObject():IsValid() then
+            local scale = v:IsPlayer()
+                and GetConVar("gb5_player_damage_scale"):GetFloat() * self.PlayerDamageScale
+                or  GetConVar("gb5_prop_damage_scale"):GetFloat() * self.PropDamageScale
+            v:TakeDamage(self.ExplosionDamage * scale, self.GBOWNER, self)
+        end
+    end
+end
+
+local SND_INCREMENT = { [-2]=50, [-1]=100, [0]=200, [1]=300, [2]=400 }
+
 function ENT:Explode()
-	if not self.Exploded then return end
-	local pos = self:LocalToWorld(self:OBBCenter())
-	local EntTable 					= self:GetTable()
+    if not self.Exploded then return end
+    local pos = self:LocalToWorld(self:OBBCenter())
 
-	local Shockwave
-	do Shockwave = gb5BeginShockwave()
-		Shockwave.Origin				= pos
-		Shockwave.PhysForce 			= EntTable.DEFAULT_PHYSFORCE
-		Shockwave.PhysForceAir 			= EntTable.DEFAULT_PHYSFORCE_PLYAIR
-		Shockwave.PhysForceGround 		= EntTable.DEFAULT_PHYSFORCE_PLYGROUND
-		Shockwave.Attacker 				= EntTable.GBOWNER
-		Shockwave.MaxRange 				= EntTable.ExplosionRadius
-		Shockwave.ShockwaveIncrement 	= 100
-		Shockwave.Delay 				= 0.01
-		Shockwave.Trace 				= EntTable.TraceLength
-		Shockwave.Decal 				= EntTable.Decal
-	gb5CommitShockwave() end
+    local Shockwave = gb5BeginShockwave() do
+        Shockwave.Class = self.ShockwaveClass
+        Shockwave.Origin = pos
+        Shockwave.PhysForce, Shockwave.PhysForceAir, Shockwave.PhysForceGround =
+            self.DEFAULT_PHYSFORCE, self.DEFAULT_PHYSFORCE_PLYAIR, self.DEFAULT_PHYSFORCE_PLYGROUND
+        Shockwave.Attacker = self.GBOWNER
+        Shockwave.MaxRange = self.ExplosionRadius
+        Shockwave.ShockwaveIncrement = 100
+        Shockwave.Delay = 0.01
+        Shockwave.Trace = self.TraceLength
+        Shockwave.Decal = self.Decal
+    gb5CommitShockwave() end
 
-	do Shockwave = gb5BeginShockwave()
-		Shockwave.Origin				= pos
-		Shockwave.Class 				= "gb5_shockwave_sound_lowsh"
-		Shockwave.PhysForce 			= EntTable.DEFAULT_PHYSFORCE
-		Shockwave.PhysForceAir 			= EntTable.DEFAULT_PHYSFORCE_PLYAIR
-		Shockwave.PhysForceGround 		= EntTable.DEFAULT_PHYSFORCE_PLYGROUND
-		Shockwave.Attacker 				= EntTable.GBOWNER
-		Shockwave.MaxRange 				= 50000
+    local Shockwave = gb5BeginShockwave() do
+        Shockwave.Class = "gb5_shockwave_sound_lowsh"
+        Shockwave.Origin = pos
+        Shockwave.PhysForce, Shockwave.PhysForceAir, Shockwave.PhysForceGround =
+            self.DEFAULT_PHYSFORCE, self.DEFAULT_PHYSFORCE_PLYAIR, self.DEFAULT_PHYSFORCE_PLYGROUND
+        Shockwave.Attacker = self.GBOWNER
+        Shockwave.MaxRange = 50000
+        Shockwave.ShockwaveIncrement = SND_INCREMENT[GetConVar("gb5_sound_speed"):GetInt()] or 200
+        Shockwave.Delay = 0.01
+        Shockwave.Sound = self:GetExplosionSound()
+        Shockwave.Trace = self.TraceLength
+        Shockwave.Decal = self.Decal
+        Shockwave.Shocktime = self.Shocktime
+    gb5CommitShockwave() end
 
-		local SoundSpeed = gb5_sound_speed:GetInt()
-
-		if SoundSpeed == 0 then
-			Shockwave.ShockwaveIncrement = 200
-		elseif SoundSpeed == 1 then
-			Shockwave.ShockwaveIncrement = 300
-		elseif SoundSpeed == 2 then
-			Shockwave.ShockwaveIncrement = 400
-		elseif SoundSpeed == -1 then
-			Shockwave.ShockwaveIncrement = 100
-		elseif SoundSpeed == -2 then
-			Shockwave.ShockwaveIncrement = 50
-		else
-			Shockwave.ShockwaveIncrement = 200
-		end
-
-		Shockwave.Delay 				= 0.01
-		Shockwave.Sound					= EntTable.ExplosionSound
-		Shockwave.Trace 				= EntTable.TraceLength
-		Shockwave.Decal 				= EntTable.Decal
-		Shockwave.Shocktime 			= EntTable.Shocktime
-	gb5CommitShockwave() end
-
-	if self:WaterLevel() >= 1 then
-		local trdata   = {}
-		local trlength = Vector(0,0,9000)
-
-		trdata.start   = pos
-		trdata.endpos  = trdata.start + trlength
-		trdata.filter  = self
-
-		local tr = util.TraceLine(trdata)
-		local trdat2   = {}
-		trdat2.start   = tr.HitPos
-		trdat2.endpos  = trdata.start - trlength
-		trdat2.filter  = self
-		trdat2.mask    = MASK_WATER + CONTENTS_TRANSLUCENT
-
-		local tr2 = util.TraceLine(trdat2)
-
-		if tr2.Hit then
-			ParticleEffect(self.EffectWater, tr2.HitPos, angle_zero, nil)
-		end
-	else
-		local tracedata    = {}
-		tracedata.start    = pos
-		tracedata.endpos   = tracedata.start - Vector(0, 0, self.TraceLength)
-		tracedata.filter   = self
-
-		local trace = util.TraceLine(tracedata)
-
-		if trace.HitWorld then
-			ParticleEffect(self.Effect,pos,angle_zero,nil)
-		else
-			ParticleEffect(self.EffectAir,pos,angle_zero,nil)
-		end
-	end
-
-	if self.IsNBC then
-		local nbc = ents.Create(self.NBCEntity)
-		nbc:SetVar("GBOWNER",self.GBOWNER)
-		nbc:SetPos(self:GetPos())
-		nbc:Spawn()
-		nbc:Activate()
-	end
-
-	for k, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
-		local phys = self:GetPhysicsObject()
-		if phys:IsValid() then
-			if v:IsPlayer() then
-				v:TakeDamage(self.ExplosionDamage * GetConVar("gb5_player_damage_scale"):GetFloat() * self.PlayerDamageScale, self.GBOWNER, self)
-			else
-				v:TakeDamage(self.ExplosionDamage * GetConVar("gb5_prop_damage_scale"):GetFloat() * self.PropDamageScale, self.GBOWNER, self)
-			end
-		end
-	end
-
-	self:Remove()
+    self:DoExplosionEffects(pos)
+    self:DoNBC()
+    self:ApplyExplosionDamage(pos)
+    self:Remove()
 end
 
 local gb5_fragility = GetConVar("gb5_fragility")
