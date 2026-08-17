@@ -33,7 +33,7 @@ ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  50
-ENT.PhysForce                        =  600
+ENT.PhysForce                        =  2600
 ENT.ExplosionRadius                  =  3000
 ENT.PlayerDamageScale                =  1
 ENT.PropDamageScale                  =  400 -- 20,000 damage. Use for especially strong bases.
