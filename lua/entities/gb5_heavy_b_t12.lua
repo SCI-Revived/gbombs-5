@@ -7,6 +7,7 @@ ExploSnds[1]                         =  "gbombs_5/explosions/heavy_bomb/t_12.mp3
 ExploSnds[2]                         =  "gbombs_5/explosions/heavy_bomb/explosion_big_6.mp3"
 ExploSnds[3]                         =  "gbombs_5/explosions/heavy_bomb/explosion_big_7.mp3"
 
+
 ENT.Spawnable		            	 =  true         
 ENT.AdminSpawnable		             =  true 
 
@@ -63,7 +64,7 @@ function ENT:Explode()
 		Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
 		Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
 		Shockwave.Attacker           = self.GBOWNER
-		Shockwave.MaxRange           = 3000
+		Shockwave.MaxRange           = self.ExplosionRadius
 		Shockwave.ShockwaveIncrement = 100
 		Shockwave.Delay              = 0.01
 		Shockwave.Trace              = self.TraceLength
