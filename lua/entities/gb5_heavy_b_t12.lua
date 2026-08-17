@@ -7,7 +7,6 @@ ExploSnds[1]                         =  "gbombs_5/explosions/heavy_bomb/t_12.mp3
 ExploSnds[2]                         =  "gbombs_5/explosions/heavy_bomb/explosion_big_6.mp3"
 ExploSnds[3]                         =  "gbombs_5/explosions/heavy_bomb/explosion_big_7.mp3"
 
-
 ENT.Spawnable		            	 =  true         
 ENT.AdminSpawnable		             =  true 
 
@@ -94,6 +93,28 @@ function ENT:Explode()
 		Shockwave.Shocktime          = self.Shocktime
 	gb5CommitShockwave() end
 	
+	for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius)) do
+		if (v:IsValid() or v:IsPlayer()) then
+			if v:IsValid() and v:GetPhysicsObject():IsValid() then
+				v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
+			end
+		 end
+	     if v:IsValid() and not v:IsNPC() then
+			 local i = 0
+		     while i < v:GetPhysicsObjectCount() do
+			 local phys = v:GetPhysicsObjectNum(i)
+			 i = i + 1
+			 end
+		 end
+	 end
+	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius/2)) do
+		 if self.ShouldIgnite then
+			 if v:IsOnFire() then
+				 v:Extinguish()
+			 end
+			 v:Ignite(math.Rand(self.MaxIgnitionTime-2,self.MaxIgnitionTime),5)
+		 end
+     end
 	 if(self:WaterLevel() >= 1) then
 		 local trdata   = {}
 		 local trlength = Vector(0,0,9000)

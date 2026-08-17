@@ -73,6 +73,10 @@ function ENT:Explode()
    	 	Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
    	 	Shockwave.Attacker           = self.GBOWNER
    	 	Shockwave.MaxRange           = self.ExplosionRadius
+		Shockwave.ShockwaveIncrement = 100
+		Shockwave.Delay              = 0.01
+		Shockwave.Trace              = self.TraceLength
+		Shockwave.Decal              = self.Decal
 		if GetConVar("gb5_sound_speed"):GetInt() == 0 then
    	 	Shockwave.ShockwaveIncrement = 200
 		elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
