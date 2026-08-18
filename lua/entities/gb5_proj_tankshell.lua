@@ -12,10 +12,10 @@ ENT.Category                         =  "GB5: Artillery"
 
 ENT.Model                            =  "models/starchick971/tankshell.mdl"
 
-ENT.ExplosionDamage                  =  1000
+ENT.ExplosionDamage                  =  40
 ENT.ExplosionRadius                  =  250
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  1
+ENT.PropDamageScale                  =  20 -- 800 damage
 ENT.FuelBurnoutTime                  =  0.23
 
 gb5RegisterSpawnFunction( ENT, 16 )
