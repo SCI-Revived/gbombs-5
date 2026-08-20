@@ -109,6 +109,7 @@ function ENT:Think()
 		end
 		
 		self.TimePassed=self.TimePassed+0.01
+		self.Life = math.min(self.Life or 10, 10)
 		self:Initialise_Static()
 		self:ColorShift()
 		self:MoveUp() 
