@@ -171,22 +171,25 @@ function ENT:Explode()
 	 local physo = self:GetPhysicsObject()
 	 physo:Wake()
 	 physo:EnableMotion(true)
-	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius*3)) do
-		 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
-			if v:IsValid() and v:GetPhysicsObject():IsValid() then
-				v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
-				v:Ignite(12,0)
-			end
+
+	 -- Deal blast damage the same scaled way light/medium bombs do. The outward
+	 -- push is untouched: it comes from the gb5_shockwave_ent shockwaves above.
+	 gb5ApplyExplosionDamage(self, pos)
+
+	 -- Set everything in the fireball on fire.
+	 for k, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
+		 if v.GBombs_InForcefield == false or v.GBombs_InForcefield == nil then
+			 v:Ignite(12, 0)
 		 end
 	 end
-	 for k, v in pairs(gb5FastSphereSearch(pos,self.SpecialRadius)) do
-		if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
-			if v:IsPlayer() and not v:IsNPC() then
-			    v:SetModel("models/Humans/Charple04.mdl")
-				ParticleEffectAttach("nuke_player_vaporize_fatman",PATTACH_POINT_FOLLOW,v,0) 
-				v:Kill()
-			end
-		 end
+
+	 -- Vaporise players caught in the inner radius (charred model + effect kill).
+	 for k, v in pairs(gb5FastSphereSearch(pos, self.SpecialRadius)) do
+		if v:IsPlayer() and not v:IsNPC() and (v.GBombs_InForcefield == false or v.GBombs_InForcefield == nil) then
+			v:SetModel("models/Humans/Charple04.mdl")
+			ParticleEffectAttach("nuke_player_vaporize_fatman", PATTACH_POINT_FOLLOW, v, 0)
+			v:Kill()
+		end
 	 end
 	
   	 timer.Simple(2, function()
