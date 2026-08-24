@@ -62,8 +62,8 @@ end
 gb5RegisterSpawnFunction( ENT, 16 )
 
 function ENT:Explode()
-     if not self.Exploded then return end
-	 local pos = self:LocalToWorld(self:OBBCenter())
+	if not self.Exploded then return end
+	local pos = self:LocalToWorld(self:OBBCenter())
 
 	 gb5CommitBlastShockwave({
 	 	Origin          = pos,
