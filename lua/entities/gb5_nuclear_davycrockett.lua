@@ -99,19 +99,7 @@ if SERVER then
 		 	Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
 		 	Shockwave.Attacker           = self.GBOWNER
 		 	Shockwave.MaxRange           = 4000
-			if GetConVar("gb5_sound_speed"):GetInt() == 0 then
-		 	Shockwave.ShockwaveIncrement = 200
-			elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
-		 	Shockwave.ShockwaveIncrement = 300
-			elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
-		 	Shockwave.ShockwaveIncrement = 400
-			elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
-		 	Shockwave.ShockwaveIncrement = 100
-			elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
-		 	Shockwave.ShockwaveIncrement = 50
-			else
-		 	Shockwave.ShockwaveIncrement = 200
-			end
+			Shockwave.ShockwaveIncrement = gb5SoundShockwaveIncrement()
 		 	Shockwave.Delay              = 0.01
 		 	Shockwave.Sound              = "gbombs_5/explosions/nuclear/abomb.mp3"
 		 	Shockwave.Trace              = self.TraceLength
@@ -123,19 +111,7 @@ if SERVER then
 			Shockwave.Origin             = pos
 			Shockwave.Attacker           = self.GBOWNER
 			Shockwave.MaxRange           = 12000
-			if GetConVar("gb5_sound_speed"):GetInt() == 0 then
-			Shockwave.ShockwaveIncrement = 300
-			elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
-			Shockwave.ShockwaveIncrement = 400
-			elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
-			Shockwave.ShockwaveIncrement = 500
-			elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
-			Shockwave.ShockwaveIncrement = 200
-			elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
-			Shockwave.ShockwaveIncrement = 100
-			else
-			Shockwave.ShockwaveIncrement = 300
-			end
+			Shockwave.ShockwaveIncrement = gb5SoundShockwaveIncrement()
 			Shockwave.Delay              = 0.01
 			Shockwave.Sound              = self.ExplosionSound
 		gb5CommitShockwave() end
@@ -147,19 +123,7 @@ if SERVER then
 			Shockwave.Origin             = pos
 			Shockwave.Attacker           = self.GBOWNER
 			Shockwave.MaxRange           = 50000
-			if GetConVar("gb5_sound_speed"):GetInt() == 0 then
-			Shockwave.ShockwaveIncrement = 200
-			elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
-			Shockwave.ShockwaveIncrement = 300
-			elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
-			Shockwave.ShockwaveIncrement = 400
-			elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
-			Shockwave.ShockwaveIncrement = 100
-			elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
-			Shockwave.ShockwaveIncrement = 50
-			else
-			Shockwave.ShockwaveIncrement = 200
-			end
+			Shockwave.ShockwaveIncrement = gb5SoundShockwaveIncrement()
 			Shockwave.Delay              = 0.01
 			Shockwave.Shocktime          = 4
 			Shockwave.Sound              = "gbombs_5/explosions/nuclear/davy_explosion.mp3"
@@ -182,13 +146,13 @@ if SERVER then
 		 local physo = self:GetPhysicsObject()
 		 physo:Wake()
 		 physo:EnableMotion(true)
-		 for k, v in pairs(gb5FastSphereSearch(pos,2000)) do
-			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
-				if v:IsValid() and v:GetPhysicsObject():IsValid() then
-					v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
-					v:Ignite(4,0)
-				end
-			 end
+		 -- Scaled blast damage (same model as light/medium bombs). The outward
+		 -- push still comes entirely from the gb5_shockwave_ent shockwaves.
+		 gb5ApplyExplosionDamage(self, pos)
+		 for k, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
+		 	if v.GBombs_InForcefield == false or v.GBombs_InForcefield == nil then
+		 		v:Ignite(4, 0)
+		 	end
 		 end
 		 for k, v in pairs(gb5FastSphereSearch(pos,350)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then

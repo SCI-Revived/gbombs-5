@@ -91,33 +91,18 @@ function ENT:Explode()
 		Shockwave.Origin             = pos
 		Shockwave.Attacker           = self.GBOWNER
 		Shockwave.MaxRange           = 50000
-		if GetConVar("gb5_sound_speed"):GetInt() == 0 then
-		Shockwave.ShockwaveIncrement = 200
-		elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
-		Shockwave.ShockwaveIncrement = 300
-		elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
-		Shockwave.ShockwaveIncrement = 400
-		elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
-		Shockwave.ShockwaveIncrement = 100
-		elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
-		Shockwave.ShockwaveIncrement = 50
-		else
-		Shockwave.ShockwaveIncrement = 200
-		end
+		Shockwave.ShockwaveIncrement = gb5SoundShockwaveIncrement()
 		Shockwave.Delay              = 0.01
 		Shockwave.Sound              = self.ExplosionSound
 		Shockwave.Shocktime          = self.Shocktime
 	gb5CommitShockwave() end
 
-	 for k, v in pairs(gb5FastSphereSearch(pos,1200)) do
-		if v:IsPlayer() or v:IsNPC() then
-			v:Ignite(2,0)
-		else
-			 local phys = self:GetPhysicsObject()
-			 if phys:IsValid() then
-				v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
-			 end
-		end
+	 gb5ApplyExplosionDamage(self, pos)
+	 -- Set living things caught in the blast on fire.
+	 for k, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
+	 	if v:IsPlayer() or v:IsNPC() then
+	 		v:Ignite(2, 0)
+	 	end
 	 end
 	 
 	 local Shockwave = gb5BeginShockwave() do

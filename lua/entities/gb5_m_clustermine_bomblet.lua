@@ -104,19 +104,7 @@ function ENT:Explode()
 	 	Shockwave.Origin             = pos
 	 	Shockwave.Attacker           = self.GBOWNER
 	 	Shockwave.MaxRange           = 50000
-		if GetConVar("gb5_sound_speed"):GetInt() == 0 then
-	 	Shockwave.ShockwaveIncrement = 200
-		elseif GetConVar("gb5_sound_speed"):GetInt()== 1 then
-	 	Shockwave.ShockwaveIncrement = 300
-		elseif GetConVar("gb5_sound_speed"):GetInt() == 2 then
-	 	Shockwave.ShockwaveIncrement = 400
-		elseif GetConVar("gb5_sound_speed"):GetInt() == -1 then
-	 	Shockwave.ShockwaveIncrement = 100
-		elseif GetConVar("gb5_sound_speed"):GetInt() == -2 then
-	 	Shockwave.ShockwaveIncrement = 50
-		else
-	 	Shockwave.ShockwaveIncrement = 200
-		end
+		Shockwave.ShockwaveIncrement = gb5SoundShockwaveIncrement()
 	 	Shockwave.Delay              = 0.01
 	 	Shockwave.Sound              = self.ExplosionSound
 	 	Shockwave.Shocktime          = self.Shocktime

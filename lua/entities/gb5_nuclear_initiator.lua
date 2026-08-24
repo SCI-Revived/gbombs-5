@@ -164,14 +164,14 @@ function ENT:Explode()
 		local physo = self:GetPhysicsObject()
 		physo:Wake()
 		physo:EnableMotion(true)
-		for k, v in pairs(gb5FastSphereSearch(pos,2000)) do
-			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
-				if v:IsValid() and v:GetPhysicsObject():IsValid() then
-					v:TakeDamage(self.ExplosionDamage, self.GBOWNER, self)		-- Added TakeDamage to the explosion so things like vehicles (simfphys for example) also take damage
-					v:Ignite(4,0)
-				end
+		-- Scaled blast damage (same model as light/medium bombs). The outward
+		-- push still comes entirely from the gb5_shockwave_ent shockwaves.
+		gb5ApplyExplosionDamage(self, pos)
+		for k, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
+			if v.GBombs_InForcefield == false or v.GBombs_InForcefield == nil then
+				v:Ignite(4, 0)
 			end
-		 end
+		end
 		 for k, v in pairs(gb5FastSphereSearch(pos,500)) do
 			if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() and not v:IsNPC() then
