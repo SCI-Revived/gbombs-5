@@ -26,7 +26,7 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  2500
-ENT.ExplosionRadius                  =  1250
+ENT.ExplosionRadius                  =  1000
 ENT.PlayerDamageScale                =  1
 ENT.PropDamageScale                  =  600 -- 30,000 Damage, for when you really want to blow a base open in one (or two) explosions.
 ENT.SpecialRadius                    =  2000
