@@ -41,7 +41,7 @@ ENT.Timer                            =  0
 
 ENT.DEFAULT_PHYSFORCE                = 255
 ENT.DEFAULT_PHYSFORCE_PLYAIR         = 25
-ENT.DEFAULT_PHYSFORCE_PLYGROUND         = 2555
+ENT.DEFAULT_PHYSFORCE_PLYGROUND         = 25
 ENT.GBOWNER                          =  nil     
 ENT.Decal                            = "nuke_small"
 
@@ -98,7 +98,7 @@ if SERVER then
 		 	Shockwave.PhysForceAir       = self.DEFAULT_PHYSFORCE_PLYAIR
 		 	Shockwave.PhysForceGround    = self.DEFAULT_PHYSFORCE_PLYGROUND
 		 	Shockwave.Attacker           = self.GBOWNER
-		 	Shockwave.MaxRange           = 4000
+		 	Shockwave.MaxRange           = 1000
 			Shockwave.ShockwaveIncrement = gb5SoundShockwaveIncrement()
 		 	Shockwave.Delay              = 0.01
 		 	Shockwave.Sound              = "gbombs_5/explosions/nuclear/abomb.mp3"
@@ -154,7 +154,7 @@ if SERVER then
 		 		v:Ignite(4, 0)
 		 	end
 		 end
-		 for k, v in pairs(gb5FastSphereSearch(pos,350)) do
+		 for k, v in pairs(gb5FastSphereSearch(pos,250)) do
 			 if (v:IsValid() or v:IsPlayer()) and (v.GBombs_InForcefield==false or v.GBombs_InForcefield==nil) then
 				if v:IsPlayer() and not v:IsNPC() then
 					v:SetModel("models/Humans/Charple04.mdl")
