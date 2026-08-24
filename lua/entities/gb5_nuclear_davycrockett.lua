@@ -24,11 +24,11 @@ ENT.Flamable                         =  false
 ENT.UseRandomSounds                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  500
+ENT.ExplosionDamage                  =  80
 ENT.PhysForce                        =  2500
 ENT.ExplosionRadius                  =  8000
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  1
+ENT.PropDamageScale                  =  375 -- 30,000 Damage, for when you really want to blow a base open in one (or two) explosions.
 ENT.SpecialRadius                    =  2000
 ENT.MaxIgnitionTime                  =  0
 ENT.Life                             =  25                                  
