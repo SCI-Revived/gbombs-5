@@ -135,16 +135,7 @@ function ENT:Think()
 						v:SetVelocity(F_dir)
 					end
 
-					if v:IsPlayer() and v:IsOnGround() then
-						v:SetMoveType(MOVETYPE_WALK)
-						v:TakeDamageInfo(dmg)
-						--local mass = phys:GetMass()
-						--local F_ang = EntTable.DEFAULT_PHYSFORCE_PLYGROUND
-						--local dist = (pos - v:GetPos()):Length()
-						--local relation = math.Clamp((EntTable.CURRENTRANGE - dist) / EntTable.CURRENTRANGE, 0, 1)
-						local F_dir = (v:GetPos() - pos):GetNormal() * EntTable.DEFAULT_PHYSFORCE_PLYGROUND
-						v:SetVelocity(F_dir)
-					end
+		
 
 					if (v:IsNPC()) then
 						v:TakeDamageInfo(dmg)
