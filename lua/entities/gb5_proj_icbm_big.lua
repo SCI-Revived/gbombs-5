@@ -28,7 +28,7 @@ ENT.UseRandomSounds                  =  false
 ENT.SmartLaunch                      =  false
 ENT.Timed                            =  false 
 
-ENT.ExplosionDamage                  =  150
+ENT.ExplosionDamage                  =  30
 ENT.ExplosionRadius                  =  1250             
 ENT.PlayerDamageScale                =  1
 ENT.PropDamageScale                  =  1

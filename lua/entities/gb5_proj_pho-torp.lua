@@ -45,10 +45,10 @@ ENT.UseRandomSounds                  =  true
 ENT.SmartLaunch                      =  true  
 ENT.Timed                            =  false 
 
-ENT.ExplosionDamage                  =  150
-ENT.ExplosionRadius                  =  11000             
+ENT.ExplosionDamage                  =  50
+ENT.ExplosionRadius                  =  1500             
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  1
+ENT.PropDamageScale                  =  20 -- 1000 Damage, placeholder.
 ENT.PhysForce                        =  300             
 ENT.SpecialRadius                    =  225           
 ENT.MaxIgnitionTime                  =  0           

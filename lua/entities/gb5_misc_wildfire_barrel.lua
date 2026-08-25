@@ -34,7 +34,7 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  25         
 ENT.PhysForce                        =  52           
-ENT.ExplosionRadius                  =  2552           
+ENT.ExplosionRadius                  =  1500           
 ENT.PlayerDamageScale                =  1
 ENT.PropDamageScale                  =  1
 ENT.SpecialRadius                    =  252            
