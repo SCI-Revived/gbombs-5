@@ -26,7 +26,7 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  2500
-ENT.ExplosionRadius                  =  1000 -- As much as I want this to be a fun base wrecker, going beyond 1500 radius is gonna be a problem for bases.
+ENT.ExplosionRadius                  =  700 -- As much as I want this to be a fun base wrecker, going beyond 1500 radius is gonna be a problem for bases.
 ENT.PlayerDamageScale                =  1
 ENT.PropDamageScale                  =  600 -- 30,000 Damage, for when you really want to blow a base open in one (or two) explosions.
 ENT.SpecialRadius                    =  2000
