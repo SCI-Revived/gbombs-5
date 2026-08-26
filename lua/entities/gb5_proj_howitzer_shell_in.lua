@@ -106,7 +106,7 @@ function ENT:Explode()
 	 -- Set living things caught in the blast on fire.
 	 for k, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
 	 	if v:IsPlayer() or v:IsNPC() then
-	 		v:Ignite(6, 0)
+	 		v:Ignite(10, 0)
 	 	end
 	 end
 	if(self:WaterLevel() >= 1) then
