@@ -15,7 +15,7 @@ ENT.Model                            =  "models/starchick971/tankshell_170.mdl"
 ENT.ExplosionDamage                  =  50
 ENT.ExplosionRadius                  =  350
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  40 -- 2000 Damage
+ENT.PropDamageScale                  =  40 -- 1000 Damage
 ENT.FuelBurnoutTime                  =  0.18
 
 gb5RegisterSpawnFunction( ENT, 16 )
