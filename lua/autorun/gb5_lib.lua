@@ -160,10 +160,27 @@ function gb5CommitSoundShockwave(opts)
     gb5CommitShockwave()
 end
 
--- The one true damage model, matching how light/medium bombs have always dealt
--- damage. Players and everything else are scaled independently by the server
--- convars and the per-bomb *DamageScale fields. radius defaults to the bomb's
--- ExplosionRadius. Returns nothing.
+-- Explosion damage with distance falloff and partial obstruction.
+--
+-- Distance:
+--   Damage falls off quadratically as the target gets farther from the
+--   explosion. A target at the edge of the radius receives 0 damage.
+--
+-- Obstruction:
+--   Props/entities between the explosion and the target reduce the damage
+--   rather than completely blocking it. Each obstruction multiplies the
+--   remaining damage by 0.65, with a minimum obstruction multiplier of 0.10.
+--
+-- Examples:
+--   0 obstructions -> 100% damage
+--   1 obstruction  -> 65% damage
+--   2 obstructions -> 42.25% damage
+--   3 obstructions -> 27.46% damage
+--   4 obstructions -> 17.85% damage
+--   5+             -> 10% damage minimum
+--
+-- Players and non-player entities continue to use their separate damage
+-- scales as before.
 function gb5ApplyExplosionDamage(self, pos, radius)
     radius = radius or self.ExplosionRadius
 
@@ -174,10 +191,79 @@ function gb5ApplyExplosionDamage(self, pos, radius)
     local propScale   = GetConVar("gb5_prop_damage_scale"):GetFloat()   * self.PropDamageScale
 
     for _, v in pairs(gb5FastSphereSearch(pos, radius)) do
+        if not IsValid(v) then continue end
+
+        -- Calculate distance from the explosion.
+        local targetPos = v:WorldSpaceCenter()
+        local distance = pos:Distance(targetPos)
+
+        if distance >= radius then
+            continue
+        end
+
+        -- Quadratic distance falloff.
+        -- 0 distance = 100% damage
+        -- 50% radius = 75% damage
+        -- 75% radius = 43.75% damage
+        -- 100% radius = 0% damage
+        local distanceFraction = distance / radius
+        local distanceScale = 1 - (distanceFraction * distanceFraction)
+
+        -- Count physical obstructions between the explosion and the target.
+        --
+        -- The target itself and the exploding entity are ignored. Each
+        -- intervening entity reduces the remaining blast damage by 35%.
+        local obstructionScale = 1
+        local traceStart = pos
+        local traceEnd = targetPos
+
+        local traceFilter = { self, v }
+
+        while obstructionScale > 0.10 do
+            local tr = util.TraceLine({
+                start  = traceStart,
+                endpos = traceEnd,
+                filter = traceFilter,
+                mask   = MASK_SOLID
+            })
+
+            if not tr.Hit then
+                break
+            end
+
+            -- The world completely blocks further propagation along this
+            -- particular path. We still leave a small amount of blast damage
+            -- rather than making LOS binary.
+            if tr.HitWorld then
+                obstructionScale = math.max(obstructionScale * 0.35, 0.10)
+                break
+            end
+
+            if not IsValid(tr.Entity) then
+                break
+            end
+
+            -- An entity is obstructing the blast.
+            obstructionScale = math.max(obstructionScale * 0.65, 0.10)
+
+            -- Continue tracing beyond this obstruction so layered props
+            -- progressively reduce the remaining blast energy.
+            table.insert(traceFilter, tr.Entity)
+
+            local direction = (traceEnd - traceStart):GetNormalized()
+
+            -- Move slightly beyond the entity that was hit to avoid hitting
+            -- the exact same surface again.
+            traceStart = tr.HitPos + direction * 1
+        end
+
+        local damageScale = distanceScale * obstructionScale
+        local damage = self.ExplosionDamage * damageScale
+
         if v:IsPlayer() then
-            v:TakeDamage(self.ExplosionDamage * playerScale, self.GBOWNER, self)
+            v:TakeDamage(damage * playerScale, self.GBOWNER, self)
         else
-            v:TakeDamage(self.ExplosionDamage * propScale, self.GBOWNER, self)
+            v:TakeDamage(damage * propScale, self.GBOWNER, self)
         end
     end
 end
@@ -191,13 +277,13 @@ function gb5DoImpactParticles(self, pos)
         local trlength = Vector(0, 0, 9000)
 
         local tr = util.TraceLine({
-            start  = pos,
+            start = pos,
             endpos = pos + trlength,
             filter = self,
         })
 
         local tr2 = util.TraceLine({
-            start  = tr.HitPos,
+            start = tr.HitPos,
             endpos = pos - trlength,
             filter = self,
             mask   = MASK_WATER + CONTENTS_TRANSLUCENT,
@@ -211,7 +297,7 @@ function gb5DoImpactParticles(self, pos)
     end
 
     local trace = util.TraceLine({
-        start  = pos,
+        start = pos,
         endpos = pos - Vector(0, 0, self.TraceLength),
         filter = self,
     })
