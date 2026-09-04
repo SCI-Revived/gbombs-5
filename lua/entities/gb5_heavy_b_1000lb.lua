@@ -33,9 +33,9 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  2600
-ENT.ExplosionRadius                  =  1200
+ENT.ExplosionRadius                  =  1300
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  200 -- 10,000 damage, meant to replicate the earthquake bomb's purpose of destroying structures with seismic waves.
+ENT.PropDamageScale                  =  220 -- 11,000 damage, meant to replicate the earthquake bomb's purpose of destroying structures with seismic waves.
 ENT.SpecialRadius                    =  575
 ENT.MaxIgnitionTime                  =  0 
 ENT.Life                             =  20                                  
