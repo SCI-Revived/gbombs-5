@@ -111,7 +111,7 @@ end)
 -- Ignite()'s fFireSize/fFireDuration only affect the flame's visuals and how
 -- long it burns for - the per-tick damage the engine's entityflame deals is
 -- fixed regardless of those args. Scale it down here instead.
-local GBOMBS_BURN_DAMAGE_SCALE = 0.25
+local GBOMBS_BURN_DAMAGE_SCALE = 0.05
 hook.Add("EntityTakeDamage", "GBombs_ScaleBurnDamage", function(Target, DamageInfo)
     if Target:IsPlayer() and DamageInfo:IsDamageType(DMG_BURN) then
         DamageInfo:ScaleDamage(GBOMBS_BURN_DAMAGE_SCALE)
