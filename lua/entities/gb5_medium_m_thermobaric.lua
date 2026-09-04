@@ -34,7 +34,7 @@ ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  40
+ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  32
 ENT.ExplosionRadius                  =  800 -- Similar damage to mk82 but bigger blast, it's a thermobaric anyway.
 ENT.PlayerDamageScale                =  1
