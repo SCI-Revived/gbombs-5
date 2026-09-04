@@ -26,9 +26,9 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  2500
-ENT.ExplosionRadius                  =  1050
+ENT.ExplosionRadius                  =  1200
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  600 -- 30,000 Damage, for when you really want to blow a base open in one (or two) explosions.
+ENT.PropDamageScale                  =  700 -- 35,000 Damage, for when you really want to blow a base open in one (or two) explosions.
 ENT.SpecialRadius                    =  2000
 ENT.MaxIgnitionTime                  =  0
 ENT.Life                             =  25                                  
@@ -151,7 +151,7 @@ if SERVER then
 		 gb5ApplyExplosionDamage(self, pos)
 		 for k, v in pairs(gb5FastSphereSearch(pos, self.ExplosionRadius)) do
 		 	if v.GBombs_InForcefield == false or v.GBombs_InForcefield == nil then
-		 		v:Ignite(4, 0)
+		 		v:Ignite(2, 5)
 		 	end
 		 end
 		 for k, v in pairs(gb5FastSphereSearch(pos,250)) do
