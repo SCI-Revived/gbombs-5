@@ -108,6 +108,16 @@ hook.Add("EntityTakeDamage", "GBombs_BlockPhysicsDamageFromExplodingBombs", func
     end
 end)
 
+-- Ignite()'s fFireSize/fFireDuration only affect the flame's visuals and how
+-- long it burns for - the per-tick damage the engine's entityflame deals is
+-- fixed regardless of those args. Scale it down here instead.
+local GBOMBS_BURN_DAMAGE_SCALE = 0.25
+hook.Add("EntityTakeDamage", "GBombs_ScaleBurnDamage", function(Target, DamageInfo)
+    if Target:IsPlayer() and DamageInfo:IsDamageType(DMG_BURN) then
+        DamageInfo:ScaleDamage(GBOMBS_BURN_DAMAGE_SCALE)
+    end
+end)
+
 -- Maps the gb5_sound_speed convar to a shockwave increment. Was duplicated as a
 -- 6-branch if/else in every bomb that spawned a sound shockwave.
 function gb5SoundShockwaveIncrement()
