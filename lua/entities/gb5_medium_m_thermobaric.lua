@@ -36,7 +36,7 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  32
-ENT.ExplosionRadius                  =  800 -- Similar damage to mk82 but bigger blast, it's a thermobaric anyway.
+ENT.ExplosionRadius                  =  1000 -- Similar damage to mk82 but bigger blast, it's a thermobaric anyway.
 ENT.PlayerDamageScale                =  1
 ENT.PropDamageScale                  =  37.5 -- 1500 damage
 ENT.SpecialRadius                    =  575

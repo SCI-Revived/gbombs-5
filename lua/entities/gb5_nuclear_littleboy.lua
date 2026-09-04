@@ -26,9 +26,9 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  500
 ENT.PhysForce                        =  2500
-ENT.ExplosionRadius                  =  7500 -- 15 KT Yield. If a nuke gets dropped on your base, you should be completely fucked.
+ENT.ExplosionRadius                  =  10000 -- 15 KT Yield. If a nuke gets dropped on your base, you should be completely fucked.
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  200 -- 100,000 Damage
+ENT.PropDamageScale                  =  2000 -- 1,000,000 Damage
 ENT.SpecialRadius                    =  2000
 ENT.MaxIgnitionTime                  =  0
 ENT.Life                             =  25                                  

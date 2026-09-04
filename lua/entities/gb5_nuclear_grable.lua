@@ -26,9 +26,9 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  500
 ENT.PhysForce                        =  2500
-ENT.ExplosionRadius                  =  7500 -- The real Atomic Annie had a 15 KT yield.
+ENT.ExplosionRadius                  =  10000 -- The real Atomic Annie had a 15 KT yield.
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  200 -- 100,000 Damage, just to be sure.
+ENT.PropDamageScale                  =  2000 -- 1,000,000 Damage, just to be sure.
 ENT.SpecialRadius                    =  2000
 ENT.MaxIgnitionTime                  =  0
 ENT.Life                             =  25                                  

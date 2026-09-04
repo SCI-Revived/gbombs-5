@@ -36,7 +36,7 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  2600
-ENT.ExplosionRadius                  =  500
+ENT.ExplosionRadius                  =  750
 ENT.PlayerDamageScale                =  1  -- Same damage as a mk82 but slightly more player damage.
 ENT.PropDamageScale                  =  20 -- 1000 damage
 ENT.SpecialRadius                    =  575

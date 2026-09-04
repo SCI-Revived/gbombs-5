@@ -33,7 +33,7 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  60
 ENT.PhysForce                        =  2600
-ENT.ExplosionRadius                  =  700 -- Because it does the work of 2 Howitzer shells in 1, smaller blast compared to other bombs for balance.
+ENT.ExplosionRadius                  =  1050 -- Because it does the work of 2 Howitzer shells in 1, smaller blast compared to other bombs for balance.
 ENT.PlayerDamageScale                =  1
 ENT.PropDamageScale                  =  50 -- 3000 damage
 ENT.SpecialRadius                    =  575
