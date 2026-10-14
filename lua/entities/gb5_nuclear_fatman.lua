@@ -27,9 +27,9 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  500
 ENT.PhysForce                        =  6500
-ENT.ExplosionRadius                  =  10000
+ENT.ExplosionRadius                  =  15000
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  200
+ENT.PropDamageScale                  =  2000
 ENT.SpecialRadius                    =  3000
 ENT.MaxIgnitionTime                  =  0
 ENT.Life                             =  25                                  

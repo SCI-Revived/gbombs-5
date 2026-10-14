@@ -27,9 +27,9 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  500
 ENT.PhysForce                        =  2500
-ENT.ExplosionRadius                  =  35000
+ENT.ExplosionRadius                  =  35000 -- A bomb that will destroy all opps.
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  200 -- I dont think this bomb will ever be dropped unless something special happens.
+ENT.PropDamageScale                  =  20000
 ENT.SpecialRadius                    =  5000
 ENT.MaxIgnitionTime                  =  0
 ENT.Life                             =  25                                  
