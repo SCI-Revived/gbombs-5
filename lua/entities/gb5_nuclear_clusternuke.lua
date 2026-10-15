@@ -104,19 +104,27 @@ function ENT:Explode()
 	 if self.Exploding then return end
 	 local pos = self:GetPos()
 	 
-	 for i=1,5 do
-		
+	for i = 1, 5 do
 		timer.Simple(i, function()
-				
-			local nuke_table = {"gb5_nuclear_clusternuke","gb5_nuclear_fatman","gb5_nuclear_grable","gb5_nuclear_ivymike","gb5_nuclear_littleboy","gb5_nuclear_trinity"}
+			local nuke_table = {"gb5_nuclear_clusternuke", "gb5_nuclear_fatman","gb5_nuclear_grable","gb5_nuclear_ivymike","gb5_nuclear_littleboy","gb5_nuclear_trinity"}
 			local ent = ents.Create(table.Random(nuke_table))
-			
+			if not IsValid(ent) then return end
+
 			ent:SetPos(pos)
-			
+			ent.GBOWNER = owner
 			ent:Spawn()
 			ent:Activate()
+
+			-- detonate after a short delay so it's fully initialized
+			timer.Simple(10, function()
+				if not IsValid(ent) then return end
+				ent.Armed = true
+				ent.Exploded = true
+				ent:Explode()
+			end)
 		end)
-	 end
+	end
+
 	 local pos = self:LocalToWorld(self:OBBCenter())
 	 local Shockwave = gb5BeginShockwave() do
 	 	Shockwave.Class              = "gb5_shockwave_ent"
