@@ -107,10 +107,10 @@ function ENT:Explode()
 	 	Shockwave.Shocktime          = self.Shocktime
 	 gb5CommitShockwave() end
 
-	 for i=0, (15-1) do
+	 for i=0, (20-1) do
 		 local ent1 = ents.Create("gb5_heavy_cbu_bomblet") 
 		 local phys = ent1:GetPhysicsObject()
-		 ent1:SetPos( self:GetPos() + VectorRand() * 12 ) ent1.FuseTime = math.Rand(1, 1.5) -- random offset so they don't spawn inside each other; staggered fuse
+		 ent1:SetPos( self:GetPos() + VectorRand() * 12 ) ent1.FuseTime = math.Rand(1, 1.8) -- random offset so they don't spawn inside each other; staggered fuse
 		 ent1:Spawn()
 		 ent1:Activate()
 		 ent1:SetVar("GBOWNER", self.GBOWNER)
