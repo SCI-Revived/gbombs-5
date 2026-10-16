@@ -11,6 +11,7 @@ function gb5RegisterSpawnFunction(ENT, opts)
 
     local offset    = opts.offset or 16
     local angle     = opts.angle
+    local angleOffset = opts.angleOffset or angle_zero -- model correction, applied on top of the player's yaw
     local postSpawn = opts.postSpawn
 
     function ENT:SpawnFunction(ply, tr, ClassName)
@@ -21,7 +22,12 @@ function gb5RegisterSpawnFunction(ENT, opts)
 
         ent:SetPos(tr.HitPos + tr.HitNormal * offset)
         -- Level with the ground (pitch/roll 0), yaw toward where the player looks
-        ent:SetAngles(angle or Angle(0, ply:EyeAngles().y, 0))
+        if angle then
+            ent:SetAngles(angle)
+        else
+            local _, ang = LocalToWorld(vector_origin, angleOffset, vector_origin, Angle(0, ply:EyeAngles().y, 0))
+            ent:SetAngles(ang)
+        end
         ent:SetPhysicsAttacker(ply)
 
         -- Set the owner on the ENTITY instance!!!
