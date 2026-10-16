@@ -52,4 +52,12 @@ ENT.DEFAULT_PHYSFORCE                = 2555
 ENT.DEFAULT_PHYSFORCE_PLYAIR         = 20
 ENT.DEFAULT_PHYSFORCE_PLYGROUND         = 1000       
 ENT.Decal                            = "scorch_big_2"
+
+function ENT:Initialize()
+	BaseClass.Initialize(self)
+
+	-- gb5_base_dumb never arms anything, and its PhysicsCollide bails out when not Armed
+	self.Armed = true
+end
+
 gb5RegisterSpawnFunction( ENT, 16 )
