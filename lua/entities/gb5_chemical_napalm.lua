@@ -9,7 +9,7 @@ ExploSnds[3]                         =  "gbombs_5/explosions/medium_bomb/explosi
 ExploSnds[4]                         =  "gbombs_5/explosions/medium_bomb/explosion_petrol_medium2.mp3"
 
 
-ENT.Spawnable		            	 =  true         
+ENT.Spawnable		            	 =  false         
 ENT.AdminSpawnable		             =  true 
 
 ENT.PrintName		                 =  "Mark 77 Napalm"
