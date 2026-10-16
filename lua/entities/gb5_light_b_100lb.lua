@@ -60,5 +60,5 @@ ENT.Decal                            = "scorch_medium"
 
 gb5RegisterSpawnFunction( ENT, {
 	offset   = 16,
-	faceView = true,
+	faceView = Angle( 0, 90, 0 ),
 } )
