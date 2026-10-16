@@ -34,9 +34,9 @@ ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  70
+ENT.ExplosionDamage                  =  90
 ENT.PhysForce                        =  32
-ENT.ExplosionRadius                  =  2000 -- Bigger blast because thermobaric.
+ENT.ExplosionRadius                  =  3000 -- Bigger blast because thermobaric.
 ENT.PlayerDamageScale                =  1.2 -- 84 player damage, good for anti-infantry.
 ENT.PropDamageScale                  =  100 -- 5000 damage.
 ENT.SpecialRadius                    =  575
