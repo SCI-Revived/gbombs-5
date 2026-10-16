@@ -71,7 +71,7 @@ function ENT:Initialize()
 		self.Armed = true
 
 		-- No impact: detonate after 1 second
-		timer.Simple(1, function()
+		timer.Simple(self.FuseTime or 1, function()
 			if not IsValid(self) or self.Exploded then return end
 			self.Exploded = true
 			self:Explode()

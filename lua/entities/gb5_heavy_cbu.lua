@@ -110,14 +110,14 @@ function ENT:Explode()
 	 for i=0, (15-1) do
 		 local ent1 = ents.Create("gb5_heavy_cbu_bomblet") 
 		 local phys = ent1:GetPhysicsObject()
-		 ent1:SetPos( self:GetPos() ) 
+		 ent1:SetPos( self:GetPos() + VectorRand() * 12 ) ent1.FuseTime = math.Rand(0.8, 1.5) -- random offset so they don't spawn inside each other; staggered fuse
 		 ent1:Spawn()
 		 ent1:Activate()
 		 ent1:SetVar("GBOWNER", self.GBOWNER)
 		 local bphys = ent1:GetPhysicsObject()
 		 local phys = self:GetPhysicsObject()
 		 if bphys:IsValid() and phys:IsValid() then
-			 bphys:ApplyForceCenter(VectorRand() * bphys:GetMass() * 155)
+			 bphys:AddVelocity(((VectorRand():GetNormalized() + Vector(0, 0, 0.4)):GetNormalized()) * math.Rand(350, 800)) -- unit direction biased upward, random speed
 			 bphys:AddVelocity(phys:GetVelocity()/2)
 		 end
 		 timer.Simple(4, function()
