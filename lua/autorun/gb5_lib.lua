@@ -20,8 +20,7 @@ function gb5RegisterSpawnFunction(ENT, opts)
         if not IsValid(ent) then return end
 
         ent:SetPos(tr.HitPos + tr.HitNormal * offset)
-        -- Level with the ground (pitch/roll 0), yaw toward where the player looks
-        ent:SetAngles(angle or Angle(0, ply:EyeAngles().y, 0))
+        if angle then ent:SetAngles(angle) end
         ent:SetPhysicsAttacker(ply)
 
         -- Set the owner on the ENTITY instance!!!
