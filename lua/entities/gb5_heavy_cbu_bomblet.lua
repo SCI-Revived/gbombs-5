@@ -26,7 +26,7 @@ ENT.ExplosionSound                   =  "gbombs_5/explosions/medium_bomb/explosi
 
 ENT.ShouldUnweld                     =  true
 ENT.ShouldIgnite                     =  false
-ENT.ShouldExplodeOnImpact            =  true
+ENT.ShouldExplodeOnImpact            =  false -- timed fuse only, so bomblets have time to spread
 ENT.Flamable                         =  false
 ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
@@ -71,7 +71,7 @@ function ENT:Initialize()
 		self.Armed = true
 
 		-- No impact: detonate after 1 second
-		timer.Simple(self.FuseTime or 1, function()
+		timer.Simple(self.FuseTime or math.Rand(1, 1.5), function()
 			if not IsValid(self) or self.Exploded then return end
 			self.Exploded = true
 			self:Explode()
