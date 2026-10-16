@@ -117,7 +117,7 @@ function ENT:Explode()
 		 local bphys = ent1:GetPhysicsObject()
 		 local phys = self:GetPhysicsObject()
 		 if bphys:IsValid() and phys:IsValid() then
-			 bphys:AddVelocity(((VectorRand():GetNormalized() + Vector(0, 0, 0.4)):GetNormalized()) * math.Rand(350, 800)) -- unit direction biased upward, random speed
+			 bphys:AddVelocity(((VectorRand():GetNormalized() + Vector(0, 0, 0.4)):GetNormalized()) * math.Rand(800, 1500)) -- unit direction biased upward, random speed
 			 bphys:AddVelocity(phys:GetVelocity()/2)
 		 end
 		 timer.Simple(4, function()

@@ -79,4 +79,8 @@ function ENT:Initialize()
 	end
 end
 
+-- Damage can't detonate bomblets, so they don't set each other off; only the timed fuse does
+function ENT:OnTakeDamage(dmginfo)
+end
+
 gb5RegisterSpawnFunction( ENT, 16 )
