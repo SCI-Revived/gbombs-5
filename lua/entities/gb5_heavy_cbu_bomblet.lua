@@ -63,4 +63,20 @@ function ENT:ExploSound(pos)
 	 end
 end
 
+function ENT:Initialize()
+	BaseClass.Initialize(self)
+
+	if SERVER then
+		-- Armed immediately so PhysicsCollide (base_dumb) detonates on impacts above ImpactSpeed (110)
+		self.Armed = true
+
+		-- No impact: detonate after 1 second
+		timer.Simple(1, function()
+			if not IsValid(self) or self.Exploded then return end
+			self.Exploded = true
+			self:Explode()
+		end)
+	end
+end
+
 gb5RegisterSpawnFunction( ENT, 16 )
