@@ -7,7 +7,7 @@ ExploSnds[1]                         =  "gbombs_5/explosions/heavy_bomb/t_12.mp3
 ExploSnds[2]                         =  "gbombs_5/explosions/heavy_bomb/explosion_big_6.mp3"
 ExploSnds[3]                         =  "gbombs_5/explosions/heavy_bomb/explosion_big_7.mp3"
 
-ENT.Spawnable		            	 =  true         
+ENT.Spawnable		            	 =  false         
 ENT.AdminSpawnable		             =  true 
 
 ENT.PrintName		                 =  "T-12 Cloudmaker"

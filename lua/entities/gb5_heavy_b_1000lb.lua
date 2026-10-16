@@ -7,7 +7,7 @@ ExploSnds[1]                         =  "gbombs_5/explosions/heavy_bomb/explosio
 ExploSnds[2]                         =  "gbombs_5/explosions/heavy_bomb/explosion_big.mp3"
 ExploSnds[3]                         =  "gbombs_5/explosions/heavy_bomb/explosion_big_4.mp3"
 
-ENT.Spawnable		            	 =  true         
+ENT.Spawnable		            	 =  false         
 ENT.AdminSpawnable		             =  true 
 
 ENT.PrintName		                 =  "XMI HEB - 1000lb"

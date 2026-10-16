@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 DEFINE_BASECLASS( "gb5_base_advanced_nuke" )
 
-ENT.Spawnable		            	 =  true         
+ENT.Spawnable		            	 =  false         
 ENT.AdminSpawnable		             =  true 
 
 ENT.PrintName		                 =  "Howitzer Chlorine Shell"
