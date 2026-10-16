@@ -10,7 +10,7 @@ ExploSnds[4]                         =  "ambient/explosions/explode_4.wav"
 ExploSnds[5]                         =  "ambient/explosions/explode_5.wav"
 ExploSnds[6]                         =  "npc/env_headcrabcanister/explosion.wav"
 
-ENT.Spawnable		            	 =  true         
+ENT.Spawnable		            	 =  false         
 ENT.AdminSpawnable		             =  true 
 
 ENT.PrintName		                 =  "GXM11 - Thermobaric"
