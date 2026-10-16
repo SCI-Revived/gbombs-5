@@ -24,11 +24,11 @@ ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  50
+ENT.ExplosionDamage                  =  30
 ENT.PhysForce                        =  600
-ENT.ExplosionRadius                  =  250
+ENT.ExplosionRadius                  =  150
 ENT.PlayerDamageScale                =  1
-ENT.PropDamageScale                  =  3
+ENT.PropDamageScale                  =  3 -- 90 damage
 ENT.SpecialRadius                    =  575
 ENT.MaxIgnitionTime                  =  0 
 ENT.Life                             =  98                                 

@@ -34,11 +34,11 @@ ENT.Timed                            =  false
 
 ENT.ExplosionDamage                  =  25         
 ENT.PhysForce                        =  2           
-ENT.ExplosionRadius                  =  352           
+ENT.ExplosionRadius                  =  250           
 ENT.PlayerDamageScale                =  1
 ENT.PropDamageScale                  =  1
-ENT.SpecialRadius                    =  252            
-ENT.MaxIgnitionTime                  =  4           
+ENT.SpecialRadius                    =  250            
+ENT.MaxIgnitionTime                  =  5           
 ENT.Life                             =  5       
 ENT.MaxDelay                         =  0          
 ENT.TraceLength                      =  65       

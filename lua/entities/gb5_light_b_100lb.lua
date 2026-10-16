@@ -34,7 +34,7 @@ ENT.UseRandomSounds                  =  false
 ENT.UseRandomModels                  =  false
 ENT.Timed                            =  false
 
-ENT.ExplosionDamage                  =  30
+ENT.ExplosionDamage                  =  50
 ENT.PhysForce                        =  2600
 ENT.ExplosionRadius                  =  375
 ENT.PlayerDamageScale                =  1
