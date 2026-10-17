@@ -80,6 +80,7 @@ function ENT:Explode()
 	 local physo = self:GetPhysicsObject()
 	 physo:Wake()	
 	 self.Exploding = true
+		 SafeRemoveEntityDelayed(self, 1) -- guaranteed despawn, even if the water branch or a Lua error below skips Remove()
 	 if not self:IsValid() then return end 
 	 self:StopParticles()
 	 local pos = self:LocalToWorld(self:OBBCenter())
