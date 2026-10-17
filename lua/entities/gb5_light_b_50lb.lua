@@ -58,7 +58,4 @@ ENT.DEFAULT_PHYSFORCE_PLYGROUND      = 25
 
 ENT.Decal                            = "scorch_small"
 
-gb5RegisterSpawnFunction( ENT, {
-	offset   = 16,
-	faceView = Angle( 0, 90, 0 ),
-} )
+gb5RegisterSpawnFunction( ENT, 16 )

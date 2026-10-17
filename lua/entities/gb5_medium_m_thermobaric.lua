@@ -53,7 +53,4 @@ ENT.Shocktime                        = 4
 ENT.GBOWNER                          =  nil             -- don't you fucking touch this.
 ENT.Decal                            = "scorch_big_2"
 
-gb5RegisterSpawnFunction( ENT, {
-	offset   = 16,
-	faceView = Angle( 0, 90, 0 ),
-} )
+gb5RegisterSpawnFunction( ENT, 16 )
