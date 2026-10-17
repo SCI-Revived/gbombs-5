@@ -11,7 +11,6 @@ function gb5RegisterSpawnFunction(ENT, opts)
 
     local offset    = opts.offset or 16
     local angle     = opts.angle
-    local faceView  = opts.faceView -- spawn level with the ground, yaw toward where the player looks
     local postSpawn = opts.postSpawn
 
     function ENT:SpawnFunction(ply, tr, ClassName)
@@ -21,11 +20,7 @@ function gb5RegisterSpawnFunction(ENT, opts)
         if not IsValid(ent) then return end
 
         ent:SetPos(tr.HitPos + tr.HitNormal * offset)
-        if angle then
-            ent:SetAngles(angle)
-        elseif faceView then
-            ent:SetAngles(Angle(0, ply:EyeAngles().y, 0))
-        end
+        if angle then ent:SetAngles(angle) end
         ent:SetPhysicsAttacker(ply)
 
         -- Set the owner on the ENTITY instance!!!
