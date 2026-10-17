@@ -24,9 +24,7 @@ function gb5RegisterSpawnFunction(ENT, opts)
         if angle then
             ent:SetAngles(angle)
         elseif faceView then
-            -- faceView may be an Angle correcting for the model's own forward axis
-            local fix = isangle(faceView) and faceView or angle_zero
-            ent:SetAngles(Angle(0, ply:EyeAngles().y + fix.y, 0))
+            ent:SetAngles(Angle(0, ply:EyeAngles().y, 0))
         end
         ent:SetPhysicsAttacker(ply)
 
