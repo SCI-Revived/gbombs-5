@@ -18,7 +18,4 @@ ENT.PlayerDamageScale                =  1
 ENT.PropDamageScale                  =  60 -- 1500 Damage
 ENT.FuelBurnoutTime                  =  0.15
 
-gb5RegisterSpawnFunction( ENT, {
-	offset   = 16,
-	faceView = Angle( 0, 90, 0 ),
-} )
+gb5RegisterSpawnFunction( ENT, 16 )
